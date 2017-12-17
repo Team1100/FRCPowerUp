@@ -14,7 +14,8 @@ public class Extreme3DPro extends Joystick{
 	 * Joystick will never return a value in between +/- the deadband value.
 	 * 
 	 * @param channel the channel the Joystick is plugged into
-	 * @param deadband the value of the deadband, from 0 to 1
+	 * @param deadbandXY the value of the deadband on x and y axes, from 0 to 1
+	 * @param deadbandZ the value of the deadband on z axis, from 0 to 1
 	 */
 	public Extreme3DPro(int channel, double deadbandXY, double deadbandZ) {
 		super(channel);
