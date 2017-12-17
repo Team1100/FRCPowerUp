@@ -23,9 +23,9 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
-	 * This is called when the robot is first started up.
-	 * All subsystem initialization is done here, by calling their respected getInstance()
-	 * methods. Also, a SendableChooser object for choosing auto modes is sent to Smart Dashboard.
+	 * Called when the robot is first started up.
+	 * Initializes all subsystems by calling their respected getInstance() methods. Also,
+	 * it sends a SendableChooser object for choosing auto modes to Smart Dashboard.
 	 */
 	@Override
 	public void robotInit() {
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode.
+	 * Called once each time the robot enters Disabled mode.
 	 * Disabled mode is when the amount of joysticks connected are insufficient for the code.
 	 */
 	@Override
@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	/**
-	 * This function is called when the robot is in Disabled mode.
+	 * Called when the robot is in Disabled mode.
 	 * I don't think there's every a need to actually use this function.
 	 */
 	@Override
@@ -56,9 +56,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This function is called when the robot first enters auto.
-	 * This function finds the auto command that is selected in Smart Dashboard, and
-	 * runs it.
+	 * Called when the robot first enters auto.
+	 * Finds the auto command that is selected in Smart Dashboard, and runs it.
 	 */
 	@Override
 	public void autonomousInit() {
@@ -70,8 +69,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This function is called periodically during autonomous (~20ms).
-	 * This function just continues the command started in autonomousInit().
+	 * Called periodically during autonomous (~20ms).
+	 * Continues the command started in autonomousInit().
 	 */
 	@Override
 	public void autonomousPeriodic() {
@@ -79,8 +78,8 @@ public class Robot extends IterativeRobot {
 	}
 	
 	/**
-	 * This function is run when the robot first enters teleop.
-	 * All this function does is end the autonomous command if it's still running.
+	 * Called when the robot first enters teleop.
+	 * Ends the autonomous command if it's still running.
 	 * NOTE: One doesn't actually need to stop the command, it is simply done so
 	 * that the drivers aren't confused and call it a software "issue".
 	 */
@@ -92,9 +91,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This function is called periodically during teleop (~20ms).
-	 * This function just continues to run commands either triggered in the OI
-	 * class, or the default commands for any given subsystem.
+	 * Called periodically during teleop (~20ms).
+	 * Continues to run commands either triggered in the OI class, or the default
+	 * commands for any given subsystem.
 	 */
 	@Override
 	public void teleopPeriodic() {
@@ -102,8 +101,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This function is called periodically during test mode (~20ms).
-	 * It allows testing to be done is Smart Dashboard.
+	 * Called periodically during test mode (~20ms). Allows testing to be done is Smart Dashboard.
 	 */
 	@Override
 	public void testPeriodic() {

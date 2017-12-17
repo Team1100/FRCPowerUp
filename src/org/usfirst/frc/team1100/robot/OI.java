@@ -14,7 +14,7 @@ public class OI {
 	
 	
 	/**
-	 *  
+	 * Gets the only instance of the OI class, used to access all input device data.
 	 * @return the singular instance of the OI class
 	 */
 	public static OI getInstance() {
@@ -40,15 +40,14 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	/**
-	 * This function is used to initialize all input devices. It also
-	 * is used to establish button triggers.
+	 * Initializes all input devices. It also establishes button triggers.
 	 */
 	private OI() {
 		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
 	}
 	
 	/**
-	 * 
+	 * Gets the only XboxController instance, used to access all XboxController data.
 	 * @return the singular instance of the Xbox Controller
 	 */
 	public XboxController getXbox() {

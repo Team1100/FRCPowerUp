@@ -7,10 +7,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ExampleSubsystem extends Subsystem {
 	
-	//add methods for command's use
+	//add methods for command use
 	
 	private static ExampleSubsystem subsystem; //ONLY ONE instance of a subsystem at a time.
 	
+	/**
+	 * Gets the only instance of the subsystem. One robot means one subsystem.
+	 * @return the singular instance of the subsystem
+	 */
 	public static ExampleSubsystem getInstance() { //Used in requires(x) in command constructors.
 		if (subsystem == null) {
 			subsystem = new ExampleSubsystem();
@@ -18,12 +22,19 @@ public class ExampleSubsystem extends Subsystem {
 		return subsystem;
 	}
 	
+	/**
+	 * Initializes all hardware that is part of the subsystem.
+	 */
 	private ExampleSubsystem() {
-		//initialize any hardware used in subsystem here.
+		
 	}
-
+	
+	/**
+	 * Sets default command for subsystem here. A default command is a command that is run
+	 * when no other command is using this subsystem.
+	 */
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
+		
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	

@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
- * Peasant Scum.
+ * This class is for an XboxController. All information about any given button or
+ * axis can be accessed through the functions written here.
  */
 public class XboxController extends Joystick {
 
@@ -19,18 +20,46 @@ public class XboxController extends Joystick {
 	private JoystickButton buttonLeftStick;
 	private JoystickButton buttonRightStick;
 	private double deadband;
-
+	
+	/**
+	 * This enumeration is used for the 6 axes: the x and y of the two joysticks, as well
+	 * as the two triggers.
+	 *
+	 */
 	public enum XboxAxis {
+		/**
+		 * Left stick, x axis
+		 */
 		kXLeft (0),
+		/**
+		 * Left stick, y axis
+		 */
 		kYLeft (1),
-		kLeftTrigger (2), 
+		/**
+		 * Left trigger
+		 */
+		kLeftTrigger (2),
+		/**
+		 * Right trigger
+		 */
 		kRightTrigger (3),
+		/**
+		 * Right stick, x axis
+		 */
 		kXRight (4),
+		/**
+		 * RIght stick, y axis
+		 */
 		kYRight (5);
 		
-		public final int value;
-		private XboxAxis(int value){
-			this.value = value;
+		public final int key;
+		/**
+		 * This is the constructor of the enumeration. The keys provided to the constructor
+		 * are used to access the value of each axis in getAxis().
+		 * @param key the magical number assigned by the Driver Station
+		 */
+		private XboxAxis(int key){
+			this.key = key;
 		}
 	}
 	
@@ -149,13 +178,13 @@ public class XboxController extends Joystick {
 	}
 
 	/**
-	 * Gets position of a specific axis, accounting for the deadband
+	 * Gets position of specified axis, accounting for the deadband
 	 *
-	 * @param axis the XboxAxis to retrieve
+	 * @param axis the XboxAxis (XboxController.XboxAxis.k___) to retrieve
 	 * @return the value of the axis, with the deadband factored in
 	 */
 	public double getAxis(XboxAxis axis) {
-		double val = getRawAxis(axis.value);
+		double val = getRawAxis(axis.key);
 		if (Math.abs(val) <= deadband) {
 			val = 0.0;
 		}
