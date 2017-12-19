@@ -1,13 +1,14 @@
 package org.usfirst.frc.team1100.robot;
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
+ * The RobotMap is a mapping from the port's sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
 public class RobotMap {
 	
+	//List of all PWM ports
 	private final static int PWM_0 = 0;
 	private final static int PWM_1 = 1;
 	private final static int PWM_2 = 2;
@@ -19,6 +20,7 @@ public class RobotMap {
 	private final static int PWM_8 = 8;
 	private final static int PWM_9 = 9;
 	
+	//List of all CAN ports
 	private final static int CAN_0 = 0;
 	private final static int CAN_1 = 1;
 	private final static int CAN_2 = 2;
@@ -28,16 +30,19 @@ public class RobotMap {
 	private final static int CAN_6 = 6;
 	private final static int CAN_7 = 7;
 	
+	//List of all analog ports
 	private final static int ANALOG_0 = 0;
 	private final static int ANALOG_1 = 1;
 	private final static int ANALOG_2 = 2;
 	private final static int ANALOG_3 = 3;
 	
+	//List of all relays
 	private final static int RELAY_0 = 0;
 	private final static int RELAY_1 = 1;
 	private final static int RELAY_2 = 2;
 	private final static int RELAY_3 = 3;
 	
+	//List of all DIO ports
 	private final static int DIO_0 = 0;
 	private final static int DIO_1 = 1;
 	private final static int DIO_2 = 2;
@@ -49,10 +54,12 @@ public class RobotMap {
 	private final static int DIO_8 = 8;
 	private final static int DIO_9 = 9;
 	
+	//List of all USB ports
 	private static final int USB_0 = 0;
 	private static final int USB_1 = 1;
 	private static final int USB_2 = 2;
 	private static final int USB_3 = 3;
+	
 	
 	private static final int P_0 = 0;
 	private static final int P_1 = 1;
@@ -63,6 +70,7 @@ public class RobotMap {
 	private static final int P_6 = 6;
 	private static final int P_7 = 7;
 	
+	//List of all PDP ports
 	private static final int PDP_0 = 0;
 	private static final int PDP_1 = 1;
 	private static final int PDP_2 = 2;

@@ -65,7 +65,7 @@ public class XboxController extends Joystick {
 	
 	/**
 	 * Initializes a XBOX Controller on a specific channel, mapping the buttons.
-	 * The JoyStick will never return a value in between +/- the beadband value.
+	 * The JoyStick will never return a value in between +/- the deadband value.
 	 * 
 	 * @param channel the channel the Controller is plugged into
 	 * @param deadband the value of the deadband, from 0 to 1
@@ -106,9 +106,9 @@ public class XboxController extends Joystick {
 	}
 
 	/**
-	 * Gets the B Button from the Controller
+	 * Gets the X Button from the Controller
 	 * 
-	 * @return the B Button
+	 * @return the X Button
 	 */
 	public JoystickButton getButtonX() {
 		return buttonX;

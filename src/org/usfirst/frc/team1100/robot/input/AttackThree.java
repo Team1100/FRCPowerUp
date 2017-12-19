@@ -4,8 +4,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class AttackThree extends Joystick {
-
+	
+	/**
+	 * Total amount of buttons on the Attack Three
+	 */
+	private final short totalButtons = 11;
+	/**
+	 * Array of every button on the Attack Three
+	 */
 	private JoystickButton buttons[];
+	/**
+	 * Amount of deadband
+	 */
 	private double deadband;
 
 	/**
@@ -18,9 +28,10 @@ public class AttackThree extends Joystick {
 	public AttackThree(int channel, double deadband) {
 		super(channel);
 		
-		buttons = new JoystickButton[11];
+		buttons = new JoystickButton[totalButtons];
 		
-		for (int i = 0; i < 11; i++) {
+		//Maps each button key to a location in the buttons array
+		for (int i = 0; i < totalButtons; i++) {
 			buttons[i] = new JoystickButton(this, i + 1);
 		}
 

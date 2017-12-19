@@ -30,7 +30,7 @@ public class ExampleSubsystem extends Subsystem {
 	}
 	
 	/**
-	 * Sets default command for subsystem here. A default command is a command that is run
+	 * Sets default command for subsystem here. A default command is a command that is ran
 	 * when no other command is using this subsystem.
 	 */
 	public void initDefaultCommand() {

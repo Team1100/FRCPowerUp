@@ -9,7 +9,14 @@ import org.usfirst.frc.team1100.robot.input.*;
  * Triggers for commands through buttons are done in here.
  */
 public class OI {
+	/**
+	 * The singular instance of the OI class
+	 */
 	private static OI oi;
+	/**
+	 * The singular instance of the XboxController class (although there may
+	 * be more).
+	 */
 	private XboxController xbox;
 	
 	
@@ -29,7 +36,7 @@ public class OI {
 	// three ways:
 
 	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
+	// until it is finished as determined by its isFinished method.
 	// button.whenPressed(new ExampleCommand());
 
 	// Run the command while the button is being held down and interrupt it once
@@ -37,7 +44,7 @@ public class OI {
 	// button.whileHeld(new ExampleCommand());
 
 	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
+	// until it is finished as determined by its isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	/**
 	 * Initializes all input devices. It also establishes button triggers.

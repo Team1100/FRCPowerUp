@@ -5,8 +5,21 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class Extreme3DPro extends Joystick{
+	/**
+	 * Total amount of buttons on the Attack Three
+	 */
+	private final short totalButtons = 11;
+	/**
+	 * Array of every button on the Attack Three
+	 */
 	private JoystickButton buttons[];
+	/**
+	 * Amount of deadband on X and Y axes
+	 */
 	private double deadbandXY;
+	/**
+	 * Amount of deadband on Z axis
+	 */
 	private double deadbandZ;
 
 	/**
@@ -20,9 +33,10 @@ public class Extreme3DPro extends Joystick{
 	public Extreme3DPro(int channel, double deadbandXY, double deadbandZ) {
 		super(channel);
 		
-		buttons = new JoystickButton[11];
+		buttons = new JoystickButton[totalButtons];
 		
-		for (int i = 0; i < 11; i++) {
+		//Maps each button key to a location in the buttons array
+		for (int i = 0; i < totalButtons; i++) {
 			buttons[i] = new JoystickButton(this,i+1);
 		}
 

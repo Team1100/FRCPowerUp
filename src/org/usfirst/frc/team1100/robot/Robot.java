@@ -10,11 +10,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //version -> most recent event/stage of development. no numbers please i'm lazy
 /**
+ * This is the main class for the robot. The VM calls every method in this class at the 
+ * appropriate time.
  * 
  * @author Grant Perkins, Thor Smith, and Chris Perkins
  * @version original
- * This is the main class for the robot. The VM calls every method in this class at the 
- * appropriate time.
+ * 
  */
 public class Robot extends IterativeRobot {
 
@@ -24,7 +25,7 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * Called when the robot is first started up.
-	 * Initializes all subsystems by calling their respected getInstance() methods. Also,
+	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
 	 * it sends a SendableChooser object for choosing auto modes to Smart Dashboard.
 	 */
 	@Override
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
 	
 	/**
 	 * Called when the robot is in Disabled mode.
-	 * I don't think there's every a need to actually use this function.
+	 * I don't think there's ever a need to actually use this function.
 	 */
 	@Override
 	public void disabledPeriodic() {
@@ -101,7 +102,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * Called periodically during test mode (~20ms). Allows testing to be done is Smart Dashboard.
+	 * Called periodically during test mode (~20ms). Allows testing to be done in Smart Dashboard.
 	 */
 	@Override
 	public void testPeriodic() {
