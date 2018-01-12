@@ -90,5 +90,5 @@ public class RobotMap {
 	private static final int PDP_16 = 16;
 	
 	//[U]ser Input
-	public static int U_XBOX = USB_0;
+	public static final int U_XBOX = USB_0;
 }
