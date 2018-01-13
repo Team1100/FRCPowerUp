@@ -25,7 +25,8 @@ public class OI {
 	 * The singular instance of the AHRS class. There's only one NavX on the robot.
 	 */
 	private AHRS ahrs;
-	
+	private AttackThree rightStick;
+	private AttackThree leftStick;
 	
 	/**
 	 * Gets the only instance of the OI class, used to access all input device data.
@@ -57,8 +58,10 @@ public class OI {
 	 * Initializes all input devices. It also establishes button triggers.
 	 */
 	private OI() {
-		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
+		//xbox = new XboxController(RobotMap.U_XBOX, 0.1);
 		ahrs = new AHRS(SPI.Port.kMXP);
+		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
+		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 	}
 	
 	/**
@@ -75,5 +78,13 @@ public class OI {
 	 */
 	public AHRS getAHRS() {
 		return ahrs;
+	}
+	
+	public AttackThree getLeftStick() {
+		return leftStick;
+	}
+	
+	public AttackThree getRightStick() {
+		return rightStick;
 	}
 }

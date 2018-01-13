@@ -47,15 +47,40 @@ public class AttackThree extends Joystick {
 	public JoystickButton getButton(int number) {
 		return buttons[number - 1];
 	}
-
+	
+	public enum AttackThreeAxis {
+		/**
+		 *  x axis
+		 */
+		kX (0),
+		/**
+		 * y axis
+		 */
+		kY (1),
+		/**
+		 * z axis. THIS DOESN'T EXIST BUT DRIVERSTATION SAYS IT DOES
+		 */
+		kZ (2);
+		
+		
+		public final int key;
+		/**
+		 * This is the constructor of the enumeration. The keys provided to the constructor
+		 * are used to access the value of each axis in getAxis().
+		 * @param key the magical number assigned by the Driver Station
+		 */
+		private	AttackThreeAxis(int key){
+			this.key = key;
+		}
+	}
 	/**
 	 * Gets position of a specific axis, accounting for the deadband
 	 *
 	 * @param axis the AxisType to retrieve
 	 * @return the value of the axis, with the deadband factored in
 	 */
-	public double getAxis(AxisType axis) {
-		double val = -super.getAxis(axis);
+	public double getAxis(AttackThreeAxis axis) {
+		double val = getRawAxis(axis.key);
 		if (Math.abs(val) <= deadband) {
 			val = 0.0;
 		}

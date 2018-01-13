@@ -90,5 +90,13 @@ public class RobotMap {
 	private static final int PDP_16 = 16;
 	
 	//[U]ser Input
-	public static final int U_XBOX = USB_0;
+	public static final int U_LEFT = 1;
+	public static final int U_RIGHT = 0;
+	//public static final int U_XBOX = number;
+	
+	//[D]rive
+	public static final int D_LEFT_ONE = PWM_0;
+	public static final int D_LEFT_TWO = PWM_1;
+	public static final int D_RIGHT_ONE = PWM_2;
+	public static final int D_RIGHT_TWO = PWM_3;
 }
