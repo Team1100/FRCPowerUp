@@ -4,10 +4,12 @@ package org.usfirst.frc.team1100.robot;
 import org.usfirst.frc.team1100.robot.input.AttackThree;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-
+	AHRS ahrs = OI.getInstance().getAHRS();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -37,6 +39,8 @@ public class Robot extends IterativeRobot {
 		// If you fail to do this, it will not work and then it will be considered a software issue
 		OI.getInstance();
 		Drive.getInstance();
+		ahrs.zeroYaw();
+		ahrs.resetDisplacement();
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
@@ -102,6 +106,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+
+		SmartDashboard.putNumber(   "Yaw",                  ahrs.getYaw());
+		SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
+        SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
+        SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
+        SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
+        
 		Scheduler.getInstance().run();
 	}
 
@@ -110,6 +121,5 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }
