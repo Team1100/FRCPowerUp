@@ -107,11 +107,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 
-		SmartDashboard.putNumber(   "Yaw",                  ahrs.getYaw());
-		SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
-        SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
-        SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
-        SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
+		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
         
 		Scheduler.getInstance().run();
 	}
