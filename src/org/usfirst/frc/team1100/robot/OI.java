@@ -58,7 +58,7 @@ public class OI {
 	 * Initializes all input devices. It also establishes button triggers.
 	 */
 	private OI() {
-		//xbox = new XboxController(RobotMap.U_XBOX, 0.1);
+		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
 		ahrs = new AHRS(SPI.Port.kMXP);
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);

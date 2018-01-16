@@ -6,6 +6,8 @@ import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -40,6 +42,11 @@ public class Robot extends IterativeRobot {
 		Drive.getInstance();
 		Intake.getInstance();
 		
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
+        camera.setExposureManual(30);
+        camera.setResolution(640, 480);
+		
+        
 		ahrs.zeroYaw();
 
 		// chooser.addDefault("Default Auto", new ExampleCommand());

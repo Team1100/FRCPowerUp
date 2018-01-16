@@ -92,7 +92,7 @@ public class RobotMap {
 	//[U]ser Input
 	public static final int U_LEFT = 1;
 	public static final int U_RIGHT = 0;
-	//public static final int U_XBOX = number;
+	public static final int U_XBOX = 2;
 	
 	//[D]rive
 	public static final int D_LEFT_ONE = PWM_0;
