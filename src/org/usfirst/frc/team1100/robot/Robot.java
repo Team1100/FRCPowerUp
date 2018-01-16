@@ -2,7 +2,6 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -40,10 +39,9 @@ public class Robot extends IterativeRobot {
 		// If you fail to do this, it will not work and then it will be considered a software issue
 		OI.getInstance();
 		Drive.getInstance();
-		Intake.getInstance();
 		
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
-        camera.setExposureManual(30);
+        camera.setExposureManual(40);
         camera.setResolution(640, 480);
 		
         
