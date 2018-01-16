@@ -1,15 +1,14 @@
 
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.input.AttackThree;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
+import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,8 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This is the main class for the robot. The VM calls every method in this class at the 
  * appropriate time.
  * 
- * @author Grant Perkins, Thor Smith, and Chris Perkins
- * @version original
+ * @author Grant Perkins, Tejas Maraliga, Thor Smith, and Chris Perkins
+ * @version Week 2
  * 
  */
 public class Robot extends IterativeRobot {
@@ -39,8 +38,10 @@ public class Robot extends IterativeRobot {
 		// If you fail to do this, it will not work and then it will be considered a software issue
 		OI.getInstance();
 		Drive.getInstance();
+		Intake.getInstance();
+		
 		ahrs.zeroYaw();
-		ahrs.resetDisplacement();
+
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);

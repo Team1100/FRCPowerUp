@@ -99,4 +99,7 @@ public class RobotMap {
 	public static final int D_LEFT_TWO = PWM_1;
 	public static final int D_RIGHT_ONE = PWM_2;
 	public static final int D_RIGHT_TWO = PWM_3;
+	
+	//[M]anipulator
+	public static final int M_INTAKE = PWM_4;
 }
