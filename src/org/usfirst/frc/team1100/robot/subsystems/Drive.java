@@ -13,7 +13,13 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class Drive extends Subsystem {
 	
+	/**
+	 * The singular instance of the Drive subsystem
+	 */
 	private static Drive drive;
+	/**
+	 * The drivetrain instance
+	 */
 	private static DifferentialDrive drivetrain;
 	
 	private Talon leftOne, leftTwo, rightOne, rightTwo;
@@ -31,16 +37,28 @@ public class Drive extends Subsystem {
 		drivetrain = new DifferentialDrive(new SpeedControllerGroup(leftOne, leftTwo), new SpeedControllerGroup(rightOne, rightTwo));
 	}
 	
+	/**
+	 * Gets the singular instance of the Drive subsystem
+	 * @return the singular instance of the Drive subsystem
+	 */
 	public static Drive getInstance() {
 		if (drive == null) drive = new Drive();
 		return drive;
 	}
 	
+	/**
+	 * Sets the default command to userDrive
+	 */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new UserDrive());
     }
     
+    /**
+     * Plugs joystick values into tankDrive
+     * @param leftSpeed left joystick value
+     * @param rightSpeed right joystick value
+     */
     public void tankDrive(double leftSpeed, double rightSpeed) {
     	drivetrain.tankDrive(leftSpeed, rightSpeed);
     }

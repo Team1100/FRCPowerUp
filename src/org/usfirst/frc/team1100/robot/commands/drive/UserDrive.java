@@ -11,17 +11,24 @@ import org.usfirst.frc.team1100.robot.input.AttackThree;
  * This command allows tank driving with two joysticks
  */
 public class UserDrive extends Command {
+	/**
+	 * Left and right joystick values
+	 */
 	double left, right;
 	
+	/**
+	 * Requires Drive subsystem
+	 */
     public UserDrive() {
         requires(Drive.getInstance()); 
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * unused
+     */
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
     /**
      * Reads joysticks and plugs the into super.tankDrive
      */
