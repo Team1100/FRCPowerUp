@@ -4,3 +4,4 @@ org.usfirst.frc.team1100.robot.commands.drive
 org.usfirst.frc.team1100.robot.commands.navx
 org.usfirst.frc.team1100.robot.input
 org.usfirst.frc.team1100.robot.subsystems
+org.usfirst.frc.team1100.robot.subsystems.vision

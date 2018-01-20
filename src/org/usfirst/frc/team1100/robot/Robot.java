@@ -60,10 +60,11 @@ public class Robot extends IterativeRobot {
 		 * This thread is for vision, running on the RoboRio.
 		 * It configures the USB camera, and prepares to plug images into GRIP
 		 * 
-		 * If a command calls Vision.getInstance().request()
+		 * If a command calls Vision.getInstance().request(), the if statement code is run
 		 */ 
 		this.t = new Thread(() -> {
 			
+			//vision camera plugged into roborio
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
 	        camera.setExposureManual(40);
 	        camera.setResolution(640, 480);
@@ -74,9 +75,10 @@ public class Robot extends IterativeRobot {
 			
 			while(!Thread.interrupted()) {
 				if (Vision.getInstance().isImageRequested()) {
-	                 cvSink.grabFrame(source);
-	                 Vision.getInstance().process(source);
-	                 Vision.getInstance().imgRequest = false;
+					//saves image
+	                cvSink.grabFrame(source);
+	                Vision.getInstance().process(source);
+	                Vision.getInstance().imgRequest = false;
 				}
 			}
 	    });
