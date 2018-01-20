@@ -14,7 +14,7 @@ public class UserDrive extends Command {
 	double left, right;
 	
     public UserDrive() {
-        requires(Drive.getInstance());
+        requires(Drive.getInstance()); 
     }
 
     // Called just before this Command runs the first time

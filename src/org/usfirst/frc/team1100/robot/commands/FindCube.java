@@ -16,6 +16,8 @@ public class FindCube extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	//This line is used because it never detects contours the first time
+    	Vision.getInstance().request();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -61,19 +61,19 @@ public class Robot extends IterativeRobot {
 		 * It configures the USB camera, and prepares to plug images into GRIP
 		 * 
 		 * If a command calls Vision.getInstance().request()
-		 */
+		 */ 
 		this.t = new Thread(() -> {
 			
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
 	        camera.setExposureManual(40);
 	        camera.setResolution(640, 480);
+	        camera.setFPS(15);
 	        
 			CvSink cvSink = CameraServer.getInstance().getVideo();
 			Mat source = new Mat();
 			
 			while(!Thread.interrupted()) {
 				if (Vision.getInstance().isImageRequested()) {
-					System.err.println("success if");
 	                 cvSink.grabFrame(source);
 	                 Vision.getInstance().process(source);
 	                 Vision.getInstance().imgRequest = false;
