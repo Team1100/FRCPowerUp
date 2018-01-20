@@ -33,7 +33,6 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	private Thread t;
 	private final Object imgLock = new Object();
-	double centerX;
 	Timer timer;
 	/**
 	 * Called when the robot is first started up.
@@ -56,6 +55,13 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
+		
+		/*
+		 * This thread is for vision, running on the RoboRio.
+		 * It configures the USB camera, and prepares to plug images into GRIP
+		 * 
+		 * If a command calls Vision.getInstance().request()
+		 */
 		this.t = new Thread(() -> {
 			
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
@@ -66,13 +72,12 @@ public class Robot extends IterativeRobot {
 			Mat source = new Mat();
 			
 			while(!Thread.interrupted()) {
-				if(Math.round(timer.get())%5==0) {
+				if (Vision.getInstance().isImageRequested()) {
+					System.err.println("success if");
 	                 cvSink.grabFrame(source);
 	                 Vision.getInstance().process(source);
-	                 Vision.imgRequest = false;
-	                 Vision.getInstance().putCenterX();
+	                 Vision.getInstance().imgRequest = false;
 				}
-				
 			}
 	    });
 	    t.start();
@@ -143,9 +148,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
         
 		Scheduler.getInstance().run();
-		synchronized (imgLock) {
-			SmartDashboard.putNumber("centerX", centerX);
-		}
+
 	}
 
 	/**

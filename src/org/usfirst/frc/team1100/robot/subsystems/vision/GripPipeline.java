@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.HashMap;
 
-import edu.wpi.first.wpilibj.vision.VisionPipeline;
-
 import org.opencv.core.*;
 import org.opencv.core.Core.*;
 import org.opencv.features2d.FeatureDetector;
@@ -25,7 +23,7 @@ import org.opencv.objdetect.*;
 *
 * @author GRIP
 */
-public class GripPipeline implements VisionPipeline{
+public class GripPipeline {
 
 	//Outputs
 	private Mat resizeImageOutput = new Mat();
@@ -63,7 +61,7 @@ public class GripPipeline implements VisionPipeline{
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 1000.0;
+		double filterContoursMinArea = 10000.0;
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 1000.0;
@@ -133,16 +131,7 @@ public class GripPipeline implements VisionPipeline{
 	 */
 	private void resizeImage(Mat input, double width, double height,
 		int interpolation, Mat output) {
-		if (width <= 0) {
-			System.err.println("width is negative");
-			System.exit(1);
-		} else if (height <= 0) {
-			System.err.println("height is negative");
-			System.exit(2);
-		} else {
-			Imgproc.resize(input, output, new Size(width, height), 0.0, 0.0, interpolation);
-		}
-		
+		Imgproc.resize(input, output, new Size(width, height), 0.0, 0.0, interpolation);
 	}
 
 	/**
@@ -251,19 +240,17 @@ public class GripPipeline implements VisionPipeline{
 				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
 				mopHull.put(j, 0, point);
 			}
-			
 			outputContours.add(mopHull);
 		}
 	}
-
-	public Point getCenteroid(MatOfPoint contour) {
-		Moments moment = Imgproc.moments(contour);
+	
+	public Point getCenteroid(MatOfPoint matOfPoint) {
+		Moments moments = Imgproc.moments(matOfPoint);
 		Point centroid = new Point();
-		centroid.x = moment.get_m10() / moment.get_m00();
-		centroid.y = moment.get_m01() / moment.get_m00();
+		centroid.x = moments.get_m10() / moments.get_m00();
+		centroid.y = moments.get_m01() / moments.get_m00();
 		return centroid;
 	}
-
 
 }
 

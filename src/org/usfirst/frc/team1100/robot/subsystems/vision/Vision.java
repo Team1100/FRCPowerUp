@@ -14,9 +14,8 @@ public class Vision extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	private static Vision v;
-	public static boolean imgRequest = false;
+	public boolean imgRequest = false;
 	private GripPipeline grip;
-	public static final Object imgLock = new Object();
 	double centerX;
 	
 	public static Vision getInstance() {
@@ -39,23 +38,24 @@ public class Vision extends Subsystem {
 		grip.process(image);
 	}
 	
-	public static synchronized boolean isImageRequested() {
+	public synchronized boolean isImageRequested() {
 		return imgRequest;
 	}
 	
-	public void putCenterX() {
-		if (!grip.convexHullsOutput().isEmpty()) {
-            //find center x of contours of convexHullsOutput
-            synchronized (imgLock) {
-            	centerX = grip.getCenteroid(grip.convexHullsOutput().get(0)).x;
-            	SmartDashboard.putNumber("Center X", centerX);
-            }
-        }
-	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        
     }
+
+	public synchronized void request() {
+		imgRequest = true;
+	} 
+	
+	public synchronized boolean noHulls() {
+		return grip.convexHullsOutput().isEmpty();
+	}
+	public synchronized double getCenterX() {
+		return grip.getCenteroid(grip.convexHullsOutput().get(0)).x;
+	}
 }
 
