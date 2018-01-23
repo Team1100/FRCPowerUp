@@ -67,7 +67,6 @@ public class Robot extends IterativeRobot {
 			//vision camera plugged into roborio
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
 	        camera.setExposureManual(40);
-	        camera.setResolution(640, 480);
 	        camera.setFPS(15);
 	        
 			CvSink cvSink = CameraServer.getInstance().getVideo();
