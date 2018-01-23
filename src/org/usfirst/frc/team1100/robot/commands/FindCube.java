@@ -33,6 +33,7 @@ public class FindCube extends Command {
      * Asks thread to process image, then puts center X to SmartDashboard
      */
     protected void execute() {
+    	System.err.println("A hit");
     	Vision.getInstance().request();
     	putCenterX();
     	finished = true;
