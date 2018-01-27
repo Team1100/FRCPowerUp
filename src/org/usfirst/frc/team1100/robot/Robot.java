@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
 
@@ -27,7 +28,6 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	NetworkTable table;
-	NetworkTableInstance ntInstance;
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -44,10 +44,14 @@ public class Robot extends IterativeRobot {
 		
 		
 		//Limelight
-		ntInstance = NetworkTableInstance.getDefault();
 		
-		table = NetworkTableInstance.getDefault().getTable("limelight");
+		//Gets the NetworkTable supplied by the Limelight
+		table = NetworkTable.getTable("limelight");
 		
+		//Turn green LEDs on Limelight off.
+		table.putNumber("ledMode", 1);
+
+	
 	}
 
 	/**
@@ -111,16 +115,25 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		NetworkTableEntry tx = table.getEntry("tx");
-		NetworkTableEntry ty = table.getEntry("ty");
-		NetworkTableEntry ta = table.getEntry("ta");
-		double x = tx.getDouble(0);
-		double y = ty.getDouble(0);
-		double area = ta.getDouble(0);
 		
-		SmartDashboard.putNumber("X", x);
-		SmartDashboard.putNumber("Y", y);
-		SmartDashboard.putNumber("Area", area);
+		
+		
+		//VISION
+		
+		//Get the current horizontal cursor offset
+		double x = table.getNumber("tx", 0);
+		
+		//Get the current vertical cursor offset
+		double y = table.getNumber("ty", 0);
+		
+		//Get the current bounding box area
+		double area = table.getNumber("ta", 0);
+		
+		
+		//Publish Limelight values to ShuffleBoard
+		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
+		SmartDashboard.putNumber("Vertical Cursor Offset", y);
+		SmartDashboard.putNumber("Target Area", area);
 
 		
 	}
