@@ -1,22 +1,22 @@
 package org.usfirst.frc.team1100.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.OI;
-import org.usfirst.frc.team1100.robot.input.AttackThree;
 
 import com.kauailabs.navx.frc.AHRS;
 
 /**
  * This command allows tank driving with two joysticks
  */
-public class ChangeHeading extends Command {
+public class ChangeHeading extends PIDCommand {
 	/**
 	 * Left and right speed values
 	 */
 	double left, right;
+	double speed;
 	
 	/**
 	 * Heading values
@@ -30,25 +30,18 @@ public class ChangeHeading extends Command {
 	
 	/**
 	 * Requires Drive subsystem
+	 * Provide P,I,D parameters
 	 */
-    public ChangeHeading() {
+    public ChangeHeading(double p, double i, double d) {
+    	super(p,i,d);
         requires(Drive.getInstance()); 
+        setSetpoint(0); // We are targeting 0 heading error
     }
 
     /**
-     * unused
+     * Caclulate the heading error and use it as the PID input
      */
-    protected void initialize() {
-    }
-
-    /**
-     * Read yaw angle and turn toward target using super.tankDrive 
-     * TODO: Currently the algorithm is overly simplistic, just 
-     * stopping when we get close. 
-     */
-    protected void execute() {
-        double headingError;
-        int speed;
+    protected double returnPIDInput() {
         headingNow = ahrs.getYaw();
         headingError = headingNow - headingTarget;
         while (headingError > 180.0)
@@ -59,25 +52,15 @@ public class ChangeHeading extends Command {
         {
             headingError = headingError + 360.0;
         }
-        if (headingError > -headingTolerance && headingError < headingTolerance)
-        {
-            speed = 0;
-        }
-        else
-        {
-            speed = (int)(10.0 * headingError);  // TODO The factor of 10.0 is arbitrary and may need to be tuned
-        }
-        if (speed > 255)
-        {
-            speed = 255;
-        }
-        else if (speed < -255)
-        {
-            speed = -255;
-        }
-        left = speed;
-        right = -speed;
+        return headingError;
+    }
+
+    protected void usePIDOutput(double output) {
+    	speed = output;
+    	left = -speed;
+    	right = speed;
     	Drive.getInstance().tankDrive(left, right);
+    	SmartDashboard.putNumber("PIDSpeed", speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -89,16 +72,11 @@ public class ChangeHeading extends Command {
         return false;
     }
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
-
     public void setTargetHeading(double heading) {
         headingTarget = heading;
+    }
+    
+    public void setHeadingTolerance(double tolerance) {
+    	headingTolerance = tolerance;
     }
 }
