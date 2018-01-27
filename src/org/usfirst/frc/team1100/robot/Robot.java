@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.*;
+
+
 
 //version -> most recent event/stage of development. no numbers please i'm lazy
 /**
@@ -22,7 +25,9 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
+	
+	NetworkTable table;
+	NetworkTableInstance ntInstance;
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -36,6 +41,13 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
+		
+		
+		//Limelight
+		ntInstance = NetworkTableInstance.getDefault();
+		
+		table = NetworkTableInstance.getDefault().getTable("limelight");
+		
 	}
 
 	/**
@@ -99,6 +111,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		NetworkTableEntry tx = table.getEntry("tx");
+		NetworkTableEntry ty = table.getEntry("ty");
+		NetworkTableEntry ta = table.getEntry("ta");
+		double x = tx.getDouble(0);
+		double y = ty.getDouble(0);
+		double area = ta.getDouble(0);
+		
+		SmartDashboard.putNumber("X", x);
+		SmartDashboard.putNumber("Y", y);
+		SmartDashboard.putNumber("Area", area);
+
+		
 	}
 
 	/**
