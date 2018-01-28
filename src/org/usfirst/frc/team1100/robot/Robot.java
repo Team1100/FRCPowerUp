@@ -7,8 +7,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.*;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
 
 
 
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	NetworkTable table;
+	
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -45,12 +47,11 @@ public class Robot extends IterativeRobot {
 		
 		//Limelight
 		
-		//Gets the NetworkTable supplied by the Limelight
-		table = NetworkTable.getTable("limelight");
+		//Assign Limelight table to variable table
+		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
 		//Turn green LEDs on Limelight off.
-		table.putNumber("ledMode", 1);
-
+		table.getEntry("ledMode").forceSetNumber(0);
 	
 	}
 
@@ -116,19 +117,24 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		
-		
 		//VISION
 		
-		//Get the current horizontal cursor offset
-		double x = table.getNumber("tx", 0);
+		//Get important values from the Limelight NetworkTables.
 		
-		//Get the current vertical cursor offset
-		double y = table.getNumber("ty", 0);
+		//Get Horiz. Cursor Offset
+		NetworkTableEntry tx = table.getEntry("tx");
 		
-		//Get the current bounding box area
-		double area = table.getNumber("ta", 0);
+		//Get Vert. Cursor Offset
+		NetworkTableEntry ty = table.getEntry("ty");
 		
+		//Get total Bounding Box Area
+		NetworkTableEntry ta = table.getEntry("ta");
+		
+		
+		//Assign NetworkTableEntries to doubles
+		double x = tx.getDouble(0);
+		double y = ty.getDouble(0);
+		double area = ta.getDouble(0);
 		
 		//Publish Limelight values to ShuffleBoard
 		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
