@@ -16,6 +16,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
+
+
 
 
 //version -> most recent event/stage of development. no numbers please i'm lazy
@@ -32,9 +37,13 @@ public class Robot extends IterativeRobot {
 	AHRS ahrs = OI.getInstance().getAHRS();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	
+	NetworkTable table;
+
 	private Thread t;
 	private final Object imgLock = new Object();
 	Timer timer;
+
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -55,35 +64,15 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
 		
-		/*
-		 * This thread is for vision, running on the RoboRio.
-		 * It configures the USB camera, and prepares to plug images into GRIP
-		 * 
-		 * If a command calls Vision.getInstance().request(), the if statement code is run
-		 */ 
-		/*
-		this.t = new Thread(() -> {
-			
-			//vision camera plugged into roborio
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0",0);
-	        camera.setExposureManual(40);
-	        camera.setResolution(640, 480);
-	        camera.setFPS(15);
-	        
-			CvSink cvSink = CameraServer.getInstance().getVideo();
-			Mat source = new Mat();
-			
-			while(!Thread.interrupted()) {
-				if (Vision.getInstance().isImageRequested()) {
-					//saves image
-	                cvSink.grabFrame(source);
-	                Vision.getInstance().process(source);
-	                Vision.getInstance().imgRequest = false;
-				}
-			}
-	    });
-	    t.start();
-	    */
+		
+		//Limelight
+		
+		//Assign Limelight table to variable table
+		table = NetworkTableInstance.getDefault().getTable("limelight");
+		
+		//Turn green LEDs on Limelight off.
+		table.getEntry("ledMode").forceSetNumber(0);
+
 	}
 
 	/**
@@ -151,7 +140,32 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
         
 		Scheduler.getInstance().run();
+		
+		//VISION
+		
+		//Get important values from the Limelight NetworkTables.
+		
+		//Get Horiz. Cursor Offset
+		NetworkTableEntry tx = table.getEntry("tx");
+		
+		//Get Vert. Cursor Offset
+		NetworkTableEntry ty = table.getEntry("ty");
+		
+		//Get total Bounding Box Area
+		NetworkTableEntry ta = table.getEntry("ta");
+		
+		
+		//Assign NetworkTableEntries to doubles
+		double x = tx.getDouble(0);
+		double y = ty.getDouble(0);
+		double area = ta.getDouble(0);
+		
+		//Publish Limelight values to ShuffleBoard
+		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
+		SmartDashboard.putNumber("Vertical Cursor Offset", y);
+		SmartDashboard.putNumber("Target Area", area);
 
+		
 	}
 
 	/**
