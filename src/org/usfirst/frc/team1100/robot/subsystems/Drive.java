@@ -2,10 +2,12 @@ package org.usfirst.frc.team1100.robot.subsystems;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.drive.UserDrive;
+import org.usfirst.frc.team1100.robot.commands.drive.TurnToX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
@@ -52,6 +54,7 @@ public class Drive extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new UserDrive());
+    	//setDefaultCommand(new ChangeHeading(1,0,0));
     }
     
     /**
@@ -61,6 +64,10 @@ public class Drive extends Subsystem {
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
     	drivetrain.tankDrive(leftSpeed, rightSpeed);
+    	SmartDashboard.putNumber("leftSpeed", leftSpeed);
+    	SmartDashboard.putNumber("rightSpeed", rightSpeed);
+
+    	
     }
 }
 

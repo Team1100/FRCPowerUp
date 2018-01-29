@@ -13,6 +13,7 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -45,8 +46,6 @@ public class Robot extends IterativeRobot {
 		// If you fail to do this, it will not work and then it will be considered a software issue
 		OI.getInstance();
 		Drive.getInstance();
-		timer = new Timer();
-		timer.start();
 		
 		
         
@@ -62,6 +61,7 @@ public class Robot extends IterativeRobot {
 		 * 
 		 * If a command calls Vision.getInstance().request(), the if statement code is run
 		 */ 
+		/*
 		this.t = new Thread(() -> {
 			
 			//vision camera plugged into roborio
@@ -83,6 +83,7 @@ public class Robot extends IterativeRobot {
 			}
 	    });
 	    t.start();
+	    */
 	}
 
 	/**
@@ -158,5 +159,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	LiveWindow.run();
 	}
 }
