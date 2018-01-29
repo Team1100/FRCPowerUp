@@ -5,7 +5,7 @@ package org.usfirst.frc.team1100.robot;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
- */
+ */ 
 public class RobotMap {
 	
 	//List of all PWM ports
@@ -90,5 +90,16 @@ public class RobotMap {
 	private static final int PDP_16 = 16;
 	
 	//[U]ser Input
-	public static final int U_XBOX = USB_0;
+	public static final int U_LEFT = 1;
+	public static final int U_RIGHT = 0;
+	public static final int U_XBOX = 2;
+	
+	//[D]rive
+	public static final int D_LEFT_ONE = PWM_0;
+	public static final int D_LEFT_TWO = PWM_1;
+	public static final int D_RIGHT_ONE = PWM_2;
+	public static final int D_RIGHT_TWO = PWM_3;
+	
+	//[M]anipulator
+	public static final int M_INTAKE = PWM_4;
 }
