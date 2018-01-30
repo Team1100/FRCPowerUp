@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.OI;
+import org.usfirst.frc.team1100.robot.Robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -32,23 +33,25 @@ public class ChangeHeading extends PIDCommand {
 	 * Requires Drive subsystem
 	 * Provide P,I,D parameters
 	 */
-    public ChangeHeading(double p, double i, double d) {
+    public ChangeHeading(double target, double p, double i, double d) {
     	super(p,i,d);
         requires(Drive.getInstance()); 
         setSetpoint(0); // We are targeting 0 heading error
+        setTargetHeading(target);
     }
 
     /**
-     * Caclulate the heading error and use it as the PID input
+     * Calculate the heading error and use it as the PID input
      */
     protected double returnPIDInput() {
+    	setTargetHeading(Robot.angle.getSelected());
         headingNow = ahrs.getYaw();
         headingError = headingNow - headingTarget;
-        while (headingError > 180.0)
+        if (headingError >= 180.0)
         {
             headingError = headingError - 360.0;
         }
-        while (headingError < -180.0)
+        if (headingError < -180.0)
         {
             headingError = headingError + 360.0;
         }
@@ -71,11 +74,17 @@ public class ChangeHeading extends PIDCommand {
         }
         return false;
     }
-
+    /**
+     * 
+     * @param heading Heading is relevant to starting direction
+     */
     public void setTargetHeading(double heading) {
         headingTarget = heading;
     }
-    
+    /**
+     * 
+     * @param tolerance tolerance in degrees
+     */
     public void setHeadingTolerance(double tolerance) {
     	headingTolerance = tolerance;
     }

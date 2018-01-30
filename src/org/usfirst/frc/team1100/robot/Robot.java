@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
 	AHRS ahrs = OI.getInstance().getAHRS();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	public static SendableChooser<Double> angle = new SendableChooser<>();
 	
 	NetworkTable table;
 
@@ -63,6 +64,11 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
+		angle.addDefault("0", 0.0);
+		angle.addObject("90", 90.0);
+		angle.addObject("-90", -90.0);
+		angle.addObject("180", 180.0);
+		SmartDashboard.putData("navX", angle);
 		
 		
 		//Limelight
@@ -71,7 +77,7 @@ public class Robot extends IterativeRobot {
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
 		//Turn green LEDs on Limelight off.
-		table.getEntry("ledMode").forceSetNumber(0);
+		table.getEntry("ledMode").forceSetNumber(1);
 
 	}
 
@@ -126,6 +132,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+		ahrs.zeroYaw();
 		
 	}
 
