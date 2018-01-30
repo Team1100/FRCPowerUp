@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
@@ -13,11 +14,6 @@ import com.kauailabs.navx.frc.AHRS;
  * This command allows tank driving with two joysticks
  */
 public class ChangeHeading extends PIDCommand {
-	/**
-	 * Left and right speed values
-	 */
-	double left, right;
-	double speed;
 	
 	/**
 	 * Heading values
@@ -26,6 +22,8 @@ public class ChangeHeading extends PIDCommand {
     private double headingTarget;
     private double headingTolerance;
     private double headingError;
+
+    private PIDController pidController = getPIDController();
     
 	private AHRS ahrs = OI.getInstance().getAHRS();
 	
@@ -36,8 +34,10 @@ public class ChangeHeading extends PIDCommand {
     public ChangeHeading(double target, double p, double i, double d) {
     	super(p,i,d);
         requires(Drive.getInstance()); 
-        setSetpoint(0); // We are targeting 0 heading error
         setTargetHeading(target);
+        setInputRange(-180.0, 180.0);
+        pidController.setContinuous();
+        pidController.setPercentTolerance(1.0);
     }
 
     /**
@@ -46,46 +46,34 @@ public class ChangeHeading extends PIDCommand {
     protected double returnPIDInput() {
     	setTargetHeading(Robot.angle.getSelected());
         headingNow = ahrs.getYaw();
-        headingError = headingNow - headingTarget;
-        if (headingError >= 180.0)
-        {
-            headingError = headingError - 360.0;
-        }
-        if (headingError < -180.0)
-        {
-            headingError = headingError + 360.0;
-        }
-        return headingError;
+        return headingNow;
     }
 
     protected void usePIDOutput(double output) {
-    	speed = output;
-    	left = -speed;
-    	right = speed;
-    	Drive.getInstance().tankDrive(left, right);
-    	SmartDashboard.putNumber("PIDSpeed", speed);
+    	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
+    	SmartDashboard.putNumber("PIDSpeed", output);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (headingError > -headingTolerance && headingError < headingTolerance)
-        {
-            return true;
-        }
-        return false;
+        return pidController.onTarget();
     }
     /**
      * 
      * @param heading Heading is relevant to starting direction
      */
     public void setTargetHeading(double heading) {
-        headingTarget = heading;
+        if (heading != headingTarget)
+        {
+            headingTarget = heading;
+            setSetpoint(heading);
+        }
     }
     /**
      * 
      * @param tolerance tolerance in degrees
      */
-    public void setHeadingTolerance(double tolerance) {
-    	headingTolerance = tolerance;
+    public void setHeadingPercentTolerance(double tolerance) {
+    	pidController.setPercentTolerance(tolerance);
     }
 }
