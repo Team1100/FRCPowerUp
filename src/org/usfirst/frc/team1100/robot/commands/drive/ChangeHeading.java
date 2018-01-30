@@ -18,7 +18,7 @@ import com.kauailabs.navx.frc.AHRS;
  * @see <a href="http://www.ni.com/white-paper/3782/en/">this website</a>
  */
 public class ChangeHeading extends PIDCommand {
-<<<<<<< HEAD
+
 	/**
 	 * Left speed values
 	 */
@@ -27,15 +27,13 @@ public class ChangeHeading extends PIDCommand {
 	 * Right speed value
 	 */
 	double right;
-=======
->>>>>>> 720f0b47a95432dd73987a59b1b5873c264d0219
+
 	
 	/**
 	 * Heading values
 	 */
 	private double headingNow; 
     private double headingTarget;
-    private double headingError;
 
     private PIDController pidController = getPIDController();
     
@@ -52,10 +50,8 @@ public class ChangeHeading extends PIDCommand {
     public ChangeHeading(double target, double p, double i, double d) {
     	super(p,i,d);
         requires(Drive.getInstance()); 
-<<<<<<< HEAD
+
         setSetpoint(0);
-=======
->>>>>>> 720f0b47a95432dd73987a59b1b5873c264d0219
         setTargetHeading(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
@@ -76,13 +72,12 @@ public class ChangeHeading extends PIDCommand {
      * PID controller.
      */
     protected void usePIDOutput(double output) {
-<<<<<<< HEAD
+
     	left = -output;
     	right = output;
     	Drive.getInstance().tankDrive(left, right);
-=======
+
     	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
->>>>>>> 720f0b47a95432dd73987a59b1b5873c264d0219
     	SmartDashboard.putNumber("PIDSpeed", output);
     }
 
@@ -92,11 +87,8 @@ public class ChangeHeading extends PIDCommand {
      * TODO: Use error to determine if robot is "close enough"
      */
     protected boolean isFinished() {
-<<<<<<< HEAD
-        return false;
-=======
+
         return pidController.onTarget();
->>>>>>> 720f0b47a95432dd73987a59b1b5873c264d0219
     }
     /**
      * Sets heading which the robot wants to which the robot wants to turn.
@@ -109,8 +101,7 @@ public class ChangeHeading extends PIDCommand {
             setSetpoint(heading);
         }
     }
-<<<<<<< HEAD
-=======
+
     /**
      * 
      * @param tolerance tolerance in degrees
@@ -118,5 +109,4 @@ public class ChangeHeading extends PIDCommand {
     public void setHeadingPercentTolerance(double tolerance) {
     	pidController.setPercentTolerance(tolerance);
     }
->>>>>>> 720f0b47a95432dd73987a59b1b5873c264d0219
 }
