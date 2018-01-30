@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 	AHRS ahrs = OI.getInstance().getAHRS();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	public static SendableChooser<Double> angle = new SendableChooser<>();
+	
 	
 	
 
@@ -49,17 +49,12 @@ public class Robot extends IterativeRobot {
         
 		ahrs.zeroYaw();
 
+		//Default code for auto selection, so I don't forget
+		
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
 		
-		//Used in testing ChangeHeading
-		angle.addDefault("0", 0.0);
-		angle.addObject("90", 90.0);
-		angle.addObject("-90", -90.0);
-		angle.addObject("180", 180.0);
-		SmartDashboard.putData("navX", angle);
-
 	}
 
 	/**
@@ -82,7 +77,7 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * Called when the robot first enters auto.
-	 * Finds the auto command that is selected in Smart Dashboard, and runs it.
+	 * Finds the auto command that is selected in SmartDashboard, and runs it.
 	 */
 	@Override
 	public void autonomousInit() {
@@ -114,7 +109,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		ahrs.zeroYaw();
-		
 	}
 
 	/**

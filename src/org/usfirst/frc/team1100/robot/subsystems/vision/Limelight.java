@@ -15,8 +15,12 @@ public class Limelight extends Subsystem {
 	
 	private static Limelight lime;
 	NetworkTable table;
-	double x, y, area;
+	private double x, y, area;
+	boolean cubeDetected;
 	
+	/**
+	 * Gets table, turns off Limelight LED
+	 */
     private Limelight() {
     	//Assign Limelight table to variable table
 		table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -46,11 +50,16 @@ public class Limelight extends Subsystem {
 		//Get total Bounding Box Area
 		NetworkTableEntry ta = table.getEntry("ta");
 		
+		//Get total Bounding Box Area
+		NetworkTableEntry tv = table.getEntry("tv");
+		
 		
 		//Assign NetworkTableEntries to doubles
-		x = tx.getDouble(0);
-		y = ty.getDouble(0);
-		area = ta.getDouble(0);
+		x = tx.getDouble(-1);
+		y = ty.getDouble(-1);
+		area = ta.getDouble(-1);
+		
+		cubeDetected = tv.getDouble(0) == 1;
 		
 		//Publish Limelight values to ShuffleBoard
 		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
@@ -58,18 +67,39 @@ public class Limelight extends Subsystem {
 		SmartDashboard.putNumber("Target Area", area);
     }
     
+    /**
+     * Gets the center X value of the cube's contours, or -1 if there are no contours
+     * @return center X of cube or -1
+     */
     public double getX() {
-    	return x;
+    	readNetworkTable();
+    	if (cubeDetected) return x;
+    	return -1;
     }
     
+    /**
+     * Gets the center Y value of the cube's contours, or -1 if there are no contours
+     * @return center Y of cube or -1
+     */
     public double getY() {
-    	return y;
+    	readNetworkTable();
+    	if (cubeDetected) return y;
+    	return -1;
     }
     
+    /**
+     * Gets the area of the cube's contours, or -1 if there are no contours
+     * @return area of cube or -1
+     */
     public double getArea() {
-    	return area;
+    	readNetworkTable();
+    	if (cubeDetected) return area;
+    	return -1;
     }
 
+    /**
+     * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
+     */
     public void initDefaultCommand() {
         setDefaultCommand(new DefaultVision());
     }

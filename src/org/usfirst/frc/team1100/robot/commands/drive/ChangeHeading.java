@@ -2,11 +2,13 @@ package org.usfirst.frc.team1100.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.OI;
 import org.usfirst.frc.team1100.robot.Robot;
+
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -15,7 +17,7 @@ import com.kauailabs.navx.frc.AHRS;
  * 0 degrees is the direction in which the robot was oriented at the start of the match.
  * Yaw angle (the gyro value) is taken by calling an {@link org.usfirst.frc.team1100.robot.OI#getAHRS OI class method},
  * then calling {@link com.kauailabs.navx.frc.AHRS#getYaw getYaw method}. This command uses a PID controller.
- * @see <a href="http://www.ni.com/white-paper/3782/en/">this website</a>
+ * @see <a href="http://www.ni.com/white-paper/3782/en/">A lesson on what a PID COntroller is and how it works.</a>
  */
 public class ChangeHeading extends PIDCommand {
 
@@ -28,20 +30,18 @@ public class ChangeHeading extends PIDCommand {
 	 */
 	double right;
 
-	
-	/**
-	 * Heading values
-	 */
+	//Heading values
 	private double headingNow; 
     private double headingTarget;
-
+    
     private PIDController pidController = getPIDController();
     
 	private AHRS ahrs = OI.getInstance().getAHRS();
 	
+	SendableChooser<Double> angle = new SendableChooser<>();
+	
 	/**
-	 * Requires Drive subsystem.
-	 * Provide Target, P,I,D parameters
+	 * Requires Drive subsystem. Constructor sets up pidController.
 	 * @param target the target heading for this command
 	 * @param p the proportional value
 	 * @param i the integral value
@@ -50,19 +50,29 @@ public class ChangeHeading extends PIDCommand {
     public ChangeHeading(double target, double p, double i, double d) {
     	super(p,i,d);
         requires(Drive.getInstance()); 
-
         setSetpoint(0);
         setTargetHeading(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
         pidController.setPercentTolerance(1.0);
+        
+        //Used for controlling command while testing
+        angle.addDefault("0", 0.0);
+		angle.addObject("90", 90.0);
+		angle.addObject("-90", -90.0);
+		angle.addObject("180", 180.0);
+		SmartDashboard.putData("navX", angle);
     }
 
     /**
      * Returns the input for the PID controller. Called by that controller.
      */
     protected double returnPIDInput() {
-    	setTargetHeading(Robot.angle.getSelected());
+    	
+    	//Incorporated for testing, remove when done.
+    	setTargetHeading(angle.getSelected());
+    	
+    	
         headingNow = ahrs.getYaw();
         return headingNow;
     }
@@ -82,12 +92,10 @@ public class ChangeHeading extends PIDCommand {
     }
 
     /**
-     * Unused.
-     * \n\n
-     * TODO: Use error to determine if robot is "close enough"
+     * Calls pidController's {@link edu.wpi.first.wpilibj.PIDController#onTarget() onTarget() method}
+     * @return Boolean representing whether the robot is facing the correct heading or not
      */
     protected boolean isFinished() {
-
         return pidController.onTarget();
     }
     /**
@@ -100,13 +108,5 @@ public class ChangeHeading extends PIDCommand {
             headingTarget = heading;
             setSetpoint(heading);
         }
-    }
-
-    /**
-     * 
-     * @param tolerance tolerance in degrees
-     */
-    public void setHeadingPercentTolerance(double tolerance) {
-    	pidController.setPercentTolerance(tolerance);
     }
 }
