@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.OI;
-import org.usfirst.frc.team1100.robot.Robot;
-
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -41,14 +39,11 @@ public class ChangeHeading extends PIDCommand {
 	SendableChooser<Double> angle = new SendableChooser<>();
 	
 	/**
-	 * Requires Drive subsystem. Constructor sets up pidController.
+	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
 	 * @param target the target heading for this command
-	 * @param p the proportional value
-	 * @param i the integral value
-	 * @param d the derivative value
 	 */
-    public ChangeHeading(double target, double p, double i, double d) {
-    	super(p,i,d);
+    public ChangeHeading(double target) {
+    	super(.07, .01, .3);
         requires(Drive.getInstance()); 
         setSetpoint(0);
         setTargetHeading(target);
@@ -83,7 +78,7 @@ public class ChangeHeading extends PIDCommand {
      */
     protected void usePIDOutput(double output) {
 
-    	left = -output;
+    	left = -output; 
     	right = output;
     	Drive.getInstance().tankDrive(left, right);
 

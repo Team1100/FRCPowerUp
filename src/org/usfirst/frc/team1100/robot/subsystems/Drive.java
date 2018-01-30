@@ -57,9 +57,11 @@ public class Drive extends Subsystem {
 	 * Sets the default command to userDrive
 	 */
     public void initDefaultCommand() {
+    	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new UserDrive());
-    	setDefaultCommand(new ChangeHeading(Robot.angle.getSelected(), .07,.01,.3));
+    	
+    	setDefaultCommand(new ChangeHeading(0));
     }
     
     /**
