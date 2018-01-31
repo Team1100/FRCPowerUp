@@ -2,12 +2,10 @@ package org.usfirst.frc.team1100.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.OI;
-import org.usfirst.frc.team1100.robot.Robot;
 
 
 import com.kauailabs.navx.frc.AHRS;
@@ -35,10 +33,7 @@ public class ChangeHeading extends PIDCommand {
     private double headingTarget;
     
     private PIDController pidController = getPIDController();
-    
 	private AHRS ahrs = OI.getInstance().getAHRS();
-	
-	SendableChooser<Double> angle = new SendableChooser<>();
 	
 	/**
 	 * Requires Drive subsystem. Constructor sets up pidController.
@@ -56,23 +51,12 @@ public class ChangeHeading extends PIDCommand {
         pidController.setContinuous();
         pidController.setPercentTolerance(1.0);
         
-        //Used for controlling command while testing
-        angle.addDefault("0", 0.0);
-		angle.addObject("90", 90.0);
-		angle.addObject("-90", -90.0);
-		angle.addObject("180", 180.0);
-		SmartDashboard.putData("navX", angle);
     }
 
     /**
      * Returns the input for the PID controller. Called by that controller.
      */
     protected double returnPIDInput() {
-    	
-    	//Incorporated for testing, remove when done.
-    	setTargetHeading(angle.getSelected());
-    	
-    	
         headingNow = ahrs.getYaw();
         return headingNow;
     }
@@ -87,7 +71,7 @@ public class ChangeHeading extends PIDCommand {
     	right = output;
     	Drive.getInstance().tankDrive(left, right);
 
-    	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
+    	Drive.getInstance().tankDrive(-output, output);
     	SmartDashboard.putNumber("PIDSpeed", output);
     }
 

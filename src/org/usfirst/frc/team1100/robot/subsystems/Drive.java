@@ -1,16 +1,12 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.drive.UserDrive;
-import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
@@ -58,8 +54,7 @@ public class Drive extends Subsystem {
 	 */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new UserDrive());
-    	setDefaultCommand(new ChangeHeading(Robot.angle.getSelected(), .07,.01,.3));
+        setDefaultCommand(new UserDrive());
     }
     
     /**
