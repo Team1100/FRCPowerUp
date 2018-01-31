@@ -5,7 +5,6 @@ import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -28,11 +27,6 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
-	
-	
-
-	Timer timer;
-
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
