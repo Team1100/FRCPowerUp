@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.OI;
 import org.usfirst.frc.team1100.robot.Robot;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -20,19 +19,6 @@ import com.kauailabs.navx.frc.AHRS;
  */
 public class ChangeHeading extends PIDCommand {
 
-	/**
-	 * Left speed values
-	 */
-	double left;
-	/**
-	 * Right speed value
-	 */
-	double right;
-
-	//Heading values
-	private double headingNow; 
-    private double headingTarget;
-    
     private PIDController pidController = getPIDController();
     
 	private AHRS ahrs = Robot.getAHRS();
@@ -45,7 +31,6 @@ public class ChangeHeading extends PIDCommand {
     	super(.08, .01, .2);
         requires(Drive.getInstance()); 
         setSetpoint(target);
-        setTargetHeading(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
         pidController.setPercentTolerance(0.5);
@@ -55,8 +40,7 @@ public class ChangeHeading extends PIDCommand {
      * Returns the input for the PID controller. Called by that controller.
      */
     protected double returnPIDInput() {
-        headingNow = ahrs.getYaw();
-        return headingNow;
+        return ahrs.getYaw();
     }
     
     /**
@@ -64,10 +48,6 @@ public class ChangeHeading extends PIDCommand {
      * PID controller.
      */
     protected void usePIDOutput(double output) {
-
-    	left = -output; 
-    	right = output;
-
     	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
     }
     int countOnTarget = 0;
@@ -87,16 +67,4 @@ public class ChangeHeading extends PIDCommand {
     	}
     	return false;
     }
-    
-    /**
-     * Sets heading which the robot wants to which the robot wants to turn.
-     * @param heading Heading is relevant to starting direction
-     */
-    public void setTargetHeading(double heading) {
-        if (heading != headingTarget)
-        {
-            headingTarget = heading;
-            setSetpoint(heading);
-        }
     }
-}
