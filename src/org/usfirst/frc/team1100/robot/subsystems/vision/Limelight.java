@@ -38,6 +38,8 @@ public class Limelight extends Subsystem {
      * Reads values from NetworkTable, puts them to SmartDashboard
      */
     public void readNetworkTable(){
+    	//Turn green LEDs on Limelight off.
+    	table.getEntry("ledMode").forceSetNumber(1);
 		
 		//Get important values from the Limelight NetworkTables.
 		

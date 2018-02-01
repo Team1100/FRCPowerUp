@@ -43,7 +43,7 @@ public class ChangeHeading extends PIDCommand {
 	 * @param target the target heading for this command
 	 */
     public ChangeHeading(double target) {
-    	super(.07, .01, .3);
+    	super(.08, .01, .2);
         requires(Drive.getInstance()); 
         setSetpoint(0);
         setTargetHeading(target);
@@ -56,7 +56,7 @@ public class ChangeHeading extends PIDCommand {
 		angle.addObject("90", 90.0);
 		angle.addObject("-90", -90.0);
 		angle.addObject("180", 180.0);
-		SmartDashboard.putData("navX", angle);
+		SmartDashboard.putData("navY", angle);
     }
 
     /**
@@ -80,7 +80,6 @@ public class ChangeHeading extends PIDCommand {
 
     	left = -output; 
     	right = output;
-    	Drive.getInstance().tankDrive(left, right);
 
     	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
     	SmartDashboard.putNumber("PIDSpeed", output);

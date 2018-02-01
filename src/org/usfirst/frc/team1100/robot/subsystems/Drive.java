@@ -59,9 +59,9 @@ public class Drive extends Subsystem {
     public void initDefaultCommand() {
     	
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new UserDrive());
+        setDefaultCommand(new UserDrive());
     	
-    	setDefaultCommand(new ChangeHeading(0));
+    	//setDefaultCommand(new ChangeHeading(0));
     }
     
     /**
