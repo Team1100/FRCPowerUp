@@ -1,11 +1,14 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.auto.Square;
+import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -23,7 +26,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	AHRS ahrs = OI.getInstance().getAHRS();
+	/**
+	 * The singular instance of the AHRS class. There's only one NavX on the robot.
+	 */
+	private static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
@@ -36,11 +42,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		// PLEASE: remember to initialize all of the subsystems by calling their respective getInstance() method
 		// If you fail to do this, the robot will not work and then it will be considered a software issue
-		
 		OI.getInstance();
 		Drive.getInstance();
 		Limelight.getInstance();
-        
 		ahrs.zeroYaw();
 
 		//Default code for auto selection, so I don't forget
@@ -75,8 +79,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-
+		//autonomousCommand = chooser.getSelected();
+		autonomousCommand = new Square();
 		
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -113,6 +117,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+		
         
 		Scheduler.getInstance().run();
 	}
@@ -123,4 +128,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 	}
+	
+	/**
+	 * Gets the singular instance of the AHRS class
+	 * @return the NavX instance
+	 */
+	public static AHRS getAHRS() {
+		return ahrs;
+	}
+	
 }

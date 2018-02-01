@@ -1,10 +1,12 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.input.*;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,10 +23,7 @@ public class OI {
 	 * be more).
 	 */
 	private XboxController xbox;
-	/**
-	 * The singular instance of the AHRS class. There's only one NavX on the robot.
-	 */
-	private AHRS ahrs;
+	
 	private AttackThree rightStick;
 	private AttackThree leftStick;
 	
@@ -59,9 +58,10 @@ public class OI {
 	 */
 	private OI() {
 		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
-		ahrs = new AHRS(SPI.Port.kMXP);
+		
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
+		xbox.getButtonA().whenPressed(new ChangeHeading(90));
 		
 	}
 	
@@ -73,14 +73,7 @@ public class OI {
 		return xbox;
 	}
 	
-	/**
-	 * Gets the singular instance of the AHRS class
-	 * @return the NavX instance
-	 */
-	public AHRS getAHRS() {
-		return ahrs;
-	}
-	
+
 	public AttackThree getLeftStick() {
 		return leftStick;
 	}

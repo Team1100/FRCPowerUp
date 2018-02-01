@@ -61,7 +61,7 @@ public class Drive extends Subsystem {
         // Set the default command for a subsystem here.
         setDefaultCommand(new UserDrive());
     	
-    	//setDefaultCommand(new ChangeHeading(0));
+
     }
     
     /**
@@ -73,8 +73,6 @@ public class Drive extends Subsystem {
     	leftSpeed = -leftSpeed;
     	rightSpeed = -rightSpeed;
     	drivetrain.tankDrive(leftSpeed, rightSpeed);
-    	SmartDashboard.putNumber("leftSpeed", leftSpeed);
-    	SmartDashboard.putNumber("rightSpeed", rightSpeed);
 
     	
     }

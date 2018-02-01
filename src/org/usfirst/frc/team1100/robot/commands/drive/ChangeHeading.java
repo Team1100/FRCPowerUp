@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.OI;
+import org.usfirst.frc.team1100.robot.Robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -34,9 +35,7 @@ public class ChangeHeading extends PIDCommand {
     
     private PIDController pidController = getPIDController();
     
-	private AHRS ahrs = OI.getInstance().getAHRS();
-	
-	SendableChooser<Double> angle = new SendableChooser<>();
+	private AHRS ahrs = Robot.getAHRS();
 	
 	/**
 	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
@@ -45,29 +44,17 @@ public class ChangeHeading extends PIDCommand {
     public ChangeHeading(double target) {
     	super(.08, .01, .2);
         requires(Drive.getInstance()); 
-        setSetpoint(0);
+        setSetpoint(target);
         setTargetHeading(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
-        pidController.setPercentTolerance(1.0);
-        
-        //Used for controlling command while testing
-        angle.addDefault("0", 0.0);
-		angle.addObject("90", 90.0);
-		angle.addObject("-90", -90.0);
-		angle.addObject("180", 180.0);
-		SmartDashboard.putData("navY", angle);
+        pidController.setPercentTolerance(0.5);
     }
 
     /**
      * Returns the input for the PID controller. Called by that controller.
      */
     protected double returnPIDInput() {
-    	
-    	//Incorporated for testing, remove when done.
-    	setTargetHeading(angle.getSelected());
-    	
-    	
         headingNow = ahrs.getYaw();
         return headingNow;
     }
@@ -82,16 +69,25 @@ public class ChangeHeading extends PIDCommand {
     	right = output;
 
     	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
-    	SmartDashboard.putNumber("PIDSpeed", output);
     }
-
+    int countOnTarget = 0;
     /**
      * Calls pidController's {@link edu.wpi.first.wpilibj.PIDController#onTarget() onTarget() method}
      * @return Boolean representing whether the robot is facing the correct heading or not
      */
     protected boolean isFinished() {
-        return pidController.onTarget();
+    	if (pidController.onTarget()) {
+    		if (countOnTarget == 10) {
+    			return true;
+    		}
+    		countOnTarget++;
+    		
+    	} else {
+    		countOnTarget = 0;
+    	}
+    	return false;
     }
+    
     /**
      * Sets heading which the robot wants to which the robot wants to turn.
      * @param heading Heading is relevant to starting direction
