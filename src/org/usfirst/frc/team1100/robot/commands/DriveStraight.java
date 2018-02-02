@@ -24,9 +24,9 @@ public class DriveStraight extends PIDCommand {
     boolean stopWhenFinished;
 
     /**
-     * The DriveStraight constructor has three arguments to drive 
-     * for duration in seconds, at a specified motor speed, in the 
-     * direction of heading. 
+     * This default DriveStraight constructor has three arguments to
+     * drive for duration in seconds, at a specified motor speed, in 
+     * the direction of heading. 
      * 
      * @author C. Perkins (2/2/2018)
      * 
@@ -41,9 +41,12 @@ public class DriveStraight extends PIDCommand {
     }
 
     /**
-     * The DriveStraight constructor has three arguments to drive 
+     * This DriveStraight constructor has four arguments to drive 
      * for duration in seconds, at a specified motor speed, in the 
-     * direction of heading. 
+     * direction of heading. If the fourth argument is false, the 
+     * motors are not stopped when the command is finished. This can 
+     * be useful for stringing together multiple DriveStraight 
+     * commands. You might do this to turn on the fly while driving.
      * 
      * @author C. Perkins (2/2/2018)
      * 
