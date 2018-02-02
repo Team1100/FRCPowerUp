@@ -23,10 +23,39 @@ public class DriveStraight extends PIDCommand {
     double speed;
     boolean stopWhenFinished;
 
+    /**
+     * The DriveStraight constructor has three arguments to drive 
+     * for duration in seconds, at a specified motor speed, in the 
+     * direction of heading. 
+     * 
+     * @author C. Perkins (2/2/2018)
+     * 
+     * @param duration - time to run in seconds
+     * @param speed - motor speed between -1 (reverse) and +1 
+     *              (forward)
+     * @param heading - direction in degrees (-180 to +180) relative 
+     *                to starting direction
+     */
     public DriveStraight(double duration, double speed, double heading) {
         this(duration, speed, heading, true);
     }
 
+    /**
+     * The DriveStraight constructor has three arguments to drive 
+     * for duration in seconds, at a specified motor speed, in the 
+     * direction of heading. 
+     * 
+     * @author C. Perkins (2/2/2018)
+     * 
+     * @param duration - time to run in seconds
+     * @param speed - motor speed between -1 (reverse) and +1 
+     *              (forward)
+     * @param heading - direction in degrees (-180 to +180) relative 
+     *                to starting direction
+     * @param stopWhenFinished - motors are not stopped if set to 
+     *                         false. Use the other constructor to
+     *                         stop by default.
+     */
     public DriveStraight(double duration, double speed, double heading, boolean stopWhenFinished) {
         super(.02, 0, 0);  // TODO - Tune these parameters (probably all P, no I or D)
         requires(Drive.getInstance());
