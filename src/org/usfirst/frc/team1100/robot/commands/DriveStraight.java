@@ -21,14 +21,20 @@ public class DriveStraight extends PIDCommand {
 	Timer t;
 	double duration;
     double speed;
+    boolean stopWhenFinished;
 
-    public DriveStraight(double _duration, double _speed, double _heading) {
+    public DriveStraight(double duration, double speed, double heading) {
+        this(duration, speed, heading, true);
+    }
+
+    public DriveStraight(double duration, double speed, double heading, boolean stopWhenFinished) {
         super(.02, 0, 0);  // TODO - Tune these parameters (probably all P, no I or D)
         requires(Drive.getInstance());
-        duration = _duration;
-        speed = -_speed; // TODO - Why do we need the sign correction?
+        this.duration = duration;
+        this.speed = -speed; // TODO - Why do we need the sign correction?
+        this.stopWhenFinished = stopWhenFinished;
 
-        setSetpoint(_heading);
+        setSetpoint(heading);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
         pidController.setPercentTolerance(0);
@@ -52,7 +58,10 @@ public class DriveStraight extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-        Drive.getInstance().tankDrive(0, 0);
+        if (stopWhenFinished)
+        {
+            Drive.getInstance().tankDrive(0, 0);
+        }
     }
 
     // Called when another command which requires one or more of the same
