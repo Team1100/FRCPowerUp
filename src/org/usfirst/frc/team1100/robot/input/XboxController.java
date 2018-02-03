@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
- * This class is for an XboxController. All information about any given button or
- * axis can be accessed through the functions written here.
+ * This class is for an XboxController. All information about any given button
+ * or axis can be accessed through the functions written here.
  */
 public class XboxController extends Joystick {
 
@@ -20,55 +20,60 @@ public class XboxController extends Joystick {
 	private JoystickButton buttonLeftStick;
 	private JoystickButton buttonRightStick;
 	private double deadband;
-	
+
 	/**
-	 * This enumeration is used for the 6 axes: the x and y of the two joysticks, as well
-	 * as the two triggers.
+	 * This enumeration is used for the 6 axes: the x and y of the two joysticks, as
+	 * well as the two triggers.
 	 *
 	 */
 	public enum XboxAxis {
 		/**
 		 * Left stick, x axis
 		 */
-		kXLeft (0),
+		kXLeft(0),
 		/**
 		 * Left stick, y axis
 		 */
-		kYLeft (1),
+		kYLeft(1),
 		/**
 		 * Left trigger
 		 */
-		kLeftTrigger (2),
+		kLeftTrigger(2),
 		/**
 		 * Right trigger
 		 */
-		kRightTrigger (3),
+		kRightTrigger(3),
 		/**
 		 * Right stick, x axis
 		 */
-		kXRight (4),
+		kXRight(4),
 		/**
 		 * RIght stick, y axis
 		 */
-		kYRight (5);
-		
+		kYRight(5);
+
 		public final int key;
+
 		/**
-		 * This is the constructor of the enumeration. The keys provided to the constructor
-		 * are used to access the value of each axis in getAxis().
-		 * @param key the magical number assigned by the Driver Station
+		 * This is the constructor of the enumeration. The keys provided to the
+		 * constructor are used to access the value of each axis in getAxis().
+		 * 
+		 * @param key
+		 *            the magical number assigned by the Driver Station
 		 */
-		private XboxAxis(int key){
+		private XboxAxis(int key) {
 			this.key = key;
 		}
 	}
-	
+
 	/**
-	 * Initializes a XBOX Controller on a specific channel, mapping the buttons.
-	 * The JoyStick will never return a value in between +/- the deadband value.
+	 * Initializes a XBOX Controller on a specific channel, mapping the buttons. The
+	 * JoyStick will never return a value in between +/- the deadband value.
 	 * 
-	 * @param channel the channel the Controller is plugged into
-	 * @param deadband the value of the deadband, from 0 to 1
+	 * @param channel
+	 *            the channel the Controller is plugged into
+	 * @param deadband
+	 *            the value of the deadband, from 0 to 1
 	 */
 	public XboxController(int channel, double deadband) {
 		super(channel);
@@ -180,7 +185,8 @@ public class XboxController extends Joystick {
 	/**
 	 * Gets position of specified axis, accounting for the deadband
 	 *
-	 * @param axis the XboxAxis (XboxController.XboxAxis.k___) to retrieve
+	 * @param axis
+	 *            the XboxAxis (XboxController.XboxAxis.k___) to retrieve
 	 * @return the value of the axis, with the deadband factored in
 	 */
 	public double getAxis(XboxAxis axis) {
@@ -191,5 +197,3 @@ public class XboxController extends Joystick {
 		return val;
 	}
 }
-
-

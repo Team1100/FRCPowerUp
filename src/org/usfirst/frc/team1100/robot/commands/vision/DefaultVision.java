@@ -8,46 +8,46 @@ import edu.wpi.first.wpilibj.command.Command;
  * Puts values of contours onto SmartDashboard periodically
  */
 public class DefaultVision extends Command {
-	
+
 	Limelight lime;
-	
+
 	/**
 	 * Uses Limelight subsystem
 	 */
-    public DefaultVision() {
-        requires(Limelight.getInstance());
-    }
-    
-    /**
-     * Gets Limelight instance
-     */
-    protected void initialize() {
-    	lime = Limelight.getInstance();
-    }
+	public DefaultVision() {
+		requires(Limelight.getInstance());
+	}
 
-    /**
-     * Writes center x, center y, and area to SmartDashboard
-     */
-    protected void execute() {
-    	lime.readNetworkTable();
-    }
+	/**
+	 * Gets Limelight instance
+	 */
+	protected void initialize() {
+		lime = Limelight.getInstance();
+	}
 
-    /**
-     * Doesn't need to end
-     */
-    protected boolean isFinished() {
-        return false;
-    }
+	/**
+	 * Writes center x, center y, and area to SmartDashboard
+	 */
+	protected void execute() {
+		lime.readNetworkTable();
+	}
 
-    /**
-     * Nothing to close, unused.
-     */
-    protected void end() {
-    }
+	/**
+	 * Doesn't need to end
+	 */
+	protected boolean isFinished() {
+		return false;
+	}
 
-    /**
-     * Welcomely interrupted.
-     */
-    protected void interrupted() {
-    }
+	/**
+	 * Nothing to close, unused.
+	 */
+	protected void end() {
+	}
+
+	/**
+	 * Welcomely interrupted.
+	 */
+	protected void interrupted() {
+	}
 }

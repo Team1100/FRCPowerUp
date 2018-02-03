@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class Drive extends Subsystem {
 
-	
 	/**
 	 * The singular instance of the Drive subsystem
 	 */
@@ -23,9 +22,9 @@ public class Drive extends Subsystem {
 	 * The drivetrain instance
 	 */
 	private static DifferentialDrive drivetrain;
-	
+
 	private Talon leftOne, leftTwo, rightOne, rightTwo;
-	
+
 	/**
 	 * Sets up talons and drivetrain
 	 */
@@ -34,42 +33,46 @@ public class Drive extends Subsystem {
 		leftTwo = new Talon(RobotMap.D_LEFT_TWO);
 		rightOne = new Talon(RobotMap.D_RIGHT_ONE);
 		rightTwo = new Talon(RobotMap.D_RIGHT_TWO);
-		
-		//new updated driving class allows tank drive
-		drivetrain = new DifferentialDrive(new SpeedControllerGroup(leftOne, leftTwo), new SpeedControllerGroup(rightOne, rightTwo));
-		
+
+		// new updated driving class allows tank drive
+		drivetrain = new DifferentialDrive(new SpeedControllerGroup(leftOne, leftTwo),
+				new SpeedControllerGroup(rightOne, rightTwo));
+
 	}
-	
+
 	/**
 	 * Gets the singular instance of the Drive subsystem
+	 * 
 	 * @return the singular instance of the Drive subsystem
 	 */
 	public static Drive getInstance() {
-		if (drive == null) drive = new Drive();
+		if (drive == null)
+			drive = new Drive();
 		return drive;
 	}
-	
+
 	/**
 	 * Sets the default command to userDrive
 	 */
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        setDefaultCommand(new UserDrive());
-    }
-    
-    /**
-     * Plugs joystick values into tankDrive
-     * @param leftSpeed left joystick value
-     * @param rightSpeed right joystick value
-     */
-    public void tankDrive(double leftSpeed, double rightSpeed) {
-    	leftSpeed = -leftSpeed;
-    	rightSpeed = -rightSpeed;
-    	drivetrain.tankDrive(leftSpeed, rightSpeed);
-    	SmartDashboard.putNumber("leftSpeed", leftSpeed);
-    	SmartDashboard.putNumber("rightSpeed", rightSpeed);
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		setDefaultCommand(new UserDrive());
+	}
 
-    	
-    }
+	/**
+	 * Plugs joystick values into tankDrive
+	 * 
+	 * @param leftSpeed
+	 *            left joystick value
+	 * @param rightSpeed
+	 *            right joystick value
+	 */
+	public void tankDrive(double leftSpeed, double rightSpeed) {
+		leftSpeed = -leftSpeed;
+		rightSpeed = -rightSpeed;
+		drivetrain.tankDrive(leftSpeed, rightSpeed);
+		SmartDashboard.putNumber("leftSpeed", leftSpeed);
+		SmartDashboard.putNumber("rightSpeed", rightSpeed);
+
+	}
 }
-

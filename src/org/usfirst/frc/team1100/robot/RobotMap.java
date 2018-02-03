@@ -1,14 +1,14 @@
 package org.usfirst.frc.team1100.robot;
 
 /**
- * The RobotMap is a mapping from the port's sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */ 
+ * The RobotMap is a mapping from the port's sensors and actuators are wired
+ * into to a variable name. This provides flexibility changing wiring, makes
+ * checking the wiring easier and significantly reduces the number of magic
+ * numbers floating around.
+ */
 public class RobotMap {
-	
-	//List of all PWM ports
+
+	// List of all PWM ports
 	private final static int PWM_0 = 0;
 	private final static int PWM_1 = 1;
 	private final static int PWM_2 = 2;
@@ -19,8 +19,8 @@ public class RobotMap {
 	private final static int PWM_7 = 7;
 	private final static int PWM_8 = 8;
 	private final static int PWM_9 = 9;
-	
-	//List of all CAN ports
+
+	// List of all CAN ports
 	private final static int CAN_0 = 0;
 	private final static int CAN_1 = 1;
 	private final static int CAN_2 = 2;
@@ -29,20 +29,20 @@ public class RobotMap {
 	private final static int CAN_5 = 5;
 	private final static int CAN_6 = 6;
 	private final static int CAN_7 = 7;
-	
-	//List of all analog ports
+
+	// List of all analog ports
 	private final static int ANALOG_0 = 0;
 	private final static int ANALOG_1 = 1;
 	private final static int ANALOG_2 = 2;
 	private final static int ANALOG_3 = 3;
-	
-	//List of all relays
+
+	// List of all relays
 	private final static int RELAY_0 = 0;
 	private final static int RELAY_1 = 1;
 	private final static int RELAY_2 = 2;
 	private final static int RELAY_3 = 3;
-	
-	//List of all DIO ports
+
+	// List of all DIO ports
 	private final static int DIO_0 = 0;
 	private final static int DIO_1 = 1;
 	private final static int DIO_2 = 2;
@@ -53,14 +53,13 @@ public class RobotMap {
 	private final static int DIO_7 = 7;
 	private final static int DIO_8 = 8;
 	private final static int DIO_9 = 9;
-	
-	//List of all USB ports
+
+	// List of all USB ports
 	private static final int USB_0 = 0;
 	private static final int USB_1 = 1;
 	private static final int USB_2 = 2;
 	private static final int USB_3 = 3;
-	
-	
+
 	private static final int P_0 = 0;
 	private static final int P_1 = 1;
 	private static final int P_2 = 2;
@@ -69,8 +68,8 @@ public class RobotMap {
 	private static final int P_5 = 5;
 	private static final int P_6 = 6;
 	private static final int P_7 = 7;
-	
-	//List of all PDP ports
+
+	// List of all PDP ports
 	private static final int PDP_0 = 0;
 	private static final int PDP_1 = 1;
 	private static final int PDP_2 = 2;
@@ -88,18 +87,18 @@ public class RobotMap {
 	private static final int PDP_14 = 14;
 	private static final int PDP_15 = 15;
 	private static final int PDP_16 = 16;
-	
-	//[U]ser Input
+
+	// [U]ser Input
 	public static final int U_LEFT = 1;
 	public static final int U_RIGHT = 0;
 	public static final int U_XBOX = 2;
-	
-	//[D]rive
+
+	// [D]rive
 	public static final int D_LEFT_ONE = PWM_0;
 	public static final int D_LEFT_TWO = PWM_1;
 	public static final int D_RIGHT_ONE = PWM_2;
 	public static final int D_RIGHT_TWO = PWM_3;
-	
-	//[M]anipulator
+
+	// [M]anipulator
 	public static final int M_INTAKE = PWM_4;
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.input.*;
+import org.usfirst.frc.team1100.robot.input.AttackThree;
+import org.usfirst.frc.team1100.robot.input.XboxController;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -17,8 +18,8 @@ public class OI {
 	 */
 	private static OI oi;
 	/**
-	 * The singular instance of the XboxController class (although there may
-	 * be more).
+	 * The singular instance of the XboxController class (although there may be
+	 * more).
 	 */
 	private XboxController xbox;
 	/**
@@ -27,9 +28,10 @@ public class OI {
 	private AHRS ahrs;
 	private AttackThree rightStick;
 	private AttackThree leftStick;
-	
+
 	/**
 	 * Gets the only instance of the OI class, used to access all input device data.
+	 * 
 	 * @return the singular instance of the OI class
 	 */
 	public static OI getInstance() {
@@ -38,8 +40,8 @@ public class OI {
 		}
 		return oi;
 	}
-	
-	////TRIGGERING COMMANDS WITH BUTTONS
+
+	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
 
@@ -62,29 +64,32 @@ public class OI {
 		ahrs = new AHRS(SPI.Port.kMXP);
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
-		
+
 	}
-	
+
 	/**
-	 * Gets the only XboxController instance, used to access all XboxController data.
+	 * Gets the only XboxController instance, used to access all XboxController
+	 * data.
+	 * 
 	 * @return the singular instance of the Xbox Controller
 	 */
 	public XboxController getXbox() {
 		return xbox;
 	}
-	
+
 	/**
 	 * Gets the singular instance of the AHRS class
+	 * 
 	 * @return the NavX instance
 	 */
 	public AHRS getAHRS() {
 		return ahrs;
 	}
-	
+
 	public AttackThree getLeftStick() {
 		return leftStick;
 	}
-	
+
 	public AttackThree getRightStick() {
 		return rightStick;
 	}
