@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
-import org.usfirst.frc.team1100.robot.commands.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -28,7 +28,8 @@ public class Square extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new DriveStraight(2, 0.5, 0));
+    	addSequential(new DriveStraight());
+    	/*
     	addSequential(new ChangeHeading(90));
     	addSequential(new DriveStraight(2, 0.5, 90));
     	addSequential(new ChangeHeading(180));
@@ -36,5 +37,6 @@ public class Square extends CommandGroup {
     	addSequential(new ChangeHeading(-90));
     	addSequential(new DriveStraight(2, 0.5, -90));
     	addSequential(new ChangeHeading(0));
+    	*/
     }
 }

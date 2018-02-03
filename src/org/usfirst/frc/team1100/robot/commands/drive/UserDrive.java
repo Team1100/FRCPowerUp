@@ -35,7 +35,7 @@ public class UserDrive extends Command {
     protected void execute() {
     	left = OI.getInstance().getLeftStick().getAxis(AttackThree.AttackThreeAxis.kY);
     	right = OI.getInstance().getRightStick().getAxis(AttackThree.AttackThreeAxis.kY);
-    	Drive.getInstance().tankDrive(left, right);
+    	Drive.getInstance().tankDrive(-left, -right);
     }
 
     // Make this return true when this Command no longer needs to run execute()

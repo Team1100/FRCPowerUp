@@ -2,11 +2,14 @@ package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.auto.Square;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.drive.StraightDrive;
+import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This is the main class for the robot. The VM calls every method in this class at the 
  * appropriate time.
  * 
- * @author Grant Perkins, Tejas Maraliga, Thor Smith, and Chris Perkins
+ * @author Grant Perkins, Tejas Maraliga, Matt Lefebvre Thor Smith, and Chris Perkins
  * @version Week 4
  * 
  */
@@ -78,10 +81,10 @@ public class Robot extends IterativeRobot {
 	 * Finds the auto command that is selected in SmartDashboard, and runs it.
 	 */
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit() { 
 		//autonomousCommand = chooser.getSelected();
-		autonomousCommand = new Square();
-		
+		autonomousCommand = new DriveStraight();
+		ahrs.zeroYaw();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -93,6 +96,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
 	}
 	
 	/**
@@ -118,7 +122,9 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
 		
-        
+		//CameraServer server = CameraServer.getInstance();
+		//server.addAxisCamera("10.11.00.11");
+		//server.startAutomaticCapture();
 		Scheduler.getInstance().run();
 	}
 

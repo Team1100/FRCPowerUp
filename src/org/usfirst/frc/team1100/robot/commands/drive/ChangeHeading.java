@@ -28,7 +28,7 @@ public class ChangeHeading extends PIDCommand {
 	 * @param target the target heading for this command
 	 */
     public ChangeHeading(double target) {
-    	super(.08, .01, .2);
+    	super(.07, .01, .1);
         requires(Drive.getInstance()); 
         setSetpoint(target);
         setInputRange(-180.0, 180.0);
