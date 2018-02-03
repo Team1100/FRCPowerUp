@@ -77,6 +77,6 @@ public class OI {
 	}
 	
 	public AttackThree getRightStick() {
-		return rightStick;
+		return rightStick; 
 	}
 }
