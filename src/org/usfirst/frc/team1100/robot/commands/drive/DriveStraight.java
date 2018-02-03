@@ -6,6 +6,7 @@ import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,13 +19,16 @@ public class DriveStraight extends PIDCommand {
     
 	private AHRS ahrs = Robot.getAHRS();
 	
-	double target;
-	double maxSpeed = .6;
-    public DriveStraight() {
+    Timer t;
+	double speed;
+    double time;
+
+    public DriveStraight(double time, double speed, double heading) {
     	super(.07,.05,.3);
         requires(Drive.getInstance());
-        target = Robot.getAHRS().getYaw();
-        setSetpoint(0);
+        this.speed = speed;
+        this.time = time;
+        setSetpoint(heading);
         setInputRange(-180.0, 180.0); 
         pidController.setOutputRange(-1, 1);
         pidController.setContinuous();
@@ -33,11 +37,14 @@ public class DriveStraight extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	t = new Timer();
+    	t.start();
+        Drive.getInstance().arcadeDrive(speed, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return t.get() >= time;
     }
 
     // Called once after isFinished returns true
@@ -47,6 +54,7 @@ public class DriveStraight extends PIDCommand {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        Drive.getInstance().arcadeDrive(0, 0);
     }
 
 	@Override
@@ -58,7 +66,7 @@ public class DriveStraight extends PIDCommand {
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
 		System.err.println(output);
-		Drive.getInstance().arcadeDrive(maxSpeed, output);
+		Drive.getInstance().arcadeDrive(speed, output);
 		
 	}
 }
