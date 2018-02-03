@@ -6,7 +6,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1100.robot.commands.vision.CaptureImage;
 import org.usfirst.frc.team1100.robot.commands.vision.DefaultVision;
+import org.usfirst.frc.team1100.robot.commands.vision.ImageCapture;
 
 /**
  * Controls Limelight camera
@@ -25,8 +27,8 @@ public class Limelight extends Subsystem {
     	//Assign Limelight table to variable table
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
-		//Turn green LEDs on Limelight off.
-		table.getEntry("ledMode").forceSetNumber(1);
+		//Turn green LEDs on Limelight on.
+		table.getEntry("ledMode").forceSetNumber(0);
     }
     
     public static Limelight getInstance() {
@@ -55,7 +57,6 @@ public class Limelight extends Subsystem {
 		//Get total Bounding Box Area
 		NetworkTableEntry tv = table.getEntry("tv");
 		
-		
 		//Assign NetworkTableEntries to doubles
 		x = tx.getDouble(-1);
 		x = x==0 ? -1 : x;
@@ -70,6 +71,7 @@ public class Limelight extends Subsystem {
 		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
 		SmartDashboard.putNumber("Vertical Cursor Offset", y);
 		SmartDashboard.putNumber("Target Area", area);
+		
     }
     
     /**
@@ -101,12 +103,14 @@ public class Limelight extends Subsystem {
     	if (cubeDetected) return area;
     	return -1;
     }
+    
+    
 
     /**
      * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new DefaultVision());
+        setDefaultCommand(new ImageCapture());
     }
 }
 

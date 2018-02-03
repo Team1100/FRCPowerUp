@@ -126,6 +126,7 @@ public class Robot extends IterativeRobot {
 		//server.addAxisCamera("10.11.00.11");
 		//server.startAutomaticCapture();
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**

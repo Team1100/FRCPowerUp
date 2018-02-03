@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
+import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCubec;
 import org.usfirst.frc.team1100.robot.input.*;
 
 /**
@@ -57,6 +59,7 @@ public class OI {
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 		xbox.getButtonA().whenPressed(new ChangeHeading(90));
+		xbox.getButtonB().whenPressed(new CenterOnCubec());
 		
 	}
 	
