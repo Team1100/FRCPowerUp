@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() { 
 		//autonomousCommand = chooser.getSelected();
-		autonomousCommand = new DriveStraight();
+		autonomousCommand = new DriveStraight(3, 0.6, 0);
 		ahrs.zeroYaw();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
