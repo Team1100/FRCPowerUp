@@ -10,7 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/opencv"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="CTRE_Phoenix"/>
-	<classpathentry kind="var" path="CTRE_Phoenix.sources"/>
 	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
+	<classpathentry kind="var" path="CTRE_Phoenix.sources"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

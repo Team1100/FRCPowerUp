@@ -2,7 +2,7 @@ package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.auto.Square;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
-import org.usfirst.frc.team1100.robot.commands.drive.StraightDrive;
+
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
