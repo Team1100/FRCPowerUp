@@ -28,15 +28,21 @@ public class Square extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new DriveStraight(2, 0.5, 0));
-    	/*
+    	addSequential(new DriveStraight(4, 0.5, 0));
+    	System.err.println(1);
     	addSequential(new ChangeHeading(90));
-    	addSequential(new DriveStraight(2, 0.5, 90));
+    	System.err.println(2);
+    	addSequential(new DriveStraight(4, 0.5, 90));
+    	System.err.println(3);
     	addSequential(new ChangeHeading(180));
-    	addSequential(new DriveStraight(2, 0.5, 180));
+    	System.err.println(4);
+    	addSequential(new DriveStraight(4, 0.5, 180));
+    	System.err.println(5);
     	addSequential(new ChangeHeading(-90));
-    	addSequential(new DriveStraight(2, 0.5, -90));
+    	System.err.println(6);
+    	addSequential(new DriveStraight(4, 0.5, -90));
+    	System.err.println(7);
     	addSequential(new ChangeHeading(0));
-    	*/
+    	System.err.println(8);
     }
 }

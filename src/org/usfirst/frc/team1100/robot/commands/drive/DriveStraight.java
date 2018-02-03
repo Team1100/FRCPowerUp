@@ -39,7 +39,7 @@ public class DriveStraight extends PIDCommand {
     protected void initialize() {
     	t = new Timer();
     	t.start();
-        Drive.getInstance().arcadeDrive(speed, 0);
+        Drive.getInstance().arcadeDrive(-speed, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -65,8 +65,7 @@ public class DriveStraight extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
-		System.err.println(output);
-		Drive.getInstance().arcadeDrive(speed, output);
+		Drive.getInstance().arcadeDrive(-speed, -output);
 		
 	}
 }

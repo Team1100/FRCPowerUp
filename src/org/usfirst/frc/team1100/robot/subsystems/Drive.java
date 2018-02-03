@@ -34,9 +34,12 @@ public class Drive extends Subsystem {
 		leftTwo = new Talon(RobotMap.D_LEFT_TWO);
 		rightOne = new Talon(RobotMap.D_RIGHT_ONE);
 		rightTwo = new Talon(RobotMap.D_RIGHT_TWO);
+		SpeedControllerGroup left = new SpeedControllerGroup(leftOne, leftTwo);
+		SpeedControllerGroup right = new SpeedControllerGroup(rightOne, rightTwo);
+		right.setInverted(true);
 		
 		//new updated driving class allows tank drive
-		drivetrain = new DifferentialDrive(new SpeedControllerGroup(leftOne, leftTwo), new SpeedControllerGroup(rightOne, rightTwo));
+		drivetrain = new DifferentialDrive(left, right);
 		
 	}
 	
