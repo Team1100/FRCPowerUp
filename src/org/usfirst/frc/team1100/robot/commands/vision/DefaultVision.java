@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
-import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
 import edu.wpi.first.wpilibj.command.Command;
 

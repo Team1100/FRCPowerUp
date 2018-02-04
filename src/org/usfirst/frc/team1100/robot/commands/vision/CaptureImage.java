@@ -1,10 +1,10 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
 import org.opencv.videoio.VideoCapture;
-import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
-
+import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.core.Core;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,13 +24,13 @@ public class CaptureImage extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	camera = new VideoCapture("http://10.11.00.11:5800/stream.mjpg");
-    	//camera.open(0);
+    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    	camera = new VideoCapture("http://10.11.00.11:5800");
+
     	frame = new Mat();
     	lime = Limelight.getInstance();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (lime.getArea() != -1 && !imageCaptured) {
     		if (camera.read(frame)) {

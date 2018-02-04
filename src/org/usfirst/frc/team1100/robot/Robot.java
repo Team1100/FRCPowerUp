@@ -5,7 +5,7 @@ import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
 import com.kauailabs.navx.frc.AHRS;
 
