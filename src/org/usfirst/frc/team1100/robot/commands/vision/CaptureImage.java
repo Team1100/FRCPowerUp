@@ -45,7 +45,8 @@ public class CaptureImage extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	SmartDashboard.putBoolean("Image Captured", imageCaptured);
-        return false;
+    	if (imageCaptured) camera.release();
+        return imageCaptured;
     }
 
     // Called once after isFinished returns true
