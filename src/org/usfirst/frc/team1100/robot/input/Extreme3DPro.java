@@ -88,7 +88,7 @@ public class Extreme3DPro extends Joystick{
 	public double getAxis(Extreme3DProAxis axis) {
 		double val = getRawAxis(axis.key);
 		double deadband = deadbandXY;
-		if(axis.equals(AxisType.kZ)){
+		if(axis.equals(Extreme3DProAxis.kZ)){
 			deadband=deadbandZ;
 		}
 		if (Math.abs(val) <= deadband) {

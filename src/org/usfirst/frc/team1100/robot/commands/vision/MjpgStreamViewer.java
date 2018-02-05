@@ -24,16 +24,17 @@ public abstract class MjpgStreamViewer {
 
   
   Limelight lime = Limelight.getInstance();
+  public boolean imageCaptured = false;
 
   private BufferedImage imageToDraw;
   private BGThread bgThread = new BGThread();
 
   public abstract Stream<String> streamPossibleCameraUrls();
+  
 
   public final void disconnect() {
     bgThread.interrupt();
   }
-
 
   protected final void save() {
     BufferedImage drawnImage = imageToDraw;
@@ -44,7 +45,6 @@ public abstract class MjpgStreamViewer {
         try {
 			ImageIO.write(drawnImage, "png", outputfile);
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
     } else {
@@ -97,8 +97,10 @@ public abstract class MjpgStreamViewer {
             ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
             imageToDraw = ImageIO.read(tmpStream);
             
-            if (lime.readNetworkTable()) {
+            if (lime.readNetworkTable() && !imageCaptured) {
             	save();
+            	imageCaptured = true;
+            	disconnect();
             }
           }
 

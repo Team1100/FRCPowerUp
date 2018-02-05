@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.commands.vision.CaptureImage;
 import org.usfirst.frc.team1100.robot.commands.vision.DefaultVision;
+import org.usfirst.frc.team1100.robot.commands.vision.ImageCapture;
 
 /**
  * Controls Limelight camera
@@ -110,7 +111,7 @@ public class Limelight extends Subsystem {
      * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new CaptureImage());
+        setDefaultCommand(new ImageCapture());
     }
 }
 
