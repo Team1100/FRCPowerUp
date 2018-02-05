@@ -13,51 +13,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.imageio.ImageIO;
 
+import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+
 
 public abstract class MjpgStreamViewer {
 
   protected static final String STREAM_PREFIX = "mjpg:";
   private static final int[] START_BYTES = new int[]{0xFF, 0xD8};
   private static final int[] END_BYTES = new int[]{0xFF, 0xD9};
-  private static final int MS_TO_ACCUM_STATS = 1000;
-  private static final double BPS_TO_MBPS = 8.0 / 1024.0 / 1024.0;
 
+  
+  Limelight lime = Limelight.getInstance();
 
   private BufferedImage imageToDraw;
   private BGThread bgThread = new BGThread();
-  private boolean cameraChanged = true;
 
   public abstract Stream<String> streamPossibleCameraUrls();
-
-  public void cameraChanged() {
-    cameraChanged = true;
-  }
-
-  private boolean isCameraChanged() {
-    if (cameraChanged) {
-      cameraChanged = false;
-      return true;
-    }
-    return false;
-  }
-
-  public void onInit() {
-    // Override me!
-  }
-
-  public void onPropertyChanged() {
-    // Override me!
-  }
-
-
-  public final void init() {
-    onInit();
-  }
-
-
-  public final void propertyChanged() {
-    onPropertyChanged();
-  }
 
   public final void disconnect() {
     bgThread.interrupt();
@@ -69,9 +40,6 @@ public abstract class MjpgStreamViewer {
 
     if (drawnImage != null) {
 
-
-      //Draws image
-      //g2d.drawImage(drawnImage, -imageCenterX, -imageCenterY, null);
     	File outputfile = new File("saved.png");
         try {
 			ImageIO.write(drawnImage, "png", outputfile);
@@ -114,7 +82,7 @@ public abstract class MjpgStreamViewer {
       while (!interrupted()) {
         stream = getCameraStream();
         try {
-          while (!interrupted() && !isCameraChanged() && stream != null) {
+          while (!interrupted() && stream != null) {
             while (System.currentTimeMillis() - lastRepaint < 10) {
               stream.skip(stream.available());
               Thread.sleep(1);
@@ -129,7 +97,9 @@ public abstract class MjpgStreamViewer {
             ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
             imageToDraw = ImageIO.read(tmpStream);
             
-            save();
+            if (lime.readNetworkTable()) {
+            	save();
+            }
           }
 
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -137,9 +107,8 @@ public abstract class MjpgStreamViewer {
           ex.printStackTrace();
         } catch (IOException ex) {
           imageToDraw = null;
-          save();
           System.out.println(ex.getMessage());
-          cameraChanged();
+          Thread.currentThread().interrupt();
         } catch (InterruptedException ex) {
           Thread.currentThread().interrupt();
           throw new RuntimeException(ex);
@@ -173,7 +142,6 @@ public abstract class MjpgStreamViewer {
             return stream;
           } catch (IOException e) {
             imageToDraw = null;
-            //repaint();
             try {
               Thread.sleep(500);
             } catch (InterruptedException ex) {

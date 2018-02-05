@@ -8,16 +8,10 @@ public class MjpgStreamViewerImpl extends MjpgStreamViewer {
 
   private String url = "";
 
-  @Override
   public void onInit() {
     url = STREAM_PREFIX + urlProperty;
   }
 
-  @Override
-  public void onPropertyChanged() {
-	  url = STREAM_PREFIX + urlProperty;
-	  cameraChanged();
-  }
 
   @Override
   public Stream<String> streamPossibleCameraUrls() {
