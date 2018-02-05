@@ -7,12 +7,13 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- *
+ * Turns robot such that cube is moved to center of limelight frame
  */
 public class CenterOnCube extends PIDCommand {
 	private PIDController pidController = getPIDController();
+	int countOnTarget;
     public CenterOnCube() {
-    	super(.005, .0025, .04);
+    	super(.005, .0025, .04); //TODO: Tune these values
     	requires(Limelight.getInstance());
     	requires(Drive.getInstance()); 
         setInputRange(-27, 27);
@@ -22,16 +23,21 @@ public class CenterOnCube extends PIDCommand {
         setSetpoint(0);
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Sets counter for being on target to zero
+     */
     protected void initialize() {
+    	countOnTarget = 0;
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Unused, all of the content normally present is in returnPIDInput() and usePIDOutput
+     */
     protected void execute() {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    int countOnTarget = 0;
+    
     protected boolean isFinished() {
     	if (pidController.onTarget()) {
     		if (countOnTarget == 5) {
@@ -45,12 +51,15 @@ public class CenterOnCube extends PIDCommand {
     	return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Unused
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Unused
+     */
     protected void interrupted() {
     }
 
@@ -66,7 +75,6 @@ public class CenterOnCube extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-
 		Drive.getInstance().tankDrive(output, -output);
 	}
 }
