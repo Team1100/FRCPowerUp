@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public abstract class MjpgStreamViewer {
 
@@ -27,7 +29,7 @@ public abstract class MjpgStreamViewer {
   public boolean imageCaptured = false;
 
   private BufferedImage imageToDraw;
-  private BGThread bgThread = new BGThread();
+  public BGThread bgThread = new BGThread();
 
   public abstract Stream<String> streamPossibleCameraUrls();
   
@@ -41,7 +43,7 @@ public abstract class MjpgStreamViewer {
 
     if (drawnImage != null) {
 
-    	File outputfile = new File("saved.png");
+    	File outputfile = new File("/home/lvuser/Images/saved.png");
         try {
 			ImageIO.write(drawnImage, "png", outputfile);
 		} catch (IOException e) {
@@ -76,17 +78,21 @@ public abstract class MjpgStreamViewer {
 
     @Override
     public void run() {
+      SmartDashboard.putBoolean("Image Captured", imageCaptured);
       ByteArrayOutputStream imageBuffer = new ByteArrayOutputStream();
       long lastRepaint = 0;
-
+      System.err.println("RUN");
       while (!interrupted()) {
+    	System.err.println("UNINTERRUPTED");
         stream = getCameraStream();
         try {
           while (!interrupted() && stream != null) {
+        	System.err.println("STREAM FOUND");
             while (System.currentTimeMillis() - lastRepaint < 10) {
               stream.skip(stream.available());
               Thread.sleep(1);
             }
+            lastRepaint = System.currentTimeMillis();
             stream.skip(stream.available());
 
             imageBuffer.reset();
@@ -96,11 +102,12 @@ public abstract class MjpgStreamViewer {
 
             ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
             imageToDraw = ImageIO.read(tmpStream);
-            
+            System.err.println("Real close!");
             if (lime.readNetworkTable() && !imageCaptured) {
             	save();
             	imageCaptured = true;
-            	disconnect();
+            	SmartDashboard.putBoolean("Image Captured", imageCaptured);
+            	super.interrupt();
             }
           }
 
@@ -140,7 +147,7 @@ public abstract class MjpgStreamViewer {
             connection.setReadTimeout(5000);
             InputStream stream = connection.getInputStream();
 
-            System.out.println("Connected to: " + streamUrl);
+            System.err.println("Connected to: " + streamUrl);
             return stream;
           } catch (IOException e) {
             imageToDraw = null;

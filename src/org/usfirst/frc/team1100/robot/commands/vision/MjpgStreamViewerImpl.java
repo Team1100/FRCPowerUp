@@ -10,6 +10,7 @@ public class MjpgStreamViewerImpl extends MjpgStreamViewer {
 
   public MjpgStreamViewerImpl() {
     url = STREAM_PREFIX + urlProperty;
+    bgThread.start();
   }
 
   @Override

@@ -6,6 +6,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.usfirst.frc.team1100.robot.commands.vision.CaptureImage;
 import org.usfirst.frc.team1100.robot.commands.vision.DefaultVision;
 import org.usfirst.frc.team1100.robot.commands.vision.ImageCapture;
@@ -24,6 +30,7 @@ public class Limelight extends Subsystem {
 	 * Gets table, turns on Limelight LED to be turned off later
 	 */
     private Limelight() {
+    	
     	//Assign Limelight table to variable table
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
