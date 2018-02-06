@@ -46,6 +46,7 @@ public abstract class MjpgStreamViewer {
     	File outputfile = new File("/home/lvuser/Images/saved.png");
         try {
 			ImageIO.write(drawnImage, "png", outputfile);
+			System.err.println("Image saved!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -81,13 +82,10 @@ public abstract class MjpgStreamViewer {
       SmartDashboard.putBoolean("Image Captured", imageCaptured);
       ByteArrayOutputStream imageBuffer = new ByteArrayOutputStream();
       long lastRepaint = 0;
-      System.err.println("RUN");
       while (!interrupted()) {
-    	System.err.println("UNINTERRUPTED");
         stream = getCameraStream();
         try {
           while (!interrupted() && stream != null) {
-        	System.err.println("STREAM FOUND");
             while (System.currentTimeMillis() - lastRepaint < 10) {
               stream.skip(stream.available());
               Thread.sleep(1);
@@ -102,12 +100,11 @@ public abstract class MjpgStreamViewer {
 
             ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
             imageToDraw = ImageIO.read(tmpStream);
-            System.err.println("Real close!");
             if (lime.readNetworkTable() && !imageCaptured) {
             	save();
             	imageCaptured = true;
             	SmartDashboard.putBoolean("Image Captured", imageCaptured);
-            	super.interrupt();
+            	interrupt();
             }
           }
 
@@ -146,7 +143,6 @@ public abstract class MjpgStreamViewer {
             connection.setConnectTimeout(500);
             connection.setReadTimeout(5000);
             InputStream stream = connection.getInputStream();
-
             System.err.println("Connected to: " + streamUrl);
             return stream;
           } catch (IOException e) {

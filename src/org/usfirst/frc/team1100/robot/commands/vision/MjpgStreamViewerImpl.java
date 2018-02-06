@@ -15,7 +15,7 @@ public class MjpgStreamViewerImpl extends MjpgStreamViewer {
 
   @Override
   public Stream<String> streamPossibleCameraUrls() {
-    return Stream.of(url);
-  }
+	    return Stream.of(url);
+	  }
 
 }
