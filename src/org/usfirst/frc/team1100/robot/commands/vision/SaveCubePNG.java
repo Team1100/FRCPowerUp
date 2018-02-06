@@ -90,14 +90,15 @@ public class SaveCubePNG extends Thread{
 			        readUntil(stream, START_BYTES);
 			        Arrays.stream(START_BYTES).forEachOrdered(imageBuffer::write);
 			        readUntil(stream, END_BYTES, imageBuffer);
-			
+			        
 			        ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
 			        imageToDraw = ImageIO.read(tmpStream);
+			        System.err.println("Image captured: " + Boolean.toString(imageCaptured));
 			        if (lime.readNetworkTable() && !imageCaptured) {
 			        	save();
 			        	imageCaptured = true;
 			        	SmartDashboard.putBoolean("Image Captured", imageCaptured);
-			    	interrupt();
+			        	interrupt();
 			        }
 				}
 	
