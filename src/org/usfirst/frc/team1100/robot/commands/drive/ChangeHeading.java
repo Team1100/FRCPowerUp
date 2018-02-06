@@ -13,15 +13,15 @@ import com.kauailabs.navx.frc.AHRS;
 /**
  * This command uses the Drive susbsystem to turn the robot to a desired heading. The direction considered
  * 0 degrees is the direction in which the robot was oriented at the start of the match.
- * Yaw angle (the gyro value) is taken by calling an {@link org.usfirst.frc.team1100.robot.OI#getAHRS OI class method},
+ * Yaw angle (the gyro value) is taken by calling an {@link org.usfirst.frc.team1100.robot.Robot#getAHRS OI class method},
  * then calling {@link com.kauailabs.navx.frc.AHRS#getYaw getYaw method}. This command uses a PID controller.
- * @see <a href="http://www.ni.com/white-paper/3782/en/">A lesson on what a PID COntroller is and how it works.</a>
+ * @see <a href="http://www.ni.com/white-paper/3782/en/">A lesson on what a PID Controller is and how it works.</a>
  */
 public class ChangeHeading extends PIDCommand {
 
     private PIDController pidController = getPIDController();
-    
 	private AHRS ahrs = Robot.getAHRS();
+	private int countOnTarget;
 	
 	/**
 	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
@@ -30,6 +30,7 @@ public class ChangeHeading extends PIDCommand {
     public ChangeHeading(double target) {
     	super(.07, .01, .1);
         requires(Drive.getInstance()); 
+        countOnTarget = 0;
         setSetpoint(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
@@ -50,7 +51,7 @@ public class ChangeHeading extends PIDCommand {
     protected void usePIDOutput(double output) {
     	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
     }
-    int countOnTarget = 0;
+    
     /**
      * Calls pidController's {@link edu.wpi.first.wpilibj.PIDController#onTarget() onTarget() method}
      * @return Boolean representing whether the robot is facing the correct heading or not
@@ -67,4 +68,4 @@ public class ChangeHeading extends PIDCommand {
     	}
     	return false;
     }
-    }
+}

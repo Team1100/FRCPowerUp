@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1100.robot.subsystems.vision;
+package org.usfirst.frc.team1100.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -6,7 +6,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 import org.usfirst.frc.team1100.robot.commands.vision.DefaultVision;
+import org.usfirst.frc.team1100.robot.commands.vision.ImageCapture;
 
 /**
  * Controls Limelight camera
@@ -16,17 +18,18 @@ public class Limelight extends Subsystem {
 	private static Limelight lime;
 	NetworkTable table;
 	private double x, y, area;
-	boolean cubeDetected;
+	private boolean cubeDetected;
 	
 	/**
-	 * Gets table, turns off Limelight LED
+	 * Gets table, turns on Limelight LED to be turned off later
 	 */
     private Limelight() {
+    	
     	//Assign Limelight table to variable table
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
-		//Turn green LEDs on Limelight off.
-		table.getEntry("ledMode").forceSetNumber(1);
+		//Turn green LEDs on Limelight on. Turning on in constructor, then off in readNetworkTable() seems to work.
+		table.getEntry("ledMode").forceSetNumber(0);
     }
     
     public static Limelight getInstance() {
@@ -35,9 +38,10 @@ public class Limelight extends Subsystem {
     }
     
     /**
-     * Reads values from NetworkTable, puts them to SmartDashboard
+     * Reads values from NetworkTable, puts them to SmartDashboard. Also turns off limelight camera
+     * @return Whether contours are detected
      */
-    public void readNetworkTable(){
+    public boolean readNetworkTable(){
     	//Turn green LEDs on Limelight off.
     	table.getEntry("ledMode").forceSetNumber(1);
 		
@@ -52,9 +56,8 @@ public class Limelight extends Subsystem {
 		//Get total Bounding Box Area
 		NetworkTableEntry ta = table.getEntry("ta");
 		
-		//Get total Bounding Box Area
+		//State of whether or not contours are detected
 		NetworkTableEntry tv = table.getEntry("tv");
-		
 		
 		//Assign NetworkTableEntries to doubles
 		x = tx.getDouble(-1);
@@ -70,6 +73,7 @@ public class Limelight extends Subsystem {
 		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
 		SmartDashboard.putNumber("Vertical Cursor Offset", y);
 		SmartDashboard.putNumber("Target Area", area);
+		return cubeDetected;
     }
     
     /**
@@ -101,12 +105,14 @@ public class Limelight extends Subsystem {
     	if (cubeDetected) return area;
     	return -1;
     }
+    
+    
 
     /**
      * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new DefaultVision());
+        setDefaultCommand(new ImageCapture());
     }
 }
 
