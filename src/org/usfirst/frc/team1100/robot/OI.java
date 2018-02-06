@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
-import org.usfirst.frc.team1100.robot.commands.vision.CaptureImage;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.input.*;
 
