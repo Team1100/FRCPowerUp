@@ -10,12 +10,14 @@ import org.usfirst.frc.team1100.robot.subsystems.vision.Limelight;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.hal.MatchInfoData;
 
 
 //version -> most recent event/stage of development. no numbers please i'm lazy
@@ -35,6 +37,8 @@ public class Robot extends IterativeRobot {
 	private static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
+	Integer initPosition = 0;
 	
 	/**
 	 * Called when the robot is first started up.
@@ -56,6 +60,11 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
 		
+		// Choose initial field position
+		initPosition.addObject("Left", 1);
+		initPosition.addObject("Middle",0);
+		initPosition.addObject("Right",-1);
+		SmartDashboard.putData("Initial Position", initPosition);
 	}
 
 	/**
@@ -83,6 +92,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() { 
 		//autonomousCommand = chooser.getSelected();
+		initPosition = initPositionChooser.getSelected();
+		String message = DriverStation.getInstance().getGameSpecificMessage();
 		autonomousCommand = new Square();
 		ahrs.zeroYaw();
 		if (autonomousCommand != null)

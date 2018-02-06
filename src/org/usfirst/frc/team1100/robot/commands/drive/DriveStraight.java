@@ -10,10 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * DriveStraight drives the robot a specified distance at a 
+ * specified speed at a specified heading. THe robot does not 
+ * stop when the command ends, so follow up with another drive 
+ * command (like DriveStop). 
+ * 
+ * @author cp18587 (2/5/2018)
  */
 public class DriveStraight extends PIDCommand {
 	private PIDController pidController = getPIDController();
