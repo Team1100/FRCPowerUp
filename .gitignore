@@ -1,5 +1,7 @@
 /bin/
 
+.DS_Store
+
 # SlickEdit files
 FRCPowerUp.v*
 
