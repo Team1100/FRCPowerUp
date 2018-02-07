@@ -46,6 +46,7 @@ public class SaveCubePNG extends Thread{
 		try {
 			ImageIO.write(drawnImage, "png", outputfile);
 			System.err.println("Image saved!");
+			imageCaptured = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,31 +75,31 @@ public class SaveCubePNG extends Thread{
 	public void run() {
 		SmartDashboard.putBoolean("Image Captured", imageCaptured);
 		ByteArrayOutputStream imageBuffer = new ByteArrayOutputStream();
-		long lastRepaint = 0;
-		while (!interrupted()) {
+		long lastCheck = 0;
+		
+		loop:while (!interrupted()) {
 			stream = getCameraStream();
 			try {
 				while (!interrupted() && stream != null) {
-					while (System.currentTimeMillis() - lastRepaint < 10) {
+					while (System.currentTimeMillis() - lastCheck < 10) {
 						stream.skip(stream.available());
 						Thread.sleep(1);
 					}
-					lastRepaint = System.currentTimeMillis();
+					lastCheck = System.currentTimeMillis();
 					stream.skip(stream.available());
 	
 			        imageBuffer.reset();
 			        readUntil(stream, START_BYTES);
 			        Arrays.stream(START_BYTES).forEachOrdered(imageBuffer::write);
 			        readUntil(stream, END_BYTES, imageBuffer);
-			        
-			        ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
-			        imageToDraw = ImageIO.read(tmpStream);
-			        System.err.println("Image captured: " + Boolean.toString(imageCaptured));
+
 			        if (lime.readNetworkTable() && !imageCaptured) {
+			        	ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
+				        imageToDraw = ImageIO.read(tmpStream);
 			        	save();
-			        	imageCaptured = true;
 			        	SmartDashboard.putBoolean("Image Captured", imageCaptured);
-			        	interrupt();
+			        	Thread.currentThread().interrupt();
+			        	break loop;
 			        }
 				}
 	
@@ -129,11 +130,13 @@ public class SaveCubePNG extends Thread{
 	 * @return Stream object
 	 */
 	public Stream<String> streamPossibleCameraUrls() {
-		  return Stream.of(url);
+		//TODO: Check output of this, see if it's necessary at all. Make sure
+		//      that CameraServer isn't a stream as well.
+		return Stream.of(url);
 	}
 	
 	/**
-	 * Gets camera stream
+	 * Filters out all streams except Limelight stream from streamPossibleCameraUrls
 	 * @return Camera stream
 	 */
 	private InputStream getCameraStream() {
@@ -150,12 +153,16 @@ public class SaveCubePNG extends Thread{
 				    connection.setReadTimeout(5000);
 				    InputStream stream = connection.getInputStream();
 				    System.err.println("Connected to: " + streamUrl);
-				    	return stream;
+				    //ends while loop
+				    return stream;
 		      	} catch (IOException e) {
+		      		System.err.println("Limelight not connected! SaveCubePNG.java:159");
 		      		imageToDraw = null;
 		      		try {
 		      			Thread.sleep(500);
+		      			System.err.println("Trouble connecting to Limelight, retrying! SaveCUbePNG.java:163");
 		      		} catch (InterruptedException ex) {
+		      			//ends while loop
 		      			Thread.currentThread().interrupt();
 		      			throw new RuntimeException(ex);
 		      		}

@@ -61,10 +61,10 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putData("Auto mode", chooser);
 		
 		// Choose initial field position
-		initPosition.addObject("Left", 1);
-		initPosition.addObject("Middle",0);
-		initPosition.addObject("Right",-1);
-		SmartDashboard.putData("Initial Position", initPosition);
+		initPositionChooser.addObject("Left", 1);
+		initPositionChooser.addObject("Middle",0);
+		initPositionChooser.addObject("Right",-1);
+		SmartDashboard.putData("Initial Position", initPositionChooser);
 	}
 
 	/**
@@ -97,6 +97,8 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = new Square();
 		ahrs.zeroYaw();
 		if (autonomousCommand != null)
+			//This is how one would use a command in another file. However, I like command groups.
+			//Command groups allow for clarity about when/where commands are run.
 			autonomousCommand.start();
 	}
 

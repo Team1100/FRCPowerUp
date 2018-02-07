@@ -34,21 +34,6 @@ public class OI {
 		return oi;
 	}
 	
-	////TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
-
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by its isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by its isFinished method.
-	// button.whenReleased(new ExampleCommand());
 	/**
 	 * Initializes all input devices. It also establishes button triggers.
 	 */
