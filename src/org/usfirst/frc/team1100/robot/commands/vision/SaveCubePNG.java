@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SaveCubePNG extends Thread{
@@ -38,11 +39,15 @@ public class SaveCubePNG extends Thread{
 	}
 	
 	/**
-	 * Saves the image that is deemed save-able by run()
+	 * Saves the image that is deemed save-able by run(). File name: 
+	 * Event name + Match type + "Match" + Match number
 	 */
 	public void save() {
 		BufferedImage drawnImage = imageToDraw;
-		File outputfile = new File("/home/lvuser/Images/saved.png");
+		String matchNumber = Integer.toString(DriverStation.getInstance().getMatchNumber());
+		String matchType = DriverStation.getInstance().getMatchType().toString();
+		String event = DriverStation.getInstance().getEventName();
+		File outputfile = new File("/home/lvuser/Images/"+event+matchType+"Match"+matchNumber+".png");
 		try {
 			ImageIO.write(drawnImage, "png", outputfile);
 			System.err.println("Image saved!");
