@@ -38,37 +38,39 @@ public class StateMachineAuto extends CommandGroup {
     	
         if (initPosition == CENTERED) {
        		// Do stuff if we are in the center position
+            addSequential(new DriveStraight(1, 0.5, 0)); // drive forward 1 foot to clear the wall
         	currentSide = switchPosition; // If we are in the center, we just chase the switch
-        	addSequential(new ChangeHeading(currentSide * -20)); // turn to switch
-        	addSequential(new DriveStraight(3, 1, currentSide * -20)); // drive near switch
+            if (currentSide == LEFT_SIDE) // The center robot cannot be centered on the field
+            {
+                addSequential(new ChangeHeading(-25)); // turn to switch
+                addSequential(new DriveStraight(15, 1, currentSide * -20)); // drive near switch
+            } else {
+                addSequential(new ChangeHeading(20)); // turn to switch
+                addSequential(new DriveStraight(13, 1, currentSide * -20)); // drive near switch
+            }
             //addSequential(new PrepareCubeForSwitch());
         	addSequential(new DriveStraight(0.25, 0.2, 0)); // turn into switch
         	addSequential(new DriveStop()); // STOP!!!
         	//addSequential(new DropCubeInSwitch());
             hasCube = false;
             // Next, drive around to load a cube and target the scale
-            addSequential(new DriveStraight(0.25, -0.2, 0)); // back up from switch
+            addSequential(new DriveStraight(1, -0.25, 0)); // back up from switch
             addSequential(new ChangeHeading(currentSide * -90)); // prepare to drive around switch
-            addSequential(new DriveStraight(2, 1, currentSide * -90)); // back up from switch
+            addSequential(new DriveStraight(6, 1, currentSide * -90)); // drive past switch
 
         }
         else {
             currentSide = initPosition;
             // We're driving for the scale, nevermind the switch
-            addSequential(new ChangeHeading(currentSide * -10)); // start driving to scale
-        	addSequential(new DriveStraight(4, 1, currentSide * -20)); // drive to first way-point
-            addSequential(new DriveStraight(2, 1, 0)); // drive to near closer scale
-            if (scalePosition == (currentSide*LEFT_SIDE))
+        	addSequential(new DriveStraight(20, 1, 0)); // drive to first way-point
+            if (scalePosition == (currentSide*RIGHT_SIDE))
             {
-                addSequential(new DriveStraight(2, 0.2, 0)); // drive to near scale
-            }
-            else {
-                addSequential(new ChangeHeading(currentSide * 90)); // turn to farther scale
-                addSequential(new DriveStraight(4, 1, 0)); // drive to farther scale
+                addSequential(new ChangeHeading(currentSide * 90)); // turn to other side
+                addSequential(new DriveStraight(16, 1, 0)); // drive to other side
                 addSequential(new ChangeHeading(0)); // turn to farther scale
-                addSequential(new DriveStraight(2, 0.2, 0)); // drive to farther scale
                 currentSide = currentSide * -1; // flip sides
             }
+            addSequential(new DriveStraight(7, 1, 0)); // drive to scale
         	//addSequential(new DropCubeInScale());
         }
     }
