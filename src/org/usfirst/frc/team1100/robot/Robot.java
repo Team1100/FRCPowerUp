@@ -4,6 +4,7 @@ import org.usfirst.frc.team1100.robot.commands.auto.Square;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
+import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
@@ -39,6 +40,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	Integer initPosition = 0;
+	private SaveCubePNG saveCubeThread;
 	
 	/**
 	 * Called when the robot is first started up.
@@ -53,6 +55,8 @@ public class Robot extends IterativeRobot {
 		Drive.getInstance();
 		Limelight.getInstance();
 		ahrs.zeroYaw();
+		saveCubeThread = new SaveCubePNG();
+		saveCubeThread.start();
 
 		//Default code for auto selection, so I don't forget
 		
@@ -71,9 +75,12 @@ public class Robot extends IterativeRobot {
 	 * Called once each time the robot enters Disabled mode.
 	 * Disabled mode is when the amount of joysticks connected are insufficient for the code.
 	 */
+
 	@Override
 	public void disabledInit() {
-
+		saveCubeThread.interrupt();
+		saveCubeThread = new SaveCubePNG();
+		
 	}
 	
 	/**
@@ -124,6 +131,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		ahrs.zeroYaw();
+		saveCubeThread = new SaveCubePNG();
+		saveCubeThread.start();
 	}
 
 	/**
@@ -138,6 +147,7 @@ public class Robot extends IterativeRobot {
 		//CameraServer server = CameraServer.getInstance();
 		//server.addAxisCamera("10.11.00.11");
 		//server.startAutomaticCapture();
+		SmartDashboard.putBoolean("SaveCube Thread Running", saveCubeThread.isAlive());
 		Scheduler.getInstance().run();
 		
 	}

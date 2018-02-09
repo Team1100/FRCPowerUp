@@ -19,7 +19,7 @@ public class Limelight extends Subsystem {
 	NetworkTable table;
 	private double x, y, area;
 	private boolean cubeDetected;
-	private SaveCubePNG saveCubeThread;
+	
 	
 	/**
 	 * Gets table, turns on Limelight LED to be turned off later
@@ -30,11 +30,11 @@ public class Limelight extends Subsystem {
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
 		//Start cube-saving thread
-		saveCubeThread = new SaveCubePNG();
+		
 		
 		//Turn green LEDs on Limelight on. Turning on in constructor, then off in readNetworkTable() seems to work.
 		table.getEntry("ledMode").forceSetNumber(0);
-		saveCubeThread.start();
+		
     }
     
     public static Limelight getInstance() {
@@ -78,7 +78,7 @@ public class Limelight extends Subsystem {
 		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
 		SmartDashboard.putNumber("Vertical Cursor Offset", y);
 		SmartDashboard.putNumber("Target Area", area);
-		SmartDashboard.putBoolean("SaveCube Thread Running", saveCubeThread.isAlive());
+		
 		return cubeDetected;
     }
     

@@ -28,7 +28,7 @@ public class SaveCubePNG extends Thread{
 	private InputStream stream;
 	private BufferedImage imageToDraw;
 		  
-	Limelight lime = Limelight.getInstance();
+	Limelight lime;
 	public boolean imageCaptured = false;
 	
 	/**
@@ -62,6 +62,7 @@ public class SaveCubePNG extends Thread{
 	 */
 	@Override
 	public void interrupt() {
+		imageCaptured = false;
 		  try {
 			  if (stream != null) {
 				  stream.close();
@@ -82,10 +83,10 @@ public class SaveCubePNG extends Thread{
 		ByteArrayOutputStream imageBuffer = new ByteArrayOutputStream();
 		long lastCheck = 0;
 		
-		loop:while (!interrupted()) {
+		loop:while (!interrupted() && !imageCaptured) {
 			stream = getCameraStream();
 			try {
-				while (!interrupted() && stream != null) {
+				while (!interrupted() && stream != null && !imageCaptured) {
 					while (System.currentTimeMillis() - lastCheck < 10) {
 						stream.skip(stream.available());
 						Thread.sleep(1);
@@ -98,12 +99,11 @@ public class SaveCubePNG extends Thread{
 			        Arrays.stream(START_BYTES).forEachOrdered(imageBuffer::write);
 			        readUntil(stream, END_BYTES, imageBuffer);
 
-			        if (lime.readNetworkTable() && !imageCaptured) {
+			        if (Limelight.getInstance().readNetworkTable() && !imageCaptured) {
 			        	ByteArrayInputStream tmpStream = new ByteArrayInputStream(imageBuffer.toByteArray());
 				        imageToDraw = ImageIO.read(tmpStream);
 			        	save();
 			        	SmartDashboard.putBoolean("Image Captured", imageCaptured);
-			        	Thread.currentThread().interrupt();
 			        	break loop;
 			        }
 				}
