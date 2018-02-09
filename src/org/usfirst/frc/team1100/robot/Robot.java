@@ -1,16 +1,13 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.auto.Square;
-import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
-
-import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CameraServer;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SPI;
@@ -43,6 +40,11 @@ public class Robot extends IterativeRobot {
 	private SaveCubePNG saveCubeThread;
 	
 	/**
+	 * Whether an image is captured
+	 */
+	public static boolean imageCaptured = false;
+	
+	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
 	 * it sends a SendableChooser object for choosing auto modes to Smart Dashboard.
@@ -56,7 +58,7 @@ public class Robot extends IterativeRobot {
 		Limelight.getInstance();
 		ahrs.zeroYaw();
 		saveCubeThread = new SaveCubePNG();
-		saveCubeThread.start();
+		
 
 		//Default code for auto selection, so I don't forget
 		
@@ -78,9 +80,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
-		saveCubeThread.interrupt();
-		saveCubeThread = new SaveCubePNG();
-		
+		SmartDashboard.putBoolean("Image Captured", Robot.imageCaptured);
 	}
 	
 	/**
@@ -133,6 +133,7 @@ public class Robot extends IterativeRobot {
 		ahrs.zeroYaw();
 		saveCubeThread = new SaveCubePNG();
 		saveCubeThread.start();
+		imageCaptured = false;
 	}
 
 	/**
@@ -143,10 +144,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
-		
-		//CameraServer server = CameraServer.getInstance();
-		//server.addAxisCamera("10.11.00.11");
-		//server.startAutomaticCapture();
 		SmartDashboard.putBoolean("SaveCube Thread Running", saveCubeThread.isAlive());
 		Scheduler.getInstance().run();
 		

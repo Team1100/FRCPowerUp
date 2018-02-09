@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
+import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -52,6 +53,7 @@ public class SaveCubePNG extends Thread{
 			ImageIO.write(drawnImage, "png", outputfile);
 			System.err.println("Image saved!");
 			imageCaptured = true;
+			Robot.imageCaptured = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -130,49 +132,38 @@ public class SaveCubePNG extends Thread{
 		}
 	}
 	
-	/**
-	 * Gets all streams
-	 * @return Stream object
-	 */
-	public Stream<String> streamPossibleCameraUrls() {
-		//TODO: Check output of this, see if it's necessary at all. Make sure
-		//      that CameraServer isn't a stream as well.
-		return Stream.of(url);
-	}
 	
 	/**
-	 * Filters out all streams except Limelight stream from streamPossibleCameraUrls
+	 * Gets Limelight stream
 	 * @return Camera stream
 	 */
 	private InputStream getCameraStream() {
 		while (!interrupted()) {
-			for (String streamUrl : streamPossibleCameraUrls()
-			.filter(s -> s.startsWith(STREAM_PREFIX))
-			.map(s -> s.substring(STREAM_PREFIX.length()))
-			.collect(Collectors.toSet())) {
-				System.out.println("Trying to connect to: " + streamUrl);
-				try {
-				    URL url = new URL(streamUrl);
-				    URLConnection connection = url.openConnection();
-				    connection.setConnectTimeout(500);
-				    connection.setReadTimeout(5000);
-				    InputStream stream = connection.getInputStream();
-				    System.err.println("Connected to: " + streamUrl);
-				    //ends while loop
-				    return stream;
-		      	} catch (IOException e) {
-		      		System.err.println("Limelight not connected! SaveCubePNG.java:159");
-		      		imageToDraw = null;
-		      		try {
-		      			Thread.sleep(500);
-		      			System.err.println("Trouble connecting to Limelight, retrying! SaveCUbePNG.java:163");
-		      		} catch (InterruptedException ex) {
-		      			//ends while loop
-		      			Thread.currentThread().interrupt();
-		      			throw new RuntimeException(ex);
-		      		}
-		      	}
-			}
+			String streamUrl = Stream.of(url)
+				.map(s -> s.substring(STREAM_PREFIX.length()))
+				.collect(Collectors.toSet()).toArray(new String[1])[0];
+			System.out.println("Trying to connect to: " + streamUrl);
+			try {
+			    URL url = new URL(streamUrl);
+			    URLConnection connection = url.openConnection();
+			    connection.setConnectTimeout(500);
+			    connection.setReadTimeout(5000);
+			    InputStream stream = connection.getInputStream();
+			    System.err.println("Connected to: " + streamUrl);
+			    //ends while loop
+			    return stream;
+	      	} catch (IOException e) {
+	      		System.err.println("Limelight not connected! SaveCubePNG.java:159");
+	      		imageToDraw = null;
+	      		try {
+	      			Thread.sleep(500);
+	      			System.err.println("Trouble connecting to Limelight, retrying! SaveCubePNG.java:163");
+	      		} catch (InterruptedException ex) {
+	      			//ends while loop
+	      			Thread.currentThread().interrupt();
+	      			throw new RuntimeException(ex);
+	      		}
+	      	}
 		}
 	return null;
 	}
