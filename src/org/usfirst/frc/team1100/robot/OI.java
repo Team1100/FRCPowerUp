@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
@@ -39,15 +41,15 @@ public class OI {
 	 * Initializes all input devices. It also establishes button triggers.
 	 */
 	private OI() {
-		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
+		xbox = new XboxController(RobotMap.U_XBOX, 0.15);
 		
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 		
 		//Climber level triggers
-		xbox.getButtonY().whenPressed(new PIDClimber(.9)); //Scale
+		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
-		xbox.getButtonA().whenPressed(new PIDClimber(.07)); //Ground
+		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 	}
 	
 	/**
