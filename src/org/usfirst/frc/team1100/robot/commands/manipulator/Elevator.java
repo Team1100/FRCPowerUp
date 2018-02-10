@@ -56,6 +56,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
+        SmartDashboard.putNumber("Voltage", climb.getVoltage());
 		return Climber.getVoltage() * INCHES_PER_VOLT + INVERSE_VOLTAGE_AT_ZERO;
 	}
 
