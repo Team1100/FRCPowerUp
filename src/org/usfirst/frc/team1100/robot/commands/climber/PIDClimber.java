@@ -24,12 +24,13 @@ public class PIDClimber extends PIDCommand {
     public PIDClimber(double height) {
     	super(2.5,.4,1);
         requires(Climber.getInstance());
+        height *= 1.2;
         climber = Climber.getInstance();
-        setInputRange(0+climber.getBottom(), 2+climber.getTop()); 
+        setInputRange(climber.getBottom(), climber.getTop()); 
         this.height = height;
-        setSetpoint(height);
+        setSetpoint(height+climber.getBottom());
         pidController.setOutputRange(-1, 1);
-        pidController.setPercentTolerance(0.05);
+        pidController.setPercentTolerance(0.1);
     }
     
     /**
@@ -69,7 +70,7 @@ public class PIDClimber extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
         SmartDashboard.putNumber("Voltage", climber.getVoltage());
-		return climber.getVoltage()/2;
+		return climber.getVoltage();
 	}
 	
 	/**

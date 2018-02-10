@@ -5,6 +5,7 @@ import org.usfirst.frc.team1100.robot.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
@@ -18,6 +19,7 @@ public class Climber extends Subsystem {
     DigitalInput bottomLimit, topLimit; // Limit switches
     double bottom = 0;
     double top = 2.0;
+    final double CLIMB_RANGE = 1.2; //Volts
     
     private Climber() {
     	climberOne = new Talon(RobotMap.C_CLIMB_ONE);
@@ -52,6 +54,8 @@ public class Climber extends Subsystem {
     	}
     	climberOne.set(speed);
     	climberTwo.set(speed);
+    	SmartDashboard.putNumber("Top", top);
+    	SmartDashboard.putNumber("Bottom", bottom);
     	return out;
     }
     
@@ -92,6 +96,7 @@ public class Climber extends Subsystem {
      */
     private void setBottom() {
     	bottom = getVoltage();
+    	top = getVoltage() - CLIMB_RANGE;
     }
     
     /*
@@ -99,6 +104,7 @@ public class Climber extends Subsystem {
      */
     private void setTop() {
     	top = getVoltage();
+    	bottom = getVoltage() - CLIMB_RANGE;
     }
     
     /**
