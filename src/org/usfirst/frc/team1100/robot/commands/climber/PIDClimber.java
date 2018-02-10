@@ -9,13 +9,11 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Elevator uses the Climber subsystem and is based on the 
+ * PIDClimber uses the Climber subsystem and is based on the 
  * PIDCommand class. An analog sensor is used to sense the 
  * height. 
- *  
- * @author cp18587 (2/5/2018)
  */
-public class Elevator extends PIDCommand {
+public class PIDClimber extends PIDCommand {
 	private PIDController pidController = getPIDController();
     
 	double height;
@@ -23,7 +21,7 @@ public class Elevator extends PIDCommand {
     final double INCHES_PER_VOLT = 3.0;
     Climber climber;
 
-    public Elevator(double height) {
+    public PIDClimber(double height) {
     	super(.07,.05,.3);
         requires(Climber.getInstance());
         climber = Climber.getInstance();
