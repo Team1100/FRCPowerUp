@@ -57,7 +57,13 @@ public class StateMachineAuto extends CommandGroup {
             addSequential(new DriveStraight(1, -0.25, 0)); // back up from switch
             addSequential(new ChangeHeading(currentSide * -90)); // prepare to drive around switch
             addSequential(new DriveStraight(6, 1, currentSide * -90)); // drive past switch
-
+            addSequential(new DriveStraight(6, 1, 0)); // fast turn toward scale
+            if (currentSide != scalePosition)
+            {
+                addSequential(new ChangeHeading(currentSide * 90)); // turn toward other side
+                addSequential(new DriveStraight(16, 1, currentSide * 90)); // drive across field
+                currentSide = -currentSide; // flip sides
+            }
         }
         else {
             currentSide = initPosition;
@@ -66,12 +72,19 @@ public class StateMachineAuto extends CommandGroup {
             if (scalePosition == (currentSide*RIGHT_SIDE))
             {
                 addSequential(new ChangeHeading(currentSide * 90)); // turn to other side
-                addSequential(new DriveStraight(16, 1, 0)); // drive to other side
+                addSequential(new DriveStraight(16, 1, currentSide * 90)); // drive to other side
                 addSequential(new ChangeHeading(0)); // turn to farther scale
-                currentSide = currentSide * -1; // flip sides
+                currentSide = -currentSide; // flip sides
             }
             addSequential(new DriveStraight(7, 1, 0)); // drive to scale
+            addSequential(new ChangeHeading(currentSide * 90)); // turn to scale
+            addSequential(new DriveStraight(2, 0.5, currentSide * 90));
+            addSequential(new DriveStop()); // STOP!!
         	//addSequential(new DropCubeInScale());
+            addSequential(new ChangeHeading(180)); // turn back toward platform zone
+            addSequential(new DriveStraight(7, 1, 180)); // drive back toward platform zone
         }
+        addSequential(new ChangeHeading(currentSide * 120)); // turn in toward cubes
+        // addSequential(new VisualHuntForCube()); // go get a cube
     }
 }
