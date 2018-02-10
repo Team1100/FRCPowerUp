@@ -30,7 +30,7 @@ public class Climber extends Subsystem {
     
     /**
      * Gets the single instance of the Climber subsystem
-     * @return
+     * @return The single instance of the Climber subsystem
      */
     public static Climber getInstance() {
     	if (climber == null) climber = new Climber();
