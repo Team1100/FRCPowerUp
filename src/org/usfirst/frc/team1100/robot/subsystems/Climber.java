@@ -6,11 +6,10 @@ import org.usfirst.frc.team1100.robot.commands.climber.ClimberDefault;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
- * 
+ * This subsystem controls the climber/elevator
  */
 public class Climber extends Subsystem {
 
@@ -29,11 +28,20 @@ public class Climber extends Subsystem {
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
     }
     
+    /**
+     * Gets the single instance of the Climber subsystem
+     * @return
+     */
     public static Climber getInstance() {
     	if (climber == null) climber = new Climber();
     	return climber;
     }
     
+    /**
+     * Climbs with the given speed. Will not climb past either limit switch.
+     * @param speed Speed of climber
+     * @return Whether climb was successful, false if switch is triggered and wants to move past
+     */
     public boolean climb(double speed) {
     	boolean out = true;
     	if (Climber.getInstance().getBottomLimit() && speed > 0) {
@@ -48,12 +56,16 @@ public class Climber extends Subsystem {
     	return out;
     }
     
+    /**
+     * Gets height of climber
+     * @return Height of climber
+     */
     public double getVoltage() {
     	return pot.getAverageVoltage();
     }
     
     /**
-     * Gets state of limit switch
+     * Gets state of bottom limit switch
      * @return True if the switch is pressed
      */
     public boolean getBottomLimit() {
@@ -61,27 +73,47 @@ public class Climber extends Subsystem {
     	return !bottomLimit.get();
     }
     
+    /**
+     * Gets state of top limit switch
+     * @return True if the switch is pressed
+     */
     public boolean getTopLimit() {
     	if (!topLimit.get()) setTop();
     	return !topLimit.get();
     }
-
+    
+    /**
+     * Unused
+     */
     public void initDefaultCommand() {
-    	setDefaultCommand(new ClimberDefault());
     }
     
+    /*
+     * Sets bottom to current voltage
+     */
     private void setBottom() {
     	bottom = getVoltage();
     }
     
+    /*
+     * Sets top to current voltage
+     */
     private void setTop() {
     	top = getVoltage();
     }
     
+    /**
+     * Gets the lowest height possible
+     * @return Lowest height of climber
+     */
     public double getBottom() {
     	return bottom;
     }
     
+    /**
+     * Gets the highest height possible
+     * @return Highest height of climber
+     */
     public double getTop() {
     	return top;
     }
