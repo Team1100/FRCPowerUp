@@ -1,6 +1,9 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import org.usfirst.frc.team1100.robot.RobotMap;
 
 /**
  * This subsystem represents the piece of the
@@ -15,6 +18,20 @@ public class Claw extends Subsystem {
 	 * The singular instance of the Claw subsystem
 	 */
 	private static Claw claw;
+	
+	/**
+	 * The two PWM motors driving the claw
+	 */
+	private static Talon leftMotor = null;
+	private static Talon rightMotor = null;
+	
+	/**
+	 * Sets up talons and drivetrain
+	 */
+	private Claw() {
+		leftMotor = new Talon(RobotMap.W_MOTOR_LEFT);
+		rightMotor = new Talon(RobotMap.W_MOTOR_RIGHT);
+	}
 	
 	/**
 	 * Gets the singular instance of the Claw subsystem
