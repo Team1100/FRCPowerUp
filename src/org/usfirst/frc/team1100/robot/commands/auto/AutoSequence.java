@@ -51,8 +51,7 @@ public class StateMachineAuto extends CommandGroup {
             //addSequential(new PrepareCubeForSwitch());
         	addSequential(new DriveStraight(0.25, 0.2, 0)); // turn into switch
         	addSequential(new DriveStop()); // STOP!!!
-        	//addSequential(new DropCubeInSwitch());
-            hasCube = false;
+        	//addSequential(new DropCubeInSwitch()); // toss the cube
             // Next, drive around to load a cube and target the scale
             addSequential(new DriveStraight(1, -0.25, 0)); // back up from switch
             addSequential(new ChangeHeading(currentSide * -90)); // prepare to drive around switch
@@ -78,9 +77,9 @@ public class StateMachineAuto extends CommandGroup {
             }
             addSequential(new DriveStraight(7, 1, 0)); // drive to scale
             addSequential(new ChangeHeading(currentSide * 90)); // turn to scale
-            addSequential(new DriveStraight(2, 0.5, currentSide * 90));
+            addSequential(new DriveStraight(2, 0.5, currentSide * 90)); // drive up to scale
             addSequential(new DriveStop()); // STOP!!
-        	//addSequential(new DropCubeInScale());
+        	//addSequential(new DropCubeInScale()); // toss the cube
             addSequential(new ChangeHeading(180)); // turn back toward platform zone
             addSequential(new DriveStraight(7, 1, 180)); // drive back toward platform zone
         }
