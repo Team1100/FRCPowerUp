@@ -147,7 +147,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
-		SmartDashboard.putBoolean("SaveCube Thread Running", saveCubeThread.isAlive());
 		Scheduler.getInstance().run();
 		
 	}
