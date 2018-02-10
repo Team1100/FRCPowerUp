@@ -99,7 +99,13 @@ public class RobotMap {
 	public static final int D_LEFT_TWO = PWM_1;
 	public static final int D_RIGHT_ONE = PWM_2;
 	public static final int D_RIGHT_TWO = PWM_3;
+	//they are named "one" and "two" because it doesn't matter which is first
 	
-	//[M]anipulator
-	public static final int M_INTAKE = PWM_4;
+	//[C]limber
+	public static final int C_CLIMB_ONE = PWM_4;
+	public static final int C_CLIMB_TWO = PWM_5;
+	public static final int C_POT = P_0;
+	//they are named "one" and "two" because it doesn't matter what side they're on
+	
+	
 }
