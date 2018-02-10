@@ -2,6 +2,7 @@ package org.usfirst.frc.team1100.robot.subsystems;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimberDefault;
+import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -35,10 +36,14 @@ public class Climber extends Subsystem {
     public double getVoltage() {
     	return analog.getAverageVoltage();
     }
+    
+    public double getAccumulatorValue() {
+    	return 0;
+    }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ClimberDefault());
+    	setDefaultCommand(new ClimberDefault());
     }
 }
 

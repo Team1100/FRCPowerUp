@@ -64,7 +64,6 @@ public class Robot extends IterativeRobot {
 		ahrs.zeroYaw();
 		saveCubeThread = new SaveCubePNG();
 		
-
 		//Default code for auto selection, so I don't forget
 		
 		// chooser.addDefault("Default Auto", new ExampleCommand());
@@ -75,7 +74,7 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Left", 1);
 		initPositionChooser.addObject("Middle",0);
 		initPositionChooser.addObject("Right",-1);
-		SmartDashboard.putData("Initial Position", initPositionChooser);
+		//SmartDashboard.putData("Initial Position", initPositionChooser);
 	}
 
 	/**

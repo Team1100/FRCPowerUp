@@ -31,8 +31,7 @@ public class ClimberDefault extends Command {
     protected boolean isFinished() {
         return false;
     }
-
-
+    
     protected void end() {
     }
 
