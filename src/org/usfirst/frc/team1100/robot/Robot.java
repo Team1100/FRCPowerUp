@@ -2,6 +2,7 @@ package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.auto.Square;
 import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
+import org.usfirst.frc.team1100.robot.subsystems.Climber;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
@@ -56,6 +57,8 @@ public class Robot extends IterativeRobot {
 		OI.getInstance();
 		Drive.getInstance();
 		Limelight.getInstance();
+		Climber.getInstance();
+		
 		ahrs.zeroYaw();
 		saveCubeThread = new SaveCubePNG();
 		
