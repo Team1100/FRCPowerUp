@@ -104,7 +104,8 @@ public class RobotMap {
 	//[C]limber
 	public static final int C_CLIMB_ONE = PWM_4;
 	public static final int C_CLIMB_TWO = PWM_5;
-	public static final int C_POT = P_0;
+	public static final int C_CLIMB_POT = P_0;
+	public static final int C_WRIST_POT = P_1;
 	public static final int C_BOTTOM_SWITCH = DIO_0;
 	public static final int C_TOP_SWITCH = DIO_1;
 	//they are named "one" and "two" because it doesn't matter what side they're on

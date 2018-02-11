@@ -1,6 +1,6 @@
-package org.usfirst.frc.team1100.robot.commands.climber;
+package org.usfirst.frc.team1100.robot.commands.claw;
 
-import org.usfirst.frc.team1100.robot.subsystems.Climber;
+import org.usfirst.frc.team1100.robot.subsystems.Claw;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
@@ -11,25 +11,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * PIDCommand class. A potentiometer is used to sense the 
  * height. 
  */
-public class PIDClimber extends PIDCommand {
+public class SetWristAngle extends PIDCommand {
 	private PIDController pidController = getPIDController();
     
-	double height;
-    Climber climber;
+	double angle;
+    Claw claw;
     
     /**
      * Sets up PID controller, setpoint, and PID values
      * @param height the desired height of the climber, as a percent (0.0 to 1.0). Please stay away from the endpoints
      */
-    public PIDClimber(double height) {
+    public SetWristAngle(double angle) {
     	super(2.5,.4,1);
-        requires(Climber.getInstance());
-        height *= 1.2;
-        climber = Climber.getInstance();
-        setInputRange(climber.getBottom(), climber.getTop()); 
-        this.height = height;
-        setSetpoint(height+climber.getBottom());
-        pidController.setOutputRange(-1, 1);
+        requires(Claw.getInstance());
+        claw = Claw.getInstance();
+        setInputRange(-45, 45); 
+        this.angle = angle;
+        setSetpoint(0);
+        pidController.setOutputRange(-0.5, 0.5);
         pidController.setPercentTolerance(0.1);
     }
     
@@ -37,7 +36,7 @@ public class PIDClimber extends PIDCommand {
      * Sets speed of climber to 0
      */
     protected void initialize() {
-        climber.climb(0);
+        claw.wrist(0);
     }
     
     /**
@@ -45,21 +44,20 @@ public class PIDClimber extends PIDCommand {
      * @return whether climber is "close enough" to setpoint
      */
     protected boolean isFinished() {
-        return pidController.onTarget();
+        return false;
     }
     
     /**
      * Sets speed of climber to 0
      */
     protected void end() {
-        climber.climb(0);
     }
     
     /**
      * Sets speed of climber to 0
      */
     protected void interrupted() {
-        climber.climb(0);
+        claw.wrist(0);
     }
     
     
@@ -69,15 +67,15 @@ public class PIDClimber extends PIDCommand {
      */
 	@Override
 	protected double returnPIDInput() {
-        SmartDashboard.putNumber("Voltage", climber.getVoltage());
-		return climber.getVoltage();
+//        SmartDashboard.putNumber("Wrist angle", climber.getVoltage());
+		return claw.getVoltage();
 	}
 	
 	/**
-	 * Sets speed of climber to output of PID loop
+	 * Sets speed of wrist to output of PID loop
 	 */
 	@Override
 	protected void usePIDOutput(double output) {
-		climber.climb(-output);
+		claw.wrist(-output);
 	}
 }

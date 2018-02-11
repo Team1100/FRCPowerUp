@@ -2,6 +2,8 @@ package org.usfirst.frc.team1100.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
 
@@ -40,7 +42,12 @@ public class Claw extends Subsystem {
 	 * The two PWM motors driving the claw
 	 */
 	WPI_TalonSRX pincher;
-	
+
+	/*
+	 * Analog encoder
+	 */
+    AnalogInput pot; // potentiometer
+
 	/**
 	 * Sets up talons and drivetrain
 	 */
@@ -50,6 +57,7 @@ public class Claw extends Subsystem {
 		leftWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_RIGHT);
 		pincher = new WPI_TalonSRX(RobotMap.W_PINCHER);
+    	pot = new AnalogInput(RobotMap.C_WRIST_POT); 
 	}
 	
 	/**
@@ -65,4 +73,25 @@ public class Claw extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+
+    /**
+     * Move wrist with the given speed.
+     * @param speed Speed of wrist motor
+     * @return true if move successful
+     */
+    public boolean wrist(double speed) {
+    	leftWristMotor.set(speed);
+    	rightWristMotor.set(speed);
+    	return true;
+    }
+ 
+    /**
+     * Gets angle of wrist
+     * @return angle of wrist
+     */
+    public double getVoltage() {
+    	return pot.getAverageVoltage();
+    }
+    
+
 }

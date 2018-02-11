@@ -24,7 +24,7 @@ public class Climber extends Subsystem {
     private Climber() {
     	climberOne = new Talon(RobotMap.C_CLIMB_ONE);
     	climberTwo = new Talon(RobotMap.C_CLIMB_TWO);
-    	pot = new AnalogInput(RobotMap.C_POT); 
+    	pot = new AnalogInput(RobotMap.C_CLIMB_POT); 
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
     }
