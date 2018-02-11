@@ -34,7 +34,6 @@ public class Robot extends IterativeRobot {
 	/**
 	 * The singular instance of the AHRS class. There's only one NavX on the robot.
 	 */
-	private static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
@@ -61,7 +60,7 @@ public class Robot extends IterativeRobot {
 		Climber.getInstance();
 		Claw.getInstance();
 		
-		ahrs.zeroYaw();
+		Drive.getInstance().getNavX().zeroYaw();
 		saveCubeThread = new SaveCubePNG();
 		
 		//Default code for auto selection, so I don't forget
@@ -106,7 +105,7 @@ public class Robot extends IterativeRobot {
 		initPosition = initPositionChooser.getSelected();
 		String message = DriverStation.getInstance().getGameSpecificMessage();
 		autonomousCommand = new Square();
-		ahrs.zeroYaw();
+		Drive.getInstance().getNavX().zeroYaw();
 		if (autonomousCommand != null)
 			//This is how one would use a command in another file. However, I like command groups.
 			//Command groups allow for clarity about when/where commands are run.
@@ -120,7 +119,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 	}
 	
 	/**
@@ -134,7 +133,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-		ahrs.zeroYaw();
+		Drive.getInstance().getNavX().zeroYaw();
 		saveCubeThread = new SaveCubePNG();
 		saveCubeThread.start();
 		imageCaptured = false;
@@ -147,7 +146,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		Scheduler.getInstance().run();
 		
 	}
@@ -158,13 +157,4 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 	}
-	
-	/**
-	 * Gets the singular instance of the AHRS class
-	 * @return the NavX instance
-	 */
-	public static AHRS getAHRS() {
-		return ahrs;
-	}
-	
 }

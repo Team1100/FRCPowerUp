@@ -20,7 +20,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class ChangeHeading extends PIDCommand {
 
     private PIDController pidController = getPIDController();
-	private AHRS ahrs = Robot.getAHRS();
+	private AHRS ahrs = Drive.getInstance().getNavX();
 	private int countOnTarget;
 	
 	/**

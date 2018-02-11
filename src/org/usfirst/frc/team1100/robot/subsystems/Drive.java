@@ -3,6 +3,8 @@ package org.usfirst.frc.team1100.robot.subsystems;
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.drive.UserDrive;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,7 +26,8 @@ public class Drive extends Subsystem {
 	 */
 	private static DifferentialDrive drivetrain;
 	
-	private Talon leftOne, leftTwo, rightOne, rightTwo;
+	private Talon leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
+	private AHRS ahrs;
 	
 	/**
 	 * Sets up talons and drivetrain
@@ -32,8 +35,11 @@ public class Drive extends Subsystem {
 	private Drive() {
 		leftOne = new Talon(RobotMap.D_LEFT_ONE);
 		leftTwo = new Talon(RobotMap.D_LEFT_TWO);
+		leftThree = new Talon(RobotMap.D_LEFT_THREE);
 		rightOne = new Talon(RobotMap.D_RIGHT_ONE);
 		rightTwo = new Talon(RobotMap.D_RIGHT_TWO);
+		rightThree = new Talon(RobotMap.D_RIGHT_THREE);
+		ahrs = new AHRS(RobotMap.D_NAVX);
 		SpeedControllerGroup left = new SpeedControllerGroup(leftOne, leftTwo);
 		SpeedControllerGroup right = new SpeedControllerGroup(rightOne, rightTwo);
 		right.setInverted(true);
@@ -74,6 +80,14 @@ public class Drive extends Subsystem {
     
     public void arcadeDrive(double speed, double angle) {
     	drivetrain.arcadeDrive(speed, angle);
+    }
+    
+    /**
+	 * Gets the singular instance of the AHRS class
+	 * @return the NavX instance
+	 */
+    public AHRS getNavX() {
+    	return ahrs;
     }
 }
 

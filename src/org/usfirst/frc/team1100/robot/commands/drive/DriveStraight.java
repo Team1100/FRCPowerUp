@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.Encoder;
 public class DriveStraight extends PIDCommand {
 	private PIDController pidController = getPIDController();
     
-	private AHRS ahrs = Robot.getAHRS();
+	private AHRS ahrs = Drive.getInstance().getNavX();
 	
     Encoder encoder;
 	double speed;
@@ -67,7 +67,7 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return Robot.getAHRS().getYaw();
+		return Drive.getInstance().getNavX().getYaw();
 	}
 
 	@Override
