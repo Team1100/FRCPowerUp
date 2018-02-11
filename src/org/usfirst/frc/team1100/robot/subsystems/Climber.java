@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimberDefault;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
@@ -89,6 +90,7 @@ public class Climber extends Subsystem {
      * Unused
      */
     public void initDefaultCommand() {
+    	setDefaultCommand(new ClimberDefault());
     }
     
     /*
