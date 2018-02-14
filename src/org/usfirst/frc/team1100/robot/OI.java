@@ -47,9 +47,9 @@ public class OI {
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 		
 		//Climber level triggers
-		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
-		xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
-		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
+		//xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
+		//xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
+		//xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 	}
 	
 	/**

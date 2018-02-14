@@ -101,15 +101,15 @@ public class RobotMap {
 	public static final int D_RIGHT_ONE = PWM_0;
 	public static final int D_RIGHT_TWO = PWM_1;
 	public static final int D_RIGHT_THREE = PWM_2;
-	public static final int D_LEFT_ONE = PWM_0;
-	public static final int D_LEFT_TWO = PWM_1;
-	public static final int D_LEFT_THREE = PWM_2;
+	public static final int D_LEFT_ONE = PWM_3;
+	public static final int D_LEFT_TWO = PWM_4;
+	public static final int D_LEFT_THREE = PWM_5;
 	public static final Port D_NAVX = SPI.Port.kMXP;
 	//they are named "one" and "two" because it doesn't matter which is first
 	
 	//[C]limber
-	public static final int C_CLIMB_ONE = PWM_4;
-	public static final int C_CLIMB_TWO = PWM_5;
+	//public static final int C_CLIMB_ONE = PWM_4;
+	//public static final int C_CLIMB_TWO = PWM_5;
 	public static final int C_CLIMB_POT = P_0;
 	public static final int C_WRIST_POT = P_1;
 	public static final int C_BOTTOM_SWITCH = DIO_0;

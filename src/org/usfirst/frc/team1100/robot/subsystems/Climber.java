@@ -23,8 +23,8 @@ public class Climber extends Subsystem {
     final double CLIMB_RANGE = 1.2; //Volts
     
     private Climber() {
-    	climberOne = new Talon(RobotMap.C_CLIMB_ONE);
-    	climberTwo = new Talon(RobotMap.C_CLIMB_TWO);
+    	//climberOne = new Talon(RobotMap.C_CLIMB_ONE);
+    	//climberTwo = new Talon(RobotMap.C_CLIMB_TWO);
     	pot = new AnalogInput(RobotMap.C_CLIMB_POT); 
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);

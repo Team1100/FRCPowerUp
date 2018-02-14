@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.VictorSP;
 
 /**
  * This subsystem is the two sides of the robot
@@ -26,22 +26,23 @@ public class Drive extends Subsystem {
 	 */
 	private static DifferentialDrive drivetrain;
 	
-	private Talon leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
+	private VictorSP leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
 	private AHRS ahrs;
 	
 	/**
 	 * Sets up talons and drivetrain
 	 */
 	private Drive() {
-		leftOne = new Talon(RobotMap.D_LEFT_ONE);
-		leftTwo = new Talon(RobotMap.D_LEFT_TWO);
-		leftThree = new Talon(RobotMap.D_LEFT_THREE);
-		rightOne = new Talon(RobotMap.D_RIGHT_ONE);
-		rightTwo = new Talon(RobotMap.D_RIGHT_TWO);
-		rightThree = new Talon(RobotMap.D_RIGHT_THREE);
+		leftOne = new VictorSP(RobotMap.D_LEFT_ONE);
+		leftTwo = new VictorSP(RobotMap.D_LEFT_TWO);
+		leftThree = new VictorSP(RobotMap.D_LEFT_THREE);
+		rightOne = new VictorSP(RobotMap.D_RIGHT_ONE);
+		rightTwo = new VictorSP(RobotMap.D_RIGHT_TWO);
+		rightThree = new VictorSP(RobotMap.D_RIGHT_THREE);
 		ahrs = new AHRS(RobotMap.D_NAVX);
-		SpeedControllerGroup left = new SpeedControllerGroup(leftOne, leftTwo);
-		SpeedControllerGroup right = new SpeedControllerGroup(rightOne, rightTwo);
+		SpeedControllerGroup left = new SpeedControllerGroup(leftOne, leftTwo, leftThree);
+		SpeedControllerGroup right = new SpeedControllerGroup(rightOne, rightTwo, rightThree);
+		left.setInverted(true);
 		right.setInverted(true);
 		
 		//new updated driving class allows tank drive
