@@ -142,22 +142,22 @@ public class SaveCubePNG extends Thread{
 			String streamUrl = Stream.of(url)
 				.map(s -> s.substring(STREAM_PREFIX.length()))
 				.collect(Collectors.toSet()).toArray(new String[1])[0];
-			System.out.println("Trying to connect to: " + streamUrl);
+			//System.out.println("Trying to connect to: " + streamUrl);
 			try {
 			    URL url = new URL(streamUrl);
 			    URLConnection connection = url.openConnection();
 			    connection.setConnectTimeout(500);
 			    connection.setReadTimeout(5000);
 			    InputStream stream = connection.getInputStream();
-			    System.err.println("Connected to: " + streamUrl);
+			    //System.err.println("Connected to: " + streamUrl);
 			    //ends while loop
 			    return stream;
 	      	} catch (IOException e) {
-	      		System.err.println("Limelight not connected! SaveCubePNG.java:159");
+	      		//System.err.println("Limelight not connected! SaveCubePNG.java:156");
 	      		imageToDraw = null;
 	      		try {
 	      			Thread.sleep(500);
-	      			System.err.println("Trouble connecting to Limelight, retrying! SaveCubePNG.java:163");
+	      			//System.err.println("Trouble connecting to Limelight, retrying! SaveCubePNG.java:163");
 	      		} catch (InterruptedException ex) {
 	      			//ends while loop
 	      			Thread.currentThread().interrupt();

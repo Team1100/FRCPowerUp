@@ -2,8 +2,6 @@ package org.usfirst.frc.team1100.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.Robot;
@@ -23,13 +21,14 @@ public class ChangeHeading extends PIDCommand {
 	private AHRS ahrs = Drive.getInstance().getNavX();
 	private int countOnTarget;
 	
+	
 	/**
 	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
 	 * @param target the target heading for this command
 	 */
     public ChangeHeading(double target) {
-    	super(.07, .01, .1);
-        requires(Drive.getInstance()); 
+    	super(.07, .03, .1);
+        requires(Drive.getInstance());
         countOnTarget = 0;
         setSetpoint(target);
         setInputRange(-180.0, 180.0);
@@ -49,7 +48,7 @@ public class ChangeHeading extends PIDCommand {
      * PID controller.
      */
     protected void usePIDOutput(double output) {
-    	Drive.getInstance().tankDrive(-output, output); // TODO: Are the signs still correct?
+    	Drive.getInstance().tankDrive(-output,output); // TODO: Are the signs still correct?
     }
     
     /**
@@ -57,6 +56,9 @@ public class ChangeHeading extends PIDCommand {
      * @return Boolean representing whether the robot is facing the correct heading or not
      */
     protected boolean isFinished() {
+    	double angle = Robot.angles.getSelected();
+    	setSetpoint(angle);
+    	/*
     	if (pidController.onTarget()) {
     		if (countOnTarget == 10) {
     			return true;
@@ -66,6 +68,7 @@ public class ChangeHeading extends PIDCommand {
     	} else {
     		countOnTarget = 0;
     	}
+    	*/
     	return false;
     }
 }

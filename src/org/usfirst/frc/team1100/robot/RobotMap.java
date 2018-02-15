@@ -98,12 +98,12 @@ public class RobotMap {
 	public static final int U_XBOX = 2;
 	
 	//[D]rive
-	public static final int D_RIGHT_ONE = PWM_0;
-	public static final int D_RIGHT_TWO = PWM_1;
-	public static final int D_RIGHT_THREE = PWM_2;
-	public static final int D_LEFT_ONE = PWM_3;
-	public static final int D_LEFT_TWO = PWM_4;
-	public static final int D_LEFT_THREE = PWM_5;
+	public static final int D_PEACH = PWM_0;
+	public static final int D_LUIGI = PWM_1;
+	public static final int D_WALUIGI = PWM_2;
+	public static final int D_WARIO = PWM_3;
+	public static final int D_TOAD = PWM_4;
+	public static final int D_MARIO = PWM_5;
 	public static final Port D_NAVX = SPI.Port.kMXP;
 	//they are named "one" and "two" because it doesn't matter which is first
 	

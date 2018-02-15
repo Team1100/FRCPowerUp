@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	Integer initPosition = 0;
 	private SaveCubePNG saveCubeThread;
+	public static SendableChooser<Double> angles = new SendableChooser<>();
 	
 	/**
 	 * Whether an image is captured
@@ -70,10 +71,18 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putData("Auto mode", chooser);
 		
 		// Choose initial field position
+		/*
 		initPositionChooser.addObject("Left", 1);
 		initPositionChooser.addObject("Middle",0);
 		initPositionChooser.addObject("Right",-1);
-		//SmartDashboard.putData("Initial Position", initPositionChooser);
+		SmartDashboard.putData("Initial Position", initPositionChooser);
+		*/
+		angles.addObject("0", 0.0);
+        angles.addObject("90", 90.0);
+        angles.addObject("-90", -90.0);
+        angles.addObject("180", 180.0);
+        
+        SmartDashboard.putData("Angle", angles);
 	}
 
 	/**
@@ -106,6 +115,7 @@ public class Robot extends IterativeRobot {
 		String message = DriverStation.getInstance().getGameSpecificMessage();
 		autonomousCommand = new Square();
 		Drive.getInstance().getNavX().zeroYaw();
+		Limelight.getInstance().readNetworkTable();
 		if (autonomousCommand != null)
 			//This is how one would use a command in another file. However, I like command groups.
 			//Command groups allow for clarity about when/where commands are run.

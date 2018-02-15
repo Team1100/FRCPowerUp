@@ -13,13 +13,11 @@ public class CenterOnCube extends PIDCommand {
 	private PIDController pidController = getPIDController();
 	int countOnTarget;
     public CenterOnCube() {
-    	super(.005, .0025, .04); //TODO: Tune these values
+    	super(.06, 0, 0); //TODO: Tune these values
     	requires(Limelight.getInstance());
     	requires(Drive.getInstance()); 
         setInputRange(-27, 27);
-        pidController.setOutputRange(-1, 1);
-        pidController.setContinuous();
-        pidController.setPercentTolerance(0.1);
+        pidController.setPercentTolerance(.5);
         setSetpoint(0);
     }
 
@@ -69,7 +67,6 @@ public class CenterOnCube extends PIDCommand {
 		if (Limelight.getInstance().getArea() == -1) {
 			return 0;
 		}
-		System.err.println(Limelight.getInstance().getX());
 		return Limelight.getInstance().getX();
 	}
 

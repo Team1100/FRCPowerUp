@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.VictorSP;
  */
 public class Drive extends Subsystem {
 
-	
+	final double PERCENT_SPEED = 1.0;
 	/**
 	 * The singular instance of the Drive subsystem
 	 */
@@ -26,22 +26,22 @@ public class Drive extends Subsystem {
 	 */
 	private static DifferentialDrive drivetrain;
 	
-	private VictorSP leftOne, leftTwo, leftThree, rightOne, rightTwo, rightThree;
+	private VictorSP wario, toad, mario, peach, luigi, waluigi;
 	private AHRS ahrs;
 	
 	/**
 	 * Sets up talons and drivetrain
 	 */
 	private Drive() {
-		leftOne = new VictorSP(RobotMap.D_LEFT_ONE);
-		leftTwo = new VictorSP(RobotMap.D_LEFT_TWO);
-		leftThree = new VictorSP(RobotMap.D_LEFT_THREE);
-		rightOne = new VictorSP(RobotMap.D_RIGHT_ONE);
-		rightTwo = new VictorSP(RobotMap.D_RIGHT_TWO);
-		rightThree = new VictorSP(RobotMap.D_RIGHT_THREE);
+		//wario = new VictorSP(RobotMap.D_WARIO);
+		toad = new VictorSP(RobotMap.D_TOAD);
+		mario = new VictorSP(RobotMap.D_MARIO);
+		peach = new VictorSP(RobotMap.D_PEACH);
+		luigi = new VictorSP(RobotMap.D_LUIGI);
+		//waluigi = new VictorSP(RobotMap.D_WALUIGI);
 		ahrs = new AHRS(RobotMap.D_NAVX);
-		SpeedControllerGroup left = new SpeedControllerGroup(leftOne, leftTwo, leftThree);
-		SpeedControllerGroup right = new SpeedControllerGroup(rightOne, rightTwo, rightThree);
+		SpeedControllerGroup left = new SpeedControllerGroup(/*wario,*/ toad, mario);
+		SpeedControllerGroup right = new SpeedControllerGroup(peach, luigi/*, waluigi*/);
 		left.setInverted(true);
 		right.setInverted(true);
 		
@@ -76,7 +76,7 @@ public class Drive extends Subsystem {
      * @param rightSpeed right joystick value
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-    	drivetrain.tankDrive(leftSpeed, rightSpeed);
+    	drivetrain.tankDrive(leftSpeed*PERCENT_SPEED, rightSpeed*PERCENT_SPEED);
     }
     
     public void arcadeDrive(double speed, double angle) {
