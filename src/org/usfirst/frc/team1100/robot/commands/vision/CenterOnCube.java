@@ -13,10 +13,11 @@ public class CenterOnCube extends PIDCommand {
 	private PIDController pidController = getPIDController();
 	int countOnTarget;
     public CenterOnCube() {
-    	super(.06, 0, 0); //TODO: Tune these values
+    	super(.06, .01, 0); //TODO: Tune these values
     	requires(Limelight.getInstance());
     	requires(Drive.getInstance()); 
         setInputRange(-27, 27);
+        pidController.setOutputRange(-.25, .25);
         pidController.setPercentTolerance(.5);
         setSetpoint(0);
     }
@@ -36,8 +37,8 @@ public class CenterOnCube extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     
-    protected boolean isFinished() {
-    	if (pidController.onTarget()) {
+    protected boolean isFinished() { //TODO: Limit switch
+    	/*if (pidController.onTarget()) {
     		if (countOnTarget == 5) {
     			return true;
     		}
@@ -45,7 +46,7 @@ public class CenterOnCube extends PIDCommand {
     		
     	} else {
     		countOnTarget = 0;
-    	}
+    	}*/
     	return false;
     }
 
@@ -72,6 +73,6 @@ public class CenterOnCube extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Drive.getInstance().tankDrive(output, -output);
+		Drive.getInstance().tankDrive(-.3+output, -.3-output);
 	}
 }
