@@ -57,7 +57,7 @@ public class Claw extends Subsystem {
 		leftWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_RIGHT);
 		pincher = new WPI_TalonSRX(RobotMap.W_PINCHER);
-    	pot = new AnalogInput(RobotMap.C_WRIST_POT); 
+    	pot = new AnalogInput(RobotMap.W_WRIST_POT); 
 	}
 	
 	/**
@@ -69,20 +69,37 @@ public class Claw extends Subsystem {
 		return claw;
 	}
 	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	public void open() {
+		// Open the claw
+	}
+	
+	public void close() {
+		// close the claw
+	}
+	
+	public void pullIn() {
+		// pull cube in
+	}
+	
+	public void shootOut() {
+		// shoot cube out
+	}
 
     /**
      * Move wrist with the given speed.
      * @param speed Speed of wrist motor
      * @return true if move successful
      */
-    public boolean wrist(double speed) {
+    public boolean rotateWrist(double speed) {
+    	// rotate the wrist
     	leftWristMotor.set(speed);
     	rightWristMotor.set(speed);
     	return true;
+    }
+
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        //setDefaultCommand(new MySpecialCommand());
     }
  
     /**
@@ -92,6 +109,5 @@ public class Claw extends Subsystem {
     public double getVoltage() {
     	return pot.getAverageVoltage();
     }
-    
 
 }

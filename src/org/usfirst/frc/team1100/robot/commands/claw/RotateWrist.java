@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * PIDCommand class. A potentiometer is used to sense the 
  * height. 
  */
-public class SetWristAngle extends PIDCommand {
+public class RotateWrist extends PIDCommand {
 	private PIDController pidController = getPIDController();
     
 	double angle;
@@ -21,7 +21,7 @@ public class SetWristAngle extends PIDCommand {
      * Sets up PID controller, setpoint, and PID values
      * @param height the desired height of the climber, as a percent (0.0 to 1.0). Please stay away from the endpoints
      */
-    public SetWristAngle(double angle) {
+    public RotateWrist(double angle) {
     	super(2.5,.4,1);
         requires(Claw.getInstance());
         claw = Claw.getInstance();
@@ -36,7 +36,7 @@ public class SetWristAngle extends PIDCommand {
      * Sets speed of climber to 0
      */
     protected void initialize() {
-        claw.wrist(0);
+        claw.rotateWrist(0);
     }
     
     /**
@@ -57,7 +57,7 @@ public class SetWristAngle extends PIDCommand {
      * Sets speed of climber to 0
      */
     protected void interrupted() {
-        claw.wrist(0);
+        claw.rotateWrist(0);
     }
     
     
@@ -76,6 +76,6 @@ public class SetWristAngle extends PIDCommand {
 	 */
 	@Override
 	protected void usePIDOutput(double output) {
-		claw.wrist(-output);
+		claw.rotateWrist(-output);
 	}
 }
