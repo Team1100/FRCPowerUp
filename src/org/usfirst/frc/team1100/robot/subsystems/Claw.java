@@ -22,6 +22,7 @@ public class Claw extends Subsystem {
 	 * The singular instance of the Claw subsystem
 	 */
 	private static Claw claw;
+	private double pullSpeed, shootSpeed;
 	
 	/*
 	 * The two PWM motors driving the claw to
@@ -59,6 +60,8 @@ public class Claw extends Subsystem {
 		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
 		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
 		pot = new AnalogInput(RobotMap.W_WRIST_POT);
+		pullSpeed = 0.2;
+		shootSpeed = 1;
 	}
 
 	/**
@@ -70,26 +73,63 @@ public class Claw extends Subsystem {
 		return claw;
 	}
 
+	// PINCHER FUNCTIONS
+	
+	/**
+	 * This function triggers the PCM module to open the claw.
+	 */
 	public void open() {
 		// close the claw
 		pincher.set(DoubleSolenoid.Value.kForward);
 	}
 
+	/**
+	 * This function triggers the PCM module to close the claw.
+	 */
 	public void close() {
 		// close the claw
 		pincher.set(DoubleSolenoid.Value.kReverse);
 	}
 
-	public void pullIn(double speed) {
-		// pull cube in
-		leftPullMotor.set(-speed);
-		rightPullMotor.set(-speed);
+	/**
+	 * This function sets the speed at which the cube is pulled in
+	 * and shot out.
+	 * @param speed the speed at which to pull/shoot the cube
+	 */
+	public void setPullSpeed(double speed) {
+		pullSpeed = speed;
 	}
 
-	public void shootOut(double speed) {
+	public void setShootSpeed(double speed) {
+		shootSpeed = speed;
+	}
+
+	/**
+	 * This function sets claw motors to pull a cube into
+	 * the claw.
+	 */
+	public void pullIn() {
+		// pull cube in
+		leftPullMotor.set(-pullSpeed);
+		rightPullMotor.set(-pullSpeed);
+	}
+
+	/**
+	 * This function sets the claw motors to shoot a cube
+	 * out of the claw.
+	 */
+	public void shootOut() {
 		// shoot cube out
-		leftPullMotor.set(speed);
-		rightPullMotor.set(speed);
+		leftPullMotor.set(shootSpeed);
+		rightPullMotor.set(shootSpeed);
+	}
+	
+	/**
+	 * This function stops the claw motors from spinning.
+	 */
+	public void pullStop() {
+		leftPullMotor.set(0);
+		rightPullMotor.set(0);
 	}
 
     /**
