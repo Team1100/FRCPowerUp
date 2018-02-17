@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -23,21 +22,22 @@ public class Claw extends Subsystem {
 	 * The singular instance of the Claw subsystem
 	 */
 	private static Claw claw;
+	private double pullSpeed, shootSpeed;
 	
 	/*
 	 * The two PWM motors driving the claw to
 	 * change the angle of how the cube is held.
 	 * The motors act like a wrist for the claw.
 	 */
-	Talon leftWristMotor;
-	Talon rightWristMotor;
+	WPI_TalonSRX leftWristMotor;
+	WPI_TalonSRX rightWristMotor;
 	
 	/*
 	 * The two PWM motors driving the claw to
 	 * pull the cube in or shoot it out.
 	 */
-	Talon leftPullMotor;
-	Talon rightPullMotor;
+	WPI_TalonSRX leftPullMotor;
+	WPI_TalonSRX rightPullMotor;
 
 	/*
 	 * The two PWM motors driving the claw
@@ -54,15 +54,16 @@ public class Claw extends Subsystem {
 	 * Sets up talons and drivetrain
 	 */
 	private Claw() {
-		leftPullMotor = new Talon(RobotMap.W_PULL_MOTOR_LEFT);
-		rightPullMotor = new Talon(RobotMap.W_PULL_MOTOR_RIGHT);
-		leftWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_LEFT);
-		rightWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_RIGHT);
-		//pincher = new WPI_TalonSRX(RobotMap.W_PINCHER);
+		leftPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_LEFT);
+		rightPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_RIGHT);
+		leftWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_LEFT);
+		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
 		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
-    	pot = new AnalogInput(RobotMap.W_WRIST_POT); 
+		pot = new AnalogInput(RobotMap.W_WRIST_POT);
+		pullSpeed = 0.2;
+		shootSpeed = 1;
 	}
-	
+
 	/**
 	 * Gets the singular instance of the Claw subsystem
 	 * @return the singular instance of the Claw subsystem
@@ -71,23 +72,64 @@ public class Claw extends Subsystem {
 		if (claw == null) claw = new Claw();
 		return claw;
 	}
+
+	// PINCHER FUNCTIONS
 	
+	/**
+	 * This function triggers the PCM module to open the claw.
+	 */
 	public void open() {
 		// close the claw
 		pincher.set(DoubleSolenoid.Value.kForward);
 	}
-	
+
+	/**
+	 * This function triggers the PCM module to close the claw.
+	 */
 	public void close() {
 		// close the claw
 		pincher.set(DoubleSolenoid.Value.kReverse);
 	}
-	
+
+	/**
+	 * This function sets the speed at which the cube is pulled in
+	 * and shot out.
+	 * @param speed the speed at which to pull/shoot the cube
+	 */
+	public void setPullSpeed(double speed) {
+		pullSpeed = speed;
+	}
+
+	public void setShootSpeed(double speed) {
+		shootSpeed = speed;
+	}
+
+	/**
+	 * This function sets claw motors to pull a cube into
+	 * the claw.
+	 */
 	public void pullIn() {
 		// pull cube in
+		leftPullMotor.set(-pullSpeed);
+		rightPullMotor.set(-pullSpeed);
 	}
-	
+
+	/**
+	 * This function sets the claw motors to shoot a cube
+	 * out of the claw.
+	 */
 	public void shootOut() {
 		// shoot cube out
+		leftPullMotor.set(shootSpeed);
+		rightPullMotor.set(shootSpeed);
+	}
+	
+	/**
+	 * This function stops the claw motors from spinning.
+	 */
+	public void pullStop() {
+		leftPullMotor.set(0);
+		rightPullMotor.set(0);
 	}
 
     /**
