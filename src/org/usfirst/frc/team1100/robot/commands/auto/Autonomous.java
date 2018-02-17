@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class StateMachineAuto extends CommandGroup {
+public class Autonomous extends CommandGroup {
 
 	final int LEFT_SIDE = 1;
 	final int CENTERED = 0;
@@ -32,7 +32,7 @@ public class StateMachineAuto extends CommandGroup {
 	private int currentSide;
     private boolean hasCube = true;
 	
-    public StateMachineAuto(int initPosition, int switchPosition, int scalePosition) {
+    public Autonomous(int initPosition, int switchPosition, int scalePosition) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

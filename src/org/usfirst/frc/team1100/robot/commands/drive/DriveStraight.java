@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.drive;
 
 import org.usfirst.frc.team1100.robot.Robot;
+import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -41,7 +42,7 @@ public class DriveStraight extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	encoder = new Encoder(0, 1);
+    	encoder = new Encoder(RobotMap.D_ENCODER_MARIOTOAD_A, RobotMap.D_ENCODER_MARIOTOAD_B);
         encoder.setDistancePerPulse(DISTANCE_PER_PULSE);
     	encoder.reset();
         Drive.getInstance().arcadeDrive(-speed, 0);
