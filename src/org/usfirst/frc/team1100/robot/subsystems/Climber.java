@@ -4,7 +4,7 @@ import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimberDefault;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 public class Climber extends Subsystem {
 
     private static Climber climber;
-    Talon climberOne, climberTwo;
+    VictorSP climberOne;
+	VictorSP climberTwo;
     AnalogInput pot; // potentiometer
     DigitalInput bottomLimit, topLimit; // Limit switches
     double bottom = 0;
@@ -23,8 +24,8 @@ public class Climber extends Subsystem {
     final double CLIMB_RANGE = 1.2; //Volts
     
     private Climber() {
-    	//climberOne = new Talon(RobotMap.C_CLIMB_ONE);
-    	//climberTwo = new Talon(RobotMap.C_CLIMB_TWO);
+    	climberOne = new VictorSP(RobotMap.C_CLIMB_ONE);
+    	climberTwo = new VictorSP(RobotMap.C_CLIMB_TWO);
     	pot = new AnalogInput(RobotMap.C_CLIMB_POT); 
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);

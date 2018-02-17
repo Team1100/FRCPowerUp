@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.VictorSP;
  */
 public class Drive extends Subsystem {
 
-	final double PERCENT_SPEED = 1.0;
+	final double PERCENT_SPEED = .8;
 	/**
 	 * The singular instance of the Drive subsystem
 	 */
@@ -33,15 +33,13 @@ public class Drive extends Subsystem {
 	 * Sets up talons and drivetrain
 	 */
 	private Drive() {
-		//wario = new VictorSP(RobotMap.D_WARIO);
 		toad = new VictorSP(RobotMap.D_TOAD);
 		mario = new VictorSP(RobotMap.D_MARIO);
 		peach = new VictorSP(RobotMap.D_PEACH);
 		luigi = new VictorSP(RobotMap.D_LUIGI);
-		//waluigi = new VictorSP(RobotMap.D_WALUIGI);
 		ahrs = new AHRS(RobotMap.D_NAVX);
-		SpeedControllerGroup left = new SpeedControllerGroup(/*wario,*/ toad, mario);
-		SpeedControllerGroup right = new SpeedControllerGroup(peach, luigi/*, waluigi*/);
+		SpeedControllerGroup left = new SpeedControllerGroup(toad, mario);
+		SpeedControllerGroup right = new SpeedControllerGroup(peach, luigi);
 		left.setInverted(true);
 		right.setInverted(true);
 		

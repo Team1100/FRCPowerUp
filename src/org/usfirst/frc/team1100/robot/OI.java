@@ -46,13 +46,12 @@ public class OI {
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 		
-		xbox.getButtonA().whenPressed(new CenterOnCube());
-		
+		xbox.getButtonA().whenPressed(new ChangeHeading(0));
 		
 		//Climber level triggers
-		//xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
-		//xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
-		//xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
+		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
+		xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
+		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 	}
 	
 	/**

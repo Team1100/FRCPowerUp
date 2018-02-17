@@ -66,7 +66,7 @@ public class Limelight extends Subsystem {
 		
 		//Assign NetworkTableEntries to doubles
 		x = tx.getDouble(-1);
-		x = x==0 ? -1 : x; 
+		x = x==0 ? -1 : x;
 		y = ty.getDouble(-1);
 		y = y==0 ? -1 : y;
 		area = ta.getDouble(-1);
