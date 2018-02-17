@@ -1,52 +1,51 @@
-package org.usfirst.frc.team1100.robot.commands.claw;
+package org.usfirst.frc.team1100.robot.commands.intake;
 
-import org.usfirst.frc.team1100.robot.subsystems.Claw;
+import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class PullCubeIn extends Command {
+public class ShootCubeOut extends Command {
 
-    Claw claw;
+    Intake intake;
     Timer t;
-    double time;
     
-    public PullCubeIn() {
+    public ShootCubeOut() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Claw.getInstance());
-        claw = Claw.getInstance();
-        time = 10;
+    	requires(Intake.getInstance());
+        intake = Intake.getInstance();
+        t = new Timer();
+        t.start();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	claw.setPullSpeed(1);
-    	t = new Timer();
-    	t.start();
-    	claw.pullIn();
+    	intake.setShootSpeed(1);
+    	intake.shootOut();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	// nothing to do but wait for time to expire
+    	intake.shootOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return t.get() >= time;
+    	return t.get()>100;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	claw.pullStop();
+    	intake.pullStop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	intake.pullStop();
     }
 }

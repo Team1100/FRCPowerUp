@@ -23,6 +23,9 @@ public class Climber extends Subsystem {
     double top = 2.0;
     final double CLIMB_RANGE = 1.2; //Volts
     
+    
+    //TODO: Cant go down when hit speed controller
+    
     private Climber() {
     	climberOne = new VictorSP(RobotMap.C_CLIMB_ONE);
     	climberTwo = new VictorSP(RobotMap.C_CLIMB_TWO);

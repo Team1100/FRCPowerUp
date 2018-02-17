@@ -6,6 +6,8 @@ import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
+import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.input.*;
 
@@ -55,9 +57,13 @@ public class OI {
 		xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
 		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 		
-		//Claw 
+		//Claw
 		xbox.getButtonRightBumper().whenPressed(new OpenClaw());
 		xbox.getButtonLeftBumper().whenPressed(new CloseClaw());
+		
+		//Intake
+		xbox.getButtonBack().whileHeld(new PullCubeIn());
+		xbox.getButtonStart().whileHeld(new ShootCubeOut());
 	}
 	
 	/**

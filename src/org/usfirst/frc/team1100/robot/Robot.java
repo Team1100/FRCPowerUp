@@ -5,7 +5,9 @@ import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Climber;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
+import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -60,6 +62,8 @@ public class Robot extends IterativeRobot {
 		Limelight.getInstance();
 		Climber.getInstance();
 		Claw.getInstance();
+		Intake.getInstance();
+		Wrist.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
 		saveCubeThread = new SaveCubePNG();

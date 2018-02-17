@@ -1,6 +1,6 @@
-package org.usfirst.frc.team1100.robot.commands.claw;
+package org.usfirst.frc.team1100.robot.commands.wrist;
 
-import org.usfirst.frc.team1100.robot.subsystems.Claw;
+import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
@@ -15,7 +15,7 @@ public class RotateWrist extends PIDCommand {
 	private PIDController pidController = getPIDController();
     
 	double angle;
-    Claw claw;
+    Wrist wrist;
     
     /**
      * Sets up PID controller, setpoint, and PID values
@@ -23,8 +23,8 @@ public class RotateWrist extends PIDCommand {
      */
     public RotateWrist(double angle) {
     	super(2.5,.4,1);
-        requires(Claw.getInstance());
-        claw = Claw.getInstance();
+        requires(Wrist.getInstance());
+        wrist = Wrist.getInstance();
         setInputRange(-45, 45); 
         this.angle = angle;
         setSetpoint(0);
@@ -36,7 +36,7 @@ public class RotateWrist extends PIDCommand {
      * Sets speed of climber to 0
      */
     protected void initialize() {
-        claw.rotateWrist(0);
+        wrist.rotateWrist(0);
     }
     
     /**
@@ -57,7 +57,7 @@ public class RotateWrist extends PIDCommand {
      * Sets speed of climber to 0
      */
     protected void interrupted() {
-        claw.rotateWrist(0);
+        wrist.rotateWrist(0);
     }
     
     
@@ -68,7 +68,7 @@ public class RotateWrist extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 //        SmartDashboard.putNumber("Wrist angle", climber.getVoltage());
-		return claw.getVoltage();
+		return wrist.getVoltage();
 	}
 	
 	/**
@@ -76,6 +76,6 @@ public class RotateWrist extends PIDCommand {
 	 */
 	@Override
 	protected void usePIDOutput(double output) {
-		claw.rotateWrist(-output);
+		wrist.rotateWrist(-output);
 	}
 }

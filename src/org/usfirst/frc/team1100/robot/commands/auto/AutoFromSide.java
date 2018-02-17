@@ -2,10 +2,10 @@ package org.usfirst.frc.team1100.robot.commands.auto;
 
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
+import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
+import org.usfirst.frc.team1100.robot.commands.wrist.RotateWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
-import org.usfirst.frc.team1100.robot.commands.claw.ShootCubeOut;
-import org.usfirst.frc.team1100.robot.commands.claw.RotateWrist;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
