@@ -55,8 +55,7 @@ public class Climber extends Subsystem {
     	}
     	climberOne.set(speed);
     	climberTwo.set(speed);
-    	SmartDashboard.putNumber("Top", top);
-    	SmartDashboard.putNumber("Bottom", bottom);
+    	SmartDashboard.putNumber("Diff", top-bottom);
     	return out;
     }
     
