@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 		OI.getInstance();
 		Drive.getInstance();
 		Limelight.getInstance();
-		//Climber.getInstance();
+		Climber.getInstance();
 		Claw.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
