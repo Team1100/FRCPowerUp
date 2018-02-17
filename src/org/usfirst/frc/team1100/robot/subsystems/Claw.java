@@ -80,12 +80,16 @@ public class Claw extends Subsystem {
 		pincher.set(DoubleSolenoid.Value.kReverse);
 	}
 
-	public void pullIn() {
+	public void pullIn(double speed) {
 		// pull cube in
+		leftPullMotor.set(-speed);
+		rightPullMotor.set(-speed);
 	}
 
-	public void shootOut() {
+	public void shootOut(double speed) {
 		// shoot cube out
+		leftPullMotor.set(speed);
+		rightPullMotor.set(speed);
 	}
 
     /**
