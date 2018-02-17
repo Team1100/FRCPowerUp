@@ -1,11 +1,15 @@
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.input.AttackThree;
-import org.usfirst.frc.team1100.robot.input.XboxController;
-
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.SPI;
+import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
+import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
+import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
+import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
+import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
+import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
+import org.usfirst.frc.team1100.robot.input.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -18,20 +22,16 @@ public class OI {
 	 */
 	private static OI oi;
 	/**
-	 * The singular instance of the XboxController class (although there may be
-	 * more).
+	 * The singular instance of the XboxController class (although there may
+	 * be more).
 	 */
 	private XboxController xbox;
-	/**
-	 * The singular instance of the AHRS class. There's only one NavX on the robot.
-	 */
-	private AHRS ahrs;
+	
 	private AttackThree rightStick;
 	private AttackThree leftStick;
-
+	
 	/**
 	 * Gets the only instance of the OI class, used to access all input device data.
-	 * 
 	 * @return the singular instance of the OI class
 	 */
 	public static OI getInstance() {
@@ -40,57 +40,46 @@ public class OI {
 		}
 		return oi;
 	}
-
-	//// TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
-
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by its isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by its isFinished method.
-	// button.whenReleased(new ExampleCommand());
+	
 	/**
 	 * Initializes all input devices. It also establishes button triggers.
 	 */
 	private OI() {
-		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
-		ahrs = new AHRS(SPI.Port.kMXP);
+		xbox = new XboxController(RobotMap.U_XBOX, 0.15);
+		
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
-
+		
+		//xbox.getButtonA().whenPressed(new ChangeHeading(0));
+		
+		//Climber level triggers
+		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
+		xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
+		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
+		
+		//Claw
+		xbox.getButtonRightBumper().whenPressed(new OpenClaw());
+		xbox.getButtonLeftBumper().whenPressed(new CloseClaw());
+		
+		//Intake
+		xbox.getButtonBack().whileHeld(new PullCubeIn());
+		xbox.getButtonStart().whileHeld(new ShootCubeOut());
 	}
-
+	
 	/**
-	 * Gets the only XboxController instance, used to access all XboxController
-	 * data.
-	 * 
+	 * Gets the only XboxController instance, used to access all XboxController data.
 	 * @return the singular instance of the Xbox Controller
 	 */
 	public XboxController getXbox() {
 		return xbox;
 	}
-
-	/**
-	 * Gets the singular instance of the AHRS class
-	 * 
-	 * @return the NavX instance
-	 */
-	public AHRS getAHRS() {
-		return ahrs;
-	}
+	
 
 	public AttackThree getLeftStick() {
 		return leftStick;
 	}
-
+	
 	public AttackThree getRightStick() {
-		return rightStick;
+		return rightStick; 
 	}
 }
