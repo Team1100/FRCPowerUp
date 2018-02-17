@@ -3,6 +3,9 @@ package org.usfirst.frc.team1100.robot.commands.auto;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
+import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
+import org.usfirst.frc.team1100.robot.commands.claw.ShootCubeOut;
+import org.usfirst.frc.team1100.robot.commands.claw.RotateWrist;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -14,6 +17,17 @@ public class StateMachineAuto extends CommandGroup {
 	final int LEFT_SIDE = 1;
 	final int CENTERED = 0;
 	final int RIGHT_SIDE = -1;
+	
+	/// TODO We need to figure out the heights
+	final double kLoadHeight = 0.0;
+	final double kSwitchHeight = 0.25;
+	final double kScaleHeight = 1.0;
+	
+	/// TODO We need to figure out the wrist angles
+	final double kLoadWristAngle = -20;
+	final double kSwitchWristAngle = 0;
+	final double kForwardScaleWristAngle = 45;
+	final double kReverseScaleWristAngle = 120;
 	
 	private int currentSide;
     private boolean hasCube = true;
@@ -38,52 +52,96 @@ public class StateMachineAuto extends CommandGroup {
     	
         if (initPosition == CENTERED) {
        		// Do stuff if we are in the center position
-            addSequential(new DriveStraight(1, 0.5, 0)); // drive forward 1 foot to clear the wall
-        	currentSide = switchPosition; // If we are in the center, we just chase the switch
+        	// Drive forward 1 foot to clear the wall
+            // If we are in the center, we just chase the switch
+        	currentSide = switchPosition;
+            addSequential(new DriveStraight(1, 0.5, 0));
+        	// While driving, set the height of the climber
+            addParallel(new PIDClimber(kSwitchHeight));
+            // While driving, set the wrist angle for the switch
+            addParallel(new RotateWrist(kSwitchWristAngle));
             if (currentSide == LEFT_SIDE) // The center robot cannot be centered on the field
             {
-                addSequential(new ChangeHeading(-25)); // turn to switch
-                addSequential(new DriveStraight(15, 1, currentSide * -20)); // drive near switch
+            	// Turn toward switch
+                addSequential(new ChangeHeading(-25));
+                // Drive close to switch
+                addSequential(new DriveStraight(15, 1, currentSide * -20));
             } else {
-                addSequential(new ChangeHeading(20)); // turn to switch
-                addSequential(new DriveStraight(13, 1, currentSide * -20)); // drive near switch
+            	// Turn toward switch
+                addSequential(new ChangeHeading(20));
+                // Drive close to switch
+                addSequential(new DriveStraight(13, 1, currentSide * -20));
             }
-            //addSequential(new PrepareCubeForSwitch());
-        	addSequential(new DriveStraight(0.25, 0.2, 0)); // turn into switch
-        	addSequential(new DriveStop()); // STOP!!!
-        	//addSequential(new DropCubeInSwitch()); // toss the cube
+            // Drive up to the switch
+        	addSequential(new DriveStraight(0.25, 0.2, 0));
+        	// STOP!!!
+        	addSequential(new DriveStop());
+        	// Shoot the cube
+        	addSequential(new ShootCubeOut());
+        	// Whilie driving, bring the claw down to load height
+            addParallel(new PIDClimber(kLoadHeight));
             // Next, drive around to load a cube and target the scale
-            addSequential(new DriveStraight(1, -0.25, 0)); // back up from switch
-            addSequential(new ChangeHeading(currentSide * -90)); // prepare to drive around switch
-            addSequential(new DriveStraight(6, 1, currentSide * -90)); // drive past switch
-            addSequential(new DriveStraight(6, 1, 0)); // fast turn toward scale
+            // Back up from switch
+            addSequential(new DriveStraight(1, -0.25, 0));
+            // Turn to drive around switch
+            addSequential(new ChangeHeading(currentSide * -90));
+            // Drive past switch
+            addSequential(new DriveStraight(6, 1, currentSide * -90)); 
+            // Driving turn toward scale
+            addSequential(new DriveStraight(6, 1, 0));
+            // Is this our scale?
             if (currentSide != scalePosition)
             {
-                addSequential(new ChangeHeading(currentSide * 90)); // turn toward other side
-                addSequential(new DriveStraight(16, 1, currentSide * 90)); // drive across field
-                currentSide = -currentSide; // flip sides
+            	// Turn toward other side of field
+                addSequential(new ChangeHeading(currentSide * 90));
+                // Drive across field
+                addSequential(new DriveStraight(16, 1, currentSide * 90));
+                // Flip sides
+                currentSide = -currentSide;
             }
         }
         else {
+       		// Do stuff if we are in the left or right position
+            // We're driving for the scale, never-mind the switch
             currentSide = initPosition;
-            // We're driving for the scale, nevermind the switch
-        	addSequential(new DriveStraight(20, 1, 0)); // drive to first way-point
+            // Start driving for the scale
+        	addSequential(new DriveStraight(20, 1, 0));
+        	// Is this our scale?
             if (scalePosition == (currentSide*RIGHT_SIDE))
             {
-                addSequential(new ChangeHeading(currentSide * 90)); // turn to other side
-                addSequential(new DriveStraight(16, 1, currentSide * 90)); // drive to other side
-                addSequential(new ChangeHeading(0)); // turn to farther scale
-                currentSide = -currentSide; // flip sides
+            	// Turn toward other side of field
+                addSequential(new ChangeHeading(currentSide * 90));
+                // Drive across field
+                addSequential(new DriveStraight(16, 1, currentSide * 90));
+                // Turn to the farther scale
+                addSequential(new ChangeHeading(0));
+                // Flip sides
+                currentSide = -currentSide;
             }
-            addSequential(new DriveStraight(7, 1, 0)); // drive to scale
-            addSequential(new ChangeHeading(currentSide * 90)); // turn to scale
-            addSequential(new DriveStraight(2, 0.5, currentSide * 90)); // drive up to scale
-            addSequential(new DriveStop()); // STOP!!
-        	//addSequential(new DropCubeInScale()); // toss the cube
-            addSequential(new ChangeHeading(180)); // turn back toward platform zone
-            addSequential(new DriveStraight(7, 1, 180)); // drive back toward platform zone
+            // Drive to scale
+            addSequential(new DriveStraight(7, 1, 0));
+            // Turn to scale
+            addSequential(new ChangeHeading(currentSide * 90));
+            // While driving set claw height for scale
+            addParallel(new PIDClimber(kScaleHeight));
+            // While driving set wrist angle
+            addParallel(new RotateWrist(kForwardScaleWristAngle));
+            // Drive up to scale
+            addSequential(new DriveStraight(2, 0.5, currentSide * 90));
+            // STOP!!
+            addSequential(new DriveStop());
+            // Shoot the cube
+        	addSequential(new ShootCubeOut());
+        	// While driving, set the claw to load height
+            addParallel(new PIDClimber(kLoadHeight));
+            // Turn back toward platform zone
+            addSequential(new ChangeHeading(180));
+            // Drive back toward platform zone
+            addSequential(new DriveStraight(7, 1, 180));
         }
-        addSequential(new ChangeHeading(currentSide * 120)); // turn in toward cubes
-        // addSequential(new VisualHuntForCube()); // go get a cube
+        // Turn in toward cubes
+        addSequential(new ChangeHeading(currentSide * 120));
+        // Go get a cube
+        // addSequential(new VisionHuntForCube());
     }
 }
