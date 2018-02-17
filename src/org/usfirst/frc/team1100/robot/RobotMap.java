@@ -23,15 +23,14 @@ public class RobotMap {
 	private final static int PWM_8 = 8;
 	private final static int PWM_9 = 9;
 	
-	//List of all CAN ports
-	private final static int CAN_0 = 0;
-	private final static int CAN_1 = 1;
-	private final static int CAN_2 = 2;
-	private final static int CAN_3 = 3;
-	private final static int CAN_4 = 4;
-	private final static int CAN_5 = 5;
-	private final static int CAN_6 = 6;
-	private final static int CAN_7 = 7;
+	// List of PCM CAN IDs
+	private final static int PCM_CAN_0 = 0;
+	
+	// List of Talon SRX CAN IDs
+	private final static int SRX_CAN_0 = 0;
+	private final static int SRX_CAN_1 = 1;
+	private final static int SRX_CAN_2 = 2;
+	private final static int SRX_CAN_3 = 3;
 	
 	//List of all analog ports
 	private final static int ANALOG_0 = 0;
@@ -63,15 +62,15 @@ public class RobotMap {
 	private static final int USB_2 = 2;
 	private static final int USB_3 = 3;
 	
-	
-	private static final int P_0 = 0;
-	private static final int P_1 = 1;
-	private static final int P_2 = 2;
-	private static final int P_3 = 3;
-	private static final int P_4 = 4;
-	private static final int P_5 = 5;
-	private static final int P_6 = 6;
-	private static final int P_7 = 7;
+	// Pneumatic Control Module (PCM) ports
+	private static final int PCM_0 = 0;
+	private static final int PCM_1 = 1;
+	private static final int PCM_2 = 2;
+	private static final int PCM_3 = 3;
+	private static final int PCM_4 = 4;
+	private static final int PCM_5 = 5;
+	private static final int PCM_6 = 6;
+	private static final int PCM_7 = 7;
 	
 	//List of all PDP ports
 	private static final int PDP_0 = 0;
@@ -102,24 +101,28 @@ public class RobotMap {
 	public static final int D_LUIGI = PWM_1;
 	public static final int D_TOAD = PWM_4;
 	public static final int D_MARIO = PWM_5;
+	public static final int D_ENCODER_MARIOTOAD_A = DIO_0;
+	public static final int D_ENCODER_MARIOTOAD_B = DIO_1;
+	public static final int D_ENCODER_PEACHLUIGI_A = DIO_2;
+	public static final int D_ENCODER_PEACHLUIGI_B = DIO_3;
 	public static final Port D_NAVX = SPI.Port.kMXP;
 	//they are named "one" and "two" because it doesn't matter which is first
 	
 	//[C]limber
 	public static final int C_CLIMB_ONE = PWM_2;
 	public static final int C_CLIMB_TWO = PWM_3;
-	public static final int C_CLIMB_POT = P_0;
+	public static final int C_CLIMB_POT = ANALOG_0;
 	public static final int C_BOTTOM_SWITCH = DIO_4;
 	public static final int C_TOP_SWITCH = DIO_5;
 	//they are named "one" and "two" because it doesn't matter what side they're on
 	
 	// Cla[W]
-	public static final int W_PULL_MOTOR_LEFT = PWM_6;
-	public static final int W_PULL_MOTOR_RIGHT = PWM_7;
-	public static final int W_WRIST_MOTOR_LEFT = PWM_8;
-	public static final int W_WRIST_MOTOR_RIGHT = PWM_9;
-	public static final int W_PINCHER_CAN = CAN_0; // Can port
-	public static final int W_PINCHER_0 = P_0; // port on the pneumatic control module
-	public static final int W_PINCHER_1 = P_1; // port on the pneumatic control module
+	public static final int W_PULL_MOTOR_LEFT = SRX_CAN_0;
+	public static final int W_PULL_MOTOR_RIGHT = SRX_CAN_1;
+	public static final int W_WRIST_MOTOR_LEFT = SRX_CAN_2;
+	public static final int W_WRIST_MOTOR_RIGHT = SRX_CAN_3;
+	public static final int W_PINCHER_CAN = PCM_CAN_0;
+	public static final int W_PINCHER_0 = PCM_0;
+	public static final int W_PINCHER_1 = PCM_1;
 	public static final int W_WRIST_POT = ANALOG_1;
 }

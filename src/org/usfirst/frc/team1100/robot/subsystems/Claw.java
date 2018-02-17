@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -29,15 +28,15 @@ public class Claw extends Subsystem {
 	 * change the angle of how the cube is held.
 	 * The motors act like a wrist for the claw.
 	 */
-	Talon leftWristMotor;
-	Talon rightWristMotor;
+	WPI_TalonSRX leftWristMotor;
+	WPI_TalonSRX rightWristMotor;
 	
 	/*
 	 * The two PWM motors driving the claw to
 	 * pull the cube in or shoot it out.
 	 */
-	Talon leftPullMotor;
-	Talon rightPullMotor;
+	WPI_TalonSRX leftPullMotor;
+	WPI_TalonSRX rightPullMotor;
 
 	/*
 	 * The two PWM motors driving the claw
@@ -54,15 +53,14 @@ public class Claw extends Subsystem {
 	 * Sets up talons and drivetrain
 	 */
 	private Claw() {
-		leftPullMotor = new Talon(RobotMap.W_PULL_MOTOR_LEFT);
-		rightPullMotor = new Talon(RobotMap.W_PULL_MOTOR_RIGHT);
-		leftWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_LEFT);
-		rightWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_RIGHT);
-		//pincher = new WPI_TalonSRX(RobotMap.W_PINCHER);
+		leftPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_LEFT);
+		rightPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_RIGHT);
+		leftWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_LEFT);
+		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
 		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
-    	pot = new AnalogInput(RobotMap.W_WRIST_POT); 
+		pot = new AnalogInput(RobotMap.W_WRIST_POT);
 	}
-	
+
 	/**
 	 * Gets the singular instance of the Claw subsystem
 	 * @return the singular instance of the Claw subsystem
@@ -71,21 +69,21 @@ public class Claw extends Subsystem {
 		if (claw == null) claw = new Claw();
 		return claw;
 	}
-	
+
 	public void open() {
 		// close the claw
 		pincher.set(DoubleSolenoid.Value.kForward);
 	}
-	
+
 	public void close() {
 		// close the claw
 		pincher.set(DoubleSolenoid.Value.kReverse);
 	}
-	
+
 	public void pullIn() {
 		// pull cube in
 	}
-	
+
 	public void shootOut() {
 		// shoot cube out
 	}
