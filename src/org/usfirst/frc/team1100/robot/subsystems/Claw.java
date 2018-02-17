@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
 
@@ -41,7 +42,8 @@ public class Claw extends Subsystem {
 	/*
 	 * The two PWM motors driving the claw
 	 */
-	WPI_TalonSRX pincher;
+	//WPI_TalonSRX pincher;
+	DoubleSolenoid pincher;
 
 	/*
 	 * Analog encoder
@@ -56,7 +58,8 @@ public class Claw extends Subsystem {
 		rightPullMotor = new Talon(RobotMap.W_PULL_MOTOR_RIGHT);
 		leftWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new Talon(RobotMap.W_WRIST_MOTOR_RIGHT);
-		pincher = new WPI_TalonSRX(RobotMap.W_PINCHER);
+		//pincher = new WPI_TalonSRX(RobotMap.W_PINCHER);
+		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
     	pot = new AnalogInput(RobotMap.W_WRIST_POT); 
 	}
 	
@@ -70,11 +73,13 @@ public class Claw extends Subsystem {
 	}
 	
 	public void open() {
-		// Open the claw
+		// close the claw
+		pincher.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void close() {
 		// close the claw
+		pincher.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void pullIn() {

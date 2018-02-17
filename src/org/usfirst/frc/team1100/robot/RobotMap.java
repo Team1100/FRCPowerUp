@@ -120,6 +120,8 @@ public class RobotMap {
 	public static final int W_PULL_MOTOR_RIGHT = PWM_7;
 	public static final int W_WRIST_MOTOR_LEFT = PWM_8;
 	public static final int W_WRIST_MOTOR_RIGHT = PWM_9;
-	public static final int W_PINCHER = CAN_0;
-	public static final int W_WRIST_POT = P_1;
+	public static final int W_PINCHER_CAN = CAN_0; // Can port
+	public static final int W_PINCHER_0 = P_0; // port on the pneumatic control module
+	public static final int W_PINCHER_1 = P_1; // port on the pneumatic control module
+	public static final int W_WRIST_POT = ANALOG_1;
 }
