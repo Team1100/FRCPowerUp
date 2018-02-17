@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
+import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
@@ -52,6 +54,10 @@ public class OI {
 		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
 		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
+		
+		//Claw 
+		xbox.getButtonRightBumper().whenPressed(new OpenClaw());
+		xbox.getButtonLeftBumper().whenPressed(new CloseClaw());
 	}
 	
 	/**

@@ -42,9 +42,12 @@ public class Claw extends Subsystem {
 	/*
 	 * The two PWM motors driving the claw
 	 */
-	//WPI_TalonSRX pincher;
-	DoubleSolenoid pincher;
-
+	DoubleSolenoid pincherLeft;
+	
+	/*
+	 * The two PWM motors driving the claw
+	 */
+	DoubleSolenoid pincherRight;
 	/*
 	 * Analog encoder
 	 */
@@ -58,7 +61,8 @@ public class Claw extends Subsystem {
 		rightPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_RIGHT);
 		leftWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
-		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
+		pincherLeft = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
+		pincherRight = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_2, RobotMap.W_PINCHER_3);
 		pot = new AnalogInput(RobotMap.W_WRIST_POT);
 		pullSpeed = 0.2;
 		shootSpeed = 1;
@@ -80,7 +84,8 @@ public class Claw extends Subsystem {
 	 */
 	public void open() {
 		// close the claw
-		pincher.set(DoubleSolenoid.Value.kForward);
+		pincherLeft.set(DoubleSolenoid.Value.kForward);
+		pincherRight.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
@@ -88,7 +93,8 @@ public class Claw extends Subsystem {
 	 */
 	public void close() {
 		// close the claw
-		pincher.set(DoubleSolenoid.Value.kReverse);
+		pincherLeft.set(DoubleSolenoid.Value.kReverse);
+		pincherRight.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/**
