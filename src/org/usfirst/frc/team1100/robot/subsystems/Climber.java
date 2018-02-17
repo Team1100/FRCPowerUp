@@ -26,6 +26,7 @@ public class Climber extends Subsystem {
     private Climber() {
     	climberOne = new VictorSP(RobotMap.C_CLIMB_ONE);
     	climberTwo = new VictorSP(RobotMap.C_CLIMB_TWO);
+    	climberTwo.setInverted(true);
     	pot = new AnalogInput(RobotMap.C_CLIMB_POT); 
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
