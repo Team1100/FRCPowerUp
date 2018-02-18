@@ -117,7 +117,7 @@ public class Climber extends Subsystem {
     }
     
     /**
-     * Unused
+     * Xbox Left Joystick Y
      */
     public void initDefaultCommand() {
     	setDefaultCommand(new ClimberDefault());

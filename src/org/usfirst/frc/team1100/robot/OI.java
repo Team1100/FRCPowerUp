@@ -52,9 +52,11 @@ public class OI {
 		
 		//xbox.getButtonA().whenPressed(new ChangeHeading(0));
 		
-		//Climber level triggers
+		//Climber
 		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
-		//xbox.getButtonX().whenPressed(new PIDClimber(.3)); //Switch
+		xbox.getButtonX().whenPressed(new PIDClimber(.75)); //Switch
+		xbox.getButtonStart().whenPressed(new PIDClimber(.5)); //Switch
+		xbox.getButtonBack().whenPressed(new PIDClimber(.25)); //Switch
 		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 		
 		//Claw
