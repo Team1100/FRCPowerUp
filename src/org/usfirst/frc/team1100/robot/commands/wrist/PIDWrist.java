@@ -26,7 +26,6 @@ public class PIDWrist extends PIDCommand {
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     }
 
@@ -46,13 +45,12 @@ public class PIDWrist extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return 0;
+		return wrist.getVoltage();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
+		wrist.rotateWrist(output);
 		
 	}
 }

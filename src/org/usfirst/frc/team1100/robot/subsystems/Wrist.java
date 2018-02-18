@@ -60,6 +60,7 @@ public class Wrist extends Subsystem {
 	public double getVoltage() {
 		return pot.getAverageVoltage();
 	}
+	
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
