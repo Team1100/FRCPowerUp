@@ -47,9 +47,8 @@ public class ClimbToBottom extends Command {
     protected void end() {
     }
     
-    /**
-     * Unused
-     */
+
     protected void interrupted() {
+    	climber.climb(0);
     }
 }

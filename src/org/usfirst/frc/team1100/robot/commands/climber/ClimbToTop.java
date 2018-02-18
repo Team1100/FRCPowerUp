@@ -51,5 +51,6 @@ public class ClimbToTop extends Command {
      * Unused
      */
     protected void interrupted() {
+    	climber.climb(0);
     }
 }
