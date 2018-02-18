@@ -114,6 +114,7 @@ public class RobotMap {
 	public static final int C_CLIMB_POT = ANALOG_0;
 	public static final int C_BOTTOM_SWITCH = DIO_4;
 	public static final int C_TOP_SWITCH = DIO_5;
+	public static final int C_NEAR_BOTTOM_SWITCH = DIO_6;
 	//they are named "one" and "two" because it doesn't matter what side they're on
 	
 	// Cla[W]

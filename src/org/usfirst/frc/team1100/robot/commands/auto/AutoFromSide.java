@@ -10,7 +10,7 @@ import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Auto sequence to run command steps when starting from the left or right position.
  */
 public class AutoFromSide extends CommandGroup {
 

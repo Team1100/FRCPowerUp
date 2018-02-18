@@ -18,7 +18,7 @@ public class Climber extends Subsystem {
     VictorSP climberOne;
 	VictorSP climberTwo;
     AnalogInput pot; // potentiometer
-    DigitalInput bottomLimit, topLimit; // Limit switches
+    DigitalInput bottomLimit, nearBottomLimit, topLimit; // Limit switches
     double bottom = 0;
     double top = 2.0;
     final double CLIMB_RANGE = 1.2; //Volts
@@ -32,6 +32,7 @@ public class Climber extends Subsystem {
     	climberTwo.setInverted(true);
     	pot = new AnalogInput(RobotMap.C_CLIMB_POT); 
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
+    	nearBottomLimit = new DigitalInput(RobotMap.C_NEAR_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
     }
     
@@ -51,7 +52,9 @@ public class Climber extends Subsystem {
      */
     public boolean climb(double speed) {
     	boolean out = true;
-    	if (Climber.getInstance().getBottomLimit() && speed > 0) {
+    	if (Climber.getInstance().getNearBottomLimit() && speed > 0) {
+    		speed = 0.5*speed;
+    	} else if (Climber.getInstance().getBottomLimit() && speed > 0) {
     		speed = 0;
     		out = false;
     	} else if (Climber.getInstance().getTopLimit() && speed < 0) {
@@ -79,6 +82,14 @@ public class Climber extends Subsystem {
     public boolean getBottomLimit() {
     	if (!bottomLimit.get()) setBottom();
     	return !bottomLimit.get();
+    }
+    
+    /**
+     * Gets state of "near" bottom limit switch
+     * @return True if the switch is pressed
+     */
+    public boolean getNearBottomLimit() {
+    	return !nearBottomLimit.get();
     }
     
     /**

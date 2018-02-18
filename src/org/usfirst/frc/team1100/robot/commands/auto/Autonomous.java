@@ -9,7 +9,7 @@ import org.usfirst.frc.team1100.robot.commands.auto.AutoFromSide;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Top level autonomous entry point
  */
 public class Autonomous extends CommandGroup {
 

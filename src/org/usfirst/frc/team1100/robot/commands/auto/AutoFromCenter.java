@@ -10,7 +10,7 @@ import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Auto sequence to run command steps when starting from the center position.
  */
 public class AutoFromCenter extends CommandGroup {
 
@@ -33,9 +33,9 @@ public class AutoFromCenter extends CommandGroup {
     public AutoFromCenter(int switchPosition, int scalePosition) {
     	
     	// Do stuff if we are in the center position
-    	// Drive forward 1 foot to clear the wall
     	// If we are in the center, we just chase the switch
     	currentSide = switchPosition;
+    	// Drive forward 1 foot to clear the wall
     	addSequential(new DriveStraight(1, 0.5, 0));
     	// While driving, set the height of the climber
     	addParallel(new PIDClimber(kSwitchHeight));
