@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
+import org.usfirst.frc.team1100.robot.commands.intake.DefaultIntake;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 	private static Intake intake;
-	private double pullSpeed, shootSpeed;
+	private double speed;
 	
 	/*
 	 * The two PWM motors driving the claw to
@@ -27,8 +28,7 @@ public class Intake extends Subsystem {
 		leftPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_LEFT);
 		rightPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_RIGHT);
 		rightPullMotor.setInverted(true);
-		pullSpeed = 0.2;
-		shootSpeed = 1;
+		speed = 0;
 	}
 	
 	public static Intake getInstance() {
@@ -41,45 +41,31 @@ public class Intake extends Subsystem {
 	 * and shot out.
 	 * @param speed the speed at which to pull/shoot the cube
 	 */
-	public void setPullSpeed(double speed) {
-		pullSpeed = speed;
-	}
-
-	public void setShootSpeed(double speed) {
-		shootSpeed = speed;
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	/**
 	 * This function sets claw motors to pull a cube into
 	 * the claw.
 	 */
-	public void pullIn() {
+	public void spinWheels() {
 		// pull cube in
-		leftPullMotor.set(-pullSpeed);
-		rightPullMotor.set(-pullSpeed);
-	}
-	
-	/**
-	 * This function sets the claw motors to shoot a cube
-	 * out of the claw.
-	 */
-	public void shootOut() {
-		// shoot cube out
-		leftPullMotor.set(shootSpeed);
-		rightPullMotor.set(shootSpeed);
+		leftPullMotor.set(speed);
+		rightPullMotor.set(speed);
 	}
 	
 	/**
 	 * This function stops the claw motors from spinning.
 	 */
-	public void pullStop() {
+	public void stop() {
 		leftPullMotor.set(0);
 		rightPullMotor.set(0);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new DefaultIntake());
 		
 	}
 }

@@ -24,28 +24,28 @@ public class ShootCubeOut extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.setShootSpeed(1);
-    	intake.shootOut();
+    	intake.setSpeed(1);
+    	intake.spinWheels();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	intake.shootOut();
+    	intake.spinWheels();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return t.get()>100;
+    	return t.get()>5;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	intake.pullStop();
+    	intake.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	intake.pullStop();
+    	intake.stop();
     }
 }

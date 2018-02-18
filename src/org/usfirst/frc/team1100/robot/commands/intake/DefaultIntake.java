@@ -1,43 +1,41 @@
 package org.usfirst.frc.team1100.robot.commands.intake;
 
+import org.usfirst.frc.team1100.robot.OI;
+import org.usfirst.frc.team1100.robot.input.XboxController;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class PullCubeIn extends Command {
+public class DefaultIntake extends Command {
 
     Intake intake;
-    Timer t;
-    double time;
+    double in, out;
     
-    public PullCubeIn() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public DefaultIntake() {
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
-        time = 10;
-        t = new Timer();
-        t.start();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.setSpeed(-.5);
-    	intake.spinWheels();
+    	intake.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	out = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kRightTrigger);
+    	in = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kLeftTrigger);
+    	intake.setSpeed(out-in);
     	intake.spinWheels();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return t.get()>5;
+    	return false;
     }
 
     // Called once after isFinished returns true
