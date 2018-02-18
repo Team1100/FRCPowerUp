@@ -130,7 +130,7 @@ public class Climber extends Subsystem {
      * Xbox Left Joystick Y
      */
     public void initDefaultCommand() {
-    	setDefaultCommand(new ClimberDefault());
+    	//setDefaultCommand(new ClimberDefault());
     }
     
     /*
@@ -172,9 +172,10 @@ public class Climber extends Subsystem {
      * @return True if it is too hot
      */
     public boolean climberOneHot() {
-    	double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_ONE);
-    	rmCurrent1 = rmCurrent1 + tcGain*((current*current) - rmCurrent1); // calculate the RM part of RMS current
-    	return rmCurrent1 > RM_CURRENT_LIMIT;
+    	//double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_ONE);
+    	//rmCurrent1 = rmCurrent1 + tcGain*((current*current) - rmCurrent1); // calculate the RM part of RMS current
+    	//return rmCurrent1 > RM_CURRENT_LIMIT;
+    	return false;
     }
     
     /**
@@ -182,9 +183,10 @@ public class Climber extends Subsystem {
      * @return True if it is too hot
      */
     public boolean climberTwoHot() {
-    	double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_TWO);
-    	rmCurrent2 = rmCurrent2 + tcGain*((current*current) - rmCurrent2); // calculate the RM part of RMS current
-    	return rmCurrent2 > RM_CURRENT_LIMIT;
+    	//double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_TWO);
+    	//rmCurrent2 = rmCurrent2 + tcGain*((current*current) - rmCurrent2); // calculate the RM part of RMS current
+    	//return rmCurrent2 > RM_CURRENT_LIMIT;
+    	return false;
     }
 }
 

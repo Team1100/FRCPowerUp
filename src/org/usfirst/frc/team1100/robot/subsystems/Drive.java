@@ -5,6 +5,7 @@ import org.usfirst.frc.team1100.robot.commands.drive.UserDrive;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,7 +26,8 @@ public class Drive extends Subsystem {
 	 * The drivetrain instance
 	 */
 	private static DifferentialDrive drivetrain;
-	
+	Encoder encoder;
+	final double DISTANCE_PER_PULSE = 1; // TODO - Calibrate this to the selected unit of measure
 	private VictorSP wario, toad, mario, peach, luigi, waluigi;
 	private AHRS ahrs;
 	
@@ -43,6 +45,8 @@ public class Drive extends Subsystem {
 		left.setInverted(true);
 		right.setInverted(true);
 		
+		encoder = new Encoder(RobotMap.D_ENCODER_MARIOTOAD_A, RobotMap.D_ENCODER_MARIOTOAD_B);
+        encoder.setDistancePerPulse(DISTANCE_PER_PULSE);
 		//new updated driving class allows tank drive
 		drivetrain = new DifferentialDrive(left, right);
 		
@@ -87,6 +91,10 @@ public class Drive extends Subsystem {
 	 */
     public AHRS getNavX() {
     	return ahrs;
+    }
+    
+    public Encoder getEncoder() {
+    	return encoder;
     }
 }
 

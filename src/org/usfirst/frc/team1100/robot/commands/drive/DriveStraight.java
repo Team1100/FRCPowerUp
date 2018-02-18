@@ -23,14 +23,15 @@ public class DriveStraight extends PIDCommand {
     
 	private AHRS ahrs = Drive.getInstance().getNavX();
 	
+    Drive drive;
     Encoder encoder;
-	double speed;
-    double distance;
-    final double DISTANCE_PER_PULSE = 1; // TODO - Calibrate this to the selected unit of measure
+	double speed, distance;
 
     public DriveStraight(double distance, double speed, double heading) {
     	super(.07,.05,.3);
         requires(Drive.getInstance());
+        drive = Drive.getInstance();
+        encoder = drive.getEncoder();
         this.speed = speed;
         this.distance = distance;
         setSetpoint(heading);
@@ -40,26 +41,19 @@ public class DriveStraight extends PIDCommand {
         pidController.setPercentTolerance(0.5);
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
-    	encoder = new Encoder(RobotMap.D_ENCODER_MARIOTOAD_A, RobotMap.D_ENCODER_MARIOTOAD_B);
-        encoder.setDistancePerPulse(DISTANCE_PER_PULSE);
     	encoder.reset();
         Drive.getInstance().arcadeDrive(-speed, 0);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         SmartDashboard.putNumber("Distance (steps)", encoder.getDistance());
         return encoder.getDistance() >= distance;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
         Drive.getInstance().arcadeDrive(0, 0);
     }
@@ -71,7 +65,6 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
 		Drive.getInstance().arcadeDrive(-speed, -output);
 	}
 }

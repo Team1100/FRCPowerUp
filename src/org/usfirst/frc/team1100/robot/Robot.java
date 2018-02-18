@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
 	Integer initPosition = 0;
 	private SaveCubePNG saveCubeThread;
 	public static SendableChooser<Double> angles = new SendableChooser<>();
-	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
+	//public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	/**
 	 * Whether an image is captured
@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
 		OI.getInstance();
 		Drive.getInstance();
 		Limelight.getInstance();
-		Climber.getInstance();
+		//Climber.getInstance();
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();

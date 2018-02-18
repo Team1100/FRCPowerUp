@@ -29,6 +29,8 @@ public class Square extends CommandGroup {
         // arm.
     	
     	addSequential(new DriveStraight(4, 0.5, 0));
+    	
+    	/*
     	//System.err.println(1);
     	addSequential(new ChangeHeading(90));
     	//System.err.println(2);
@@ -44,5 +46,7 @@ public class Square extends CommandGroup {
     	//System.err.println(7);
     	addSequential(new ChangeHeading(0));
     	//System.err.println(8);
+    	 * 
+    	 */
     }
 }

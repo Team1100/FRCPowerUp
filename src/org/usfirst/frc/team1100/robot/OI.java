@@ -53,12 +53,13 @@ public class OI {
 		//xbox.getButtonA().whenPressed(new ChangeHeading(0));
 		
 		//Climber
+		/*
 		xbox.getButtonBack().whenPressed(new ClimbToTop()); //Scale
 		xbox.getButtonY().whenPressed(new PIDClimber(.75)); //Switch
 		xbox.getButtonX().whenPressed(new PIDClimber(.5)); //Switch
 		xbox.getButtonA().whenPressed(new PIDClimber(.25)); //Switch
 		xbox.getButtonStart().whenPressed(new ClimbToBottom()); //Ground
-		
+		*/
 		//Claw
 		xbox.getButtonRightBumper().whenPressed(new OpenClaw());
 		xbox.getButtonLeftBumper().whenPressed(new CloseClaw());
@@ -66,6 +67,8 @@ public class OI {
 		//Intake
 		xbox.getButtonBack().whileHeld(new PullCubeIn());
 		xbox.getButtonStart().whileHeld(new ShootCubeOut());
+		
+		
 	}
 	
 	/**
