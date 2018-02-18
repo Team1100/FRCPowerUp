@@ -1,10 +1,12 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
+import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimberDefault;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -24,7 +26,9 @@ public class Climber extends Subsystem {
     final double CLIMB_RANGE = 1.2; //Volts
     boolean canGoUp = true;
     boolean canGoDown = true;
-    
+    private static double rmCurrent1, rmCurrent2;
+    private final double RM_CURRENT_LIMIT = 25.0 * 25.0;
+    private final double tcGain = 0.004;    
     
     //TODO: Cant go down when hit speed controller
     
@@ -73,6 +77,12 @@ public class Climber extends Subsystem {
     		speed = 0;
     		out = false;
     	} else if (!canGoUp && speed < 0) {
+    		speed = 0;
+    		out = false;
+    	}
+    	
+    	if (climberOneHot() || climberTwoHot())
+    	{
     		speed = 0;
     		out = false;
     	}
@@ -155,6 +165,26 @@ public class Climber extends Subsystem {
      */
     public double getTop() {
     	return top;
+    }
+    
+    /**
+     * Checks if motor ONE is too hot
+     * @return True if it is too hot
+     */
+    public boolean climberOneHot() {
+    	double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_ONE);
+    	rmCurrent1 = rmCurrent1 + tcGain*((current*current) - rmCurrent1); // calculate the RM part of RMS current
+    	return rmCurrent1 > RM_CURRENT_LIMIT;
+    }
+    
+    /**
+     * Checks if motor TWO is too hot
+     * @return True if it is too hot
+     */
+    public boolean climberTwoHot() {
+    	double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_TWO);
+    	rmCurrent2 = rmCurrent2 + tcGain*((current*current) - rmCurrent2); // calculate the RM part of RMS current
+    	return rmCurrent2 > RM_CURRENT_LIMIT;
     }
 }
 
