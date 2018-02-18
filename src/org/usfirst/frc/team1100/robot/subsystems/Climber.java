@@ -22,6 +22,8 @@ public class Climber extends Subsystem {
     double bottom = 0;
     double top = 2.0;
     final double CLIMB_RANGE = 1.2; //Volts
+    boolean canGoUp = true;
+    boolean canGoDown = true;
     
     
     //TODO: Cant go down when hit speed controller
@@ -52,18 +54,31 @@ public class Climber extends Subsystem {
      */
     public boolean climb(double speed) {
     	boolean out = true;
-    	if (Climber.getInstance().getNearBottomLimit() && speed > 0) {
+    	
+    	if (getBottomLimit()) {
+    		canGoDown = false;
+    	} else if (getTopLimit()) {
+    		canGoUp = false;
+    	}
+    	
+    	if (speed < 0) {
+    		canGoDown = true;
+    	} else if (speed > 0) {
+    		canGoUp = true;
+    	}
+    	
+    	if (getNearBottomLimit() && speed > 0) {
     		speed = 0.5*speed;
-    	} else if (Climber.getInstance().getBottomLimit() && speed > 0) {
+    	} else if (!canGoDown && speed > 0) {
     		speed = 0;
     		out = false;
-    	} else if (Climber.getInstance().getTopLimit() && speed < 0) {
+    	} else if (!canGoUp && speed < 0) {
     		speed = 0;
     		out = false;
     	}
+    	
     	climberOne.set(speed);
     	climberTwo.set(speed);
-    	SmartDashboard.putNumber("Diff", top-bottom);
     	return out;
     }
     
@@ -112,6 +127,7 @@ public class Climber extends Subsystem {
      * Sets bottom to current voltage
      */
     private void setBottom() {
+    	SmartDashboard.putNumber("Diff", top-bottom);
     	bottom = getVoltage();
     	top = getVoltage() - CLIMB_RANGE;
     }
@@ -120,6 +136,7 @@ public class Climber extends Subsystem {
      * Sets top to current voltage
      */
     private void setTop() {
+    	SmartDashboard.putNumber("Diff", top-bottom);
     	top = getVoltage();
     	bottom = getVoltage() - CLIMB_RANGE;
     }
