@@ -1,13 +1,10 @@
 package org.usfirst.frc.team1100.robot.commands.drive;
 
-import org.usfirst.frc.team1100.robot.Robot;
-import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
@@ -26,7 +23,13 @@ public class DriveStraight extends PIDCommand {
     Drive drive;
     Encoder encoder;
 	double speed, distance;
-
+	
+	/**
+	 * 
+	 * @param distance in feet
+	 * @param speed
+	 * @param heading
+	 */
     public DriveStraight(double distance, double speed, double heading) {
     	super(.07,.05,.3);
         requires(Drive.getInstance());

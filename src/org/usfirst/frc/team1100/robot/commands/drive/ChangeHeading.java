@@ -56,9 +56,6 @@ public class ChangeHeading extends PIDCommand {
      * @return Boolean representing whether the robot is facing the correct heading or not
      */
     protected boolean isFinished() {
-    	double angle = Robot.angles.getSelected();
-    	setSetpoint(angle);
-    	/*
     	if (pidController.onTarget()) {
     		if (countOnTarget == 10) {
     			return true;
@@ -68,7 +65,6 @@ public class ChangeHeading extends PIDCommand {
     	} else {
     		countOnTarget = 0;
     	}
-    	*/
     	return false;
     }
 }
