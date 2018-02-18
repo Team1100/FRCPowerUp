@@ -28,7 +28,7 @@ public class Climber extends Subsystem {
     boolean canGoDown = true;
     private static double rmCurrent1, rmCurrent2;
     private final double RM_CURRENT_LIMIT = 25.0 * 25.0;
-    private final double tcGain = 0.004;    
+    private final double tcGain = 0.01;    
     
     //TODO: Cant go down when hit speed controller
     
