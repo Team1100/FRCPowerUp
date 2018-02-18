@@ -17,6 +17,8 @@ public class Autonomous extends CommandGroup {
 	final int CENTERED = 0;
 	final int RIGHT_SIDE = -1;
 	
+	final double DEFAULT_SPEED = 0.75;
+
 	private int currentSide;
 	
     public Autonomous(int initPosition, int switchPosition, int scalePosition) {
@@ -39,11 +41,11 @@ public class Autonomous extends CommandGroup {
     	
         if (initPosition == CENTERED) {
        		// Do stuff if we are in the center position
-        	addSequential(new AutoFromCenter(switchPosition, scalePosition));
+        	addSequential(new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition));
         }
         else {
        		// Do stuff if we are in the left or right position
-        	addSequential(new AutoFromSide(initPosition, switchPosition, scalePosition));
+        	addSequential(new AutoFromSide(DEFAULT_SPEED, initPosition, switchPosition, scalePosition));
         }
         // Turn in toward cubes
         addSequential(new ChangeHeading(currentSide * 120));

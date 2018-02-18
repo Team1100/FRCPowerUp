@@ -16,7 +16,7 @@ public class AutoFromCenter extends CommandGroup {
 
 	final int LEFT_SIDE = 1;
 	final int RIGHT_SIDE = -1;
-	
+
 	/// TODO We need to figure out the heights
 	final double kLoadHeight = 0.0;
 	final double kSwitchHeight = 0.25;
@@ -30,7 +30,7 @@ public class AutoFromCenter extends CommandGroup {
 	
 	private int currentSide;
 	
-    public AutoFromCenter(int switchPosition, int scalePosition) {
+    public AutoFromCenter(double defaultSpeed, int switchPosition, int scalePosition) {
     	
     	// Do stuff if we are in the center position
     	// If we are in the center, we just chase the switch
@@ -46,12 +46,12 @@ public class AutoFromCenter extends CommandGroup {
     		// Turn toward switch
     		addSequential(new ChangeHeading(-25));
     		// Drive close to switch
-    		addSequential(new DriveStraight(15, 1, currentSide * -20));
+    		addSequential(new DriveStraight(15, defaultSpeed, currentSide * -20));
     	} else {
     		// Turn toward switch
     		addSequential(new ChangeHeading(20));
     		// Drive close to switch
-    		addSequential(new DriveStraight(13, 1, currentSide * -20));
+    		addSequential(new DriveStraight(13, defaultSpeed, currentSide * -20));
     	}
     	// Drive up to the switch
     	addSequential(new DriveStraight(0.25, 0.2, 0));
@@ -67,16 +67,16 @@ public class AutoFromCenter extends CommandGroup {
     	// Turn to drive around switch
     	addSequential(new ChangeHeading(currentSide * -90));
     	// Drive past switch
-    	addSequential(new DriveStraight(6, 1, currentSide * -90)); 
+    	addSequential(new DriveStraight(6, defaultSpeed, currentSide * -90)); 
     	// Driving turn toward scale
-    	addSequential(new DriveStraight(6, 1, 0));
+    	addSequential(new DriveStraight(6, defaultSpeed, 0));
     	// Is this our scale?
     	if (currentSide != scalePosition)
     	{
     		// Turn toward other side of field
     		addSequential(new ChangeHeading(currentSide * 90));
     		// Drive across field
-    		addSequential(new DriveStraight(16, 1, currentSide * 90));
+    		addSequential(new DriveStraight(16, defaultSpeed, currentSide * 90));
     		// Flip sides
     		currentSide = -currentSide;
     	}
