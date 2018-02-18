@@ -11,6 +11,7 @@ public class ClimbToTop extends Command {
 	
 	Climber climber;
 	boolean finished = false;
+	double speed;
 	
 	/**
 	 * Requires Climber
@@ -18,6 +19,7 @@ public class ClimbToTop extends Command {
     public ClimbToTop() {
         requires(Climber.getInstance());
         climber = Climber.getInstance();
+        this.speed = .5;
     }
     
     /**
@@ -30,7 +32,7 @@ public class ClimbToTop extends Command {
      * Climbs up until limited
      */
     protected void execute() {
-    	finished = !climber.climb(-1);
+    	finished = !climber.climb(-speed);
     }
     
     /**
@@ -45,6 +47,7 @@ public class ClimbToTop extends Command {
      * Unused
      */
     protected void end() {
+    	climber.climb(0);
     }
     
     /**

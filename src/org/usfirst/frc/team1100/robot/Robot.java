@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
 		OI.getInstance();
 		Drive.getInstance();
 		Limelight.getInstance();
-		//Climber.getInstance();
+		Climber.getInstance();
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();
@@ -83,12 +83,6 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Right",-1);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
 		*/
-		angles.addObject("0", 0.0);
-        angles.addObject("90", 90.0);
-        angles.addObject("-90", -90.0);
-        angles.addObject("180", 180.0);
-        
-        SmartDashboard.putData("Angle", angles);
 	}
 
 	/**

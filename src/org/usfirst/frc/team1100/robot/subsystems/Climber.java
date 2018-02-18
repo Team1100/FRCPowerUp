@@ -21,9 +21,9 @@ public class Climber extends Subsystem {
 	VictorSP climberTwo;
     AnalogInput pot; // potentiometer
     DigitalInput bottomLimit, nearBottomLimit, topLimit; // Limit switches
-    double bottom = 0;
-    double top = 2.0;
-    final double CLIMB_RANGE = 1.2; //Volts
+    double bottom = 3.6;
+    double top = 0;
+    final double CLIMB_RANGE = 3.6;
     boolean canGoUp = true;
     boolean canGoDown = true;
     private static double rmCurrent1, rmCurrent2;
@@ -130,14 +130,13 @@ public class Climber extends Subsystem {
      * Xbox Left Joystick Y
      */
     public void initDefaultCommand() {
-    	//setDefaultCommand(new ClimberDefault());
+    	setDefaultCommand(new ClimberDefault());
     }
     
     /*
      * Sets bottom to current voltage
      */
     private void setBottom() {
-    	SmartDashboard.putNumber("Diff", top-bottom);
     	bottom = getVoltage();
     	top = getVoltage() - CLIMB_RANGE;
     }
@@ -146,9 +145,8 @@ public class Climber extends Subsystem {
      * Sets top to current voltage
      */
     private void setTop() {
-    	SmartDashboard.putNumber("Diff", top-bottom);
     	top = getVoltage();
-    	bottom = getVoltage() - CLIMB_RANGE;
+    	bottom = getVoltage() + CLIMB_RANGE;
     }
     
     /**

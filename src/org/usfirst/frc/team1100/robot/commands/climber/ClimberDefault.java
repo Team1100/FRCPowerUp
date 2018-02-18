@@ -34,6 +34,7 @@ public class ClimberDefault extends Command {
     	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
     	Climber.getInstance().climb(speed);
     	SmartDashboard.putNumber("Voltage", Climber.getInstance().getVoltage());
+    	SmartDashboard.putNumber("Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
     }
     
     /**

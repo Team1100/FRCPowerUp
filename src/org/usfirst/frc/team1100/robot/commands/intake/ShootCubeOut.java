@@ -19,13 +19,13 @@ public class ShootCubeOut extends Command {
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
         t = new Timer();
-        t.start();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	intake.setSpeed(1);
     	intake.spinWheels();
+    	t.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -35,7 +35,7 @@ public class ShootCubeOut extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return t.get()>5;
+    	return t.get()>1;
     }
 
     // Called once after isFinished returns true

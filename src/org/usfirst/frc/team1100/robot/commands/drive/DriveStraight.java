@@ -51,7 +51,7 @@ public class DriveStraight extends PIDCommand {
 
     protected boolean isFinished() {
         SmartDashboard.putNumber("Distance (steps)", encoder.getDistance());
-        return encoder.getDistance() >= distance;
+        return Math.abs(encoder.getDistance()) >= Math.abs(distance);
     }
 
     protected void end() {

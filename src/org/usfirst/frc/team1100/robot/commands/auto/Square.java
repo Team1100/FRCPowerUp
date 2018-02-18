@@ -1,7 +1,10 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
+import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -27,9 +30,25 @@ public class Square extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	/*
+    	addSequential(new DriveStraight(3.5, -0.6, 0));
+    	addSequential(new ChangeHeading(90));
+    	addSequential(new DriveStraight(9, -0.6, 90));
+    	addSequential(new ChangeHeading(0));
+    	addSequential(new DriveStraight(3.75, -0.6, 0));
+    	addSequential(new ShootCubeOut());
+    	*/
     	
-    	addSequential(new DriveStraight(15, 0.75, 0));
+    	addSequential(new DriveStraight(4.5, -0.6, 0));
     	addSequential(new ChangeHeading(-90));
-    	addSequential(new DriveStraight(18, 0.75, -90));
+    	addSequential(new DriveStraight(4.5, -0.6, -90));
+    	addSequential(new ChangeHeading(0));
+    	addSequential(new DriveStraight(18, -0.6, 0));
+    	addSequential(new ChangeHeading(90));
+    	addSequential(new ClimbToTop());
+    	addSequential(new DriveStraight(1, -0.45, 90));
+    	addSequential(new ShootCubeOut());
+    	addSequential(new DriveStraight(1, 0.45, 90));
+    	addSequential(new ClimbToBottom());
     }
 }
