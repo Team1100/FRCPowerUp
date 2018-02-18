@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.SPI.Port;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
+ * 
+ * MXP PWM and DIO pins are multiplexed. If you are using one, you can't use the other.
  */ 
 public class RobotMap {
 	
@@ -22,6 +24,17 @@ public class RobotMap {
 	private final static int PWM_7 = 7;
 	private final static int PWM_8 = 8;
 	private final static int PWM_9 = 9;
+	// see https://www.pdocs.kauailabs.com/navx-mxp/installation/io-expansion/
+	private final static int PWM_MXP_0 = 10;
+	private final static int PWM_MXP_1 = 11;
+	private final static int PWM_MXP_2 = 12;
+	private final static int PWM_MXP_3 = 13;
+	private final static int PWM_MXP_4 = 14;
+	private final static int PWM_MXP_5 = 15;
+	private final static int PWM_MXP_6 = 16;
+	private final static int PWM_MXP_7 = 17;
+	private final static int PWM_MXP_8 = 18;
+	private final static int PWM_MXP_9 = 19;
 	
 	// List of PCM CAN IDs
 	private final static int PCM_CAN_0 = 0;
@@ -37,6 +50,11 @@ public class RobotMap {
 	private final static int ANALOG_1 = 1;
 	private final static int ANALOG_2 = 2;
 	private final static int ANALOG_3 = 3;
+	// see https://www.pdocs.kauailabs.com/navx-mxp/installation/io-expansion/
+	private final static int ANALOG_MXP_0 = 4;
+	private final static int ANALOG_MXP_1 = 5;
+	private final static int ANALOG_MXP_2 = 6;
+	private final static int ANALOG_MXP_3 = 7;
 	
 	//List of all relays
 	private final static int RELAY_0 = 0;
@@ -55,6 +73,17 @@ public class RobotMap {
 	private final static int DIO_7 = 7;
 	private final static int DIO_8 = 8;
 	private final static int DIO_9 = 9;
+	// see https://www.pdocs.kauailabs.com/navx-mxp/installation/io-expansion/
+	private final static int DIO_MXP_0 = 10;
+	private final static int DIO_MXP_1 = 11;
+	private final static int DIO_MXP_2 = 12;
+	private final static int DIO_MXP_3 = 13;
+	private final static int DIO_MXP_4 = 18;
+	private final static int DIO_MXP_5 = 19;
+	private final static int DIO_MXP_6 = 20;
+	private final static int DIO_MXP_7 = 21;
+	private final static int DIO_MXP_8 = 22;
+	private final static int DIO_MXP_9 = 23;
 	
 	//List of all USB ports
 	private static final int USB_0 = 0;
