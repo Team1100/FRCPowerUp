@@ -75,9 +75,9 @@ public class Limelight extends Subsystem {
 		cubeDetected = tv.getDouble(0) == 1;
 		
 		//Publish Limelight values to ShuffleBoard
-		SmartDashboard.putNumber("Horizontal Cursor Offset", x);
-		SmartDashboard.putNumber("Vertical Cursor Offset", y);
-		SmartDashboard.putNumber("Target Area", area);
+		SmartDashboard.putNumber("Center X", x);
+		SmartDashboard.putNumber("Center Y", y);
+		SmartDashboard.putNumber("Area", area);
 		
 		return cubeDetected;
     }

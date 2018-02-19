@@ -46,7 +46,7 @@ public class OI {
 	 * Initializes all input devices. It also establishes button triggers.
 	 */
 	private OI() {
-		xbox = new XboxController(RobotMap.U_XBOX, 0.15);
+		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
 		
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
@@ -54,7 +54,7 @@ public class OI {
 		//Climber
 		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDClimber(.45)); //3 Cubes
-		xbox.getButtonB().whenPressed(new PIDClimber(.25)); //2 Cubes
+		xbox.getButtonB().whenPressed(new PIDClimber(.18)); //2 Cubes
 		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 		
 		//Claw
@@ -63,12 +63,10 @@ public class OI {
 		
 		
 		//Wrist
-		xbox.getDown().whenPressed(new PIDWrist(3)); //Score back wrist
-		xbox.getDown().whenPressed(new PIDWrist(2)); //Vertical
-		xbox.getDown().whenPressed(new PIDWrist(1)); //Score front wrist
-		xbox.getDown().whenPressed(new PIDWrist(0)); //Down wrist
-		
-		
+		xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
+		xbox.getButtonStart().whenPressed(new PIDWrist(3));
+
+
 		//Rumbles Samara's controller when David wants it to
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());

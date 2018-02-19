@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * Auto sequence to run command steps when starting from the left or right position.
  */
-public class AutoFromSide extends CommandGroup {
+public class RightStartLeftScale extends CommandGroup {
 
 	/// TODO We need to figure out the wrist angles
 	final double kLoadWristAngle = -20;
@@ -33,43 +33,38 @@ public class AutoFromSide extends CommandGroup {
 	 * @param switchPosition
 	 * @param scalePosition
 	 */
-    public AutoFromSide(double defaultSpeed, int initPosition, int switchPosition, int scalePosition) {
+    public RightStartLeftScale(double defaultSpeed) {
+    	int initPosition = -1;
+    	int scalePosition = 1;
     	// Do stuff if we are in the left or right position
     	// We're driving for the scale, never-mind the switch
     	currentSide = initPosition;
     	// Start driving for the scale
-    	addSequential(new DriveStraight(17.6, -defaultSpeed, 0));
-    	// Is this our scale?
-    	if (scalePosition == (currentSide*Robot.RIGHT_SIDE))
-    	{
-    		// Turn toward other side of field
-    		addSequential(new ChangeHeading(currentSide * 90));
-    		// Drive across field
-    		addSequential(new DriveStraight(18, -defaultSpeed, currentSide * 90));
-    		// Flip sides
-    		currentSide = -currentSide;
-    	}
+    	addSequential(new DriveStraight(17, -defaultSpeed, 0));
+
+		// Turn toward other side of field
+		addSequential(new ChangeHeading(currentSide * 90, .9));
+		// Drive across field
+		addSequential(new DriveStraight(12, -defaultSpeed, currentSide * 90));
+		addParallel(new PIDClimber(.5));
+		addSequential(new DriveStraight(4, -.6, currentSide * 90));
+		// Flip sides
+		currentSide = -currentSide;
+    	
     	// Turn to the scale
-    	addSequential(new ChangeHeading(currentSide * -8));
+    	addParallel(new ChangeHeading(currentSide*35, .6));
+    	addSequential(new ClimbToTop());
     	// Drive to scale
-    	addSequential(new DriveStraight(8.1, -defaultSpeed, currentSide * -8));
-    	// Turn to scale
-    	addSequential(new ChangeHeading(currentSide * 90));
-    	// Drive up to scale
-    	//addSequential(new DriveStraight(2, 0.5, currentSide * 90));
-    	// STOP!!
-    	//addSequential(new DriveStop());
-    	// While driving set claw height for scale
-    	addParallel(new ClimbToTop());
+    	addSequential(new DriveStraight(3, -.5, currentSide*35));
     	// While driving set wrist angle
-    	addParallel(new PIDWrist(kForwardScaleWristAngle));
+    //addParallel(new PIDWrist(kForwardScaleWristAngle));
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
+    	addSequential(new DriveStop());
+    	addSequential(new DriveStraight(3, .5, currentSide*35));
     	// While driving, set the claw to load height
     	addParallel(new ClimbToBottom());
     	// Turn back toward platform zone
-    	addSequential(new ChangeHeading(0));
-    	// Drive back toward platform zone
-    	addSequential(new DriveStraight(8, defaultSpeed, 0));
+    	addSequential(new ChangeHeading(0, 1));
     }
 }

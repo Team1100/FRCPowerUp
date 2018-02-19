@@ -32,7 +32,7 @@ public class PIDClimber extends PIDCommand {
         this.height = height;
         setSetpoint(height+climber.getTop());
         pidController.setOutputRange(-1, 1);
-        pidController.setPercentTolerance(0.1);
+        pidController.setPercentTolerance(0.2);
     }
     
     /**
@@ -49,7 +49,7 @@ public class PIDClimber extends PIDCommand {
      */
     protected boolean isFinished() {
     	if (pidController.onTarget()) {
-    		if (countOnTarget == 5) {
+    		if (countOnTarget == 3) {
     			return true;
     		}
     		countOnTarget++;

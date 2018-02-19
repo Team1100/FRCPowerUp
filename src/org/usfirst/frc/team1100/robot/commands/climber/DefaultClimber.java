@@ -5,19 +5,18 @@ import org.usfirst.frc.team1100.robot.input.XboxController;
 import org.usfirst.frc.team1100.robot.subsystems.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * User control of the climber through Xbox controller left joystick. Used for
  * resetting the potentiometer while robot is in developement
  */
-public class ClimberDefault extends Command {
+public class DefaultClimber extends Command {
 	
 	double speed = 0;
 	/**
 	 * Requires Climber
 	 */
-    public ClimberDefault() {
+    public DefaultClimber() {
         requires(Climber.getInstance());
     }
     

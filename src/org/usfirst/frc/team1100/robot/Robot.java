@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
-import org.usfirst.frc.team1100.robot.commands.auto.AutoFromSide;
-import org.usfirst.frc.team1100.robot.commands.auto.Square;
+import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
+import org.usfirst.frc.team1100.robot.commands.auto.LeftStartRightScale;
+import org.usfirst.frc.team1100.robot.commands.auto.RightStartLeftScale;
+import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
 import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Climber;
@@ -11,18 +13,13 @@ import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
-import com.kauailabs.navx.frc.AHRS;
-
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.hal.MatchInfoData;
 
 
 //version -> most recent event/stage of development. no numbers please i'm lazy
@@ -30,7 +27,7 @@ import edu.wpi.first.wpilibj.hal.MatchInfoData;
  * This is the main class for the robot. The VM calls every method in this class at the 
  * appropriate time.
  * 
- * @author Grant Perkins, Tejas Maraliga, Matt Lefebvre Thor Smith, and Chris Perkins
+ * @author Grant Perkins, Tejas Maraliga, Thor Smith, and Chris Perkins
  * @version Week 5
  * 
  */
@@ -54,7 +51,7 @@ public class Robot extends IterativeRobot {
 	public static final int CENTERED = 0;
 	public static final int RIGHT_SIDE = -1;
 	
-	final double DEFAULT_SPEED = 0.6;
+	final double DEFAULT_SPEED = 0.9;
 
 	private int currentSide;
 	
@@ -101,6 +98,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
+		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
+		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
+		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
+		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
+		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 
@@ -120,9 +123,18 @@ public class Robot extends IterativeRobot {
        		// Do stuff if we are in the center position
         	autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
         }
-        else {
-       		// Do stuff if we are in the left or right position
-        	autonomousCommand = new AutoFromSide(DEFAULT_SPEED, initPosition, switchPosition, scalePosition);
+        else  if (initPosition == RIGHT_SIDE){
+        	if (scalePosition == 1) {
+        		autonomousCommand = new LeftStartLeftScale(DEFAULT_SPEED);
+        	} else {
+        		autonomousCommand = new LeftStartRightScale(DEFAULT_SPEED);
+        	}
+        } else {
+        	if (scalePosition == 1) {
+        		autonomousCommand = new RightStartLeftScale(DEFAULT_SPEED);
+        	} else {
+        		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED);
+        	}
         }
 		if (autonomousCommand != null)
 			//This is how one would use a command in another file. However, I like command groups.
@@ -136,8 +148,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
+		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
+		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
+		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
+		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
+		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		Scheduler.getInstance().run();
 	}
 	
 	/**
@@ -165,6 +182,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
+		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
+		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
+		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
+		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
+		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 		
 	}

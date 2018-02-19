@@ -121,8 +121,8 @@ public class RobotMap {
 	private static final int PDP_16 = 16;
 	
 	//[U]ser Input
-	public static final int U_LEFT = 1;
-	public static final int U_RIGHT = 0;
+	public static final int U_LEFT = 0;
+	public static final int U_RIGHT = 1;
 	public static final int U_XBOX = 2;
 	
 	//[D]rive

@@ -5,7 +5,6 @@ import org.usfirst.frc.team1100.robot.OI;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This command controls the angle of the wrist using the right joystick of the xbox controller
@@ -30,7 +29,6 @@ public class DefaultWrist extends Command {
      */
     protected void execute() {
     	wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
-    	SmartDashboard.putNumber("Wrist Voltage", wrist.getVoltage());
     }
 
     /**

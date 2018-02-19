@@ -1,14 +1,11 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.RobotMap;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimberDefault;
+import org.usfirst.frc.team1100.robot.commands.climber.DefaultClimber;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
@@ -59,7 +56,6 @@ public class Climber extends Subsystem {
      * @return Whether climb was successful, false if switch is triggered and wants to move past
      */
     public boolean climb(double speed) {
-    	SmartDashboard.putNumber("Climber height", (3.6-getVoltage())/3.6);
     	boolean out = true;
     	
     	if (getBottomLimit()) {
@@ -78,7 +74,8 @@ public class Climber extends Subsystem {
     	if ((getNearBottomLimit() || slowDown) && speed > 0) {
     		speed = 0.5*speed;
     		slowDown = true;
-    	} else if (!canGoDown && speed > 0) {
+    	}
+    	if (!canGoDown && speed > 0) {
     		speed = 0;
     		out = false;
     	} else if (!canGoUp && speed < 0) {
@@ -135,7 +132,7 @@ public class Climber extends Subsystem {
      * Xbox Left Joystick Y
      */
     public void initDefaultCommand() {
-    	setDefaultCommand(new ClimberDefault());
+    	setDefaultCommand(new DefaultClimber());
     }
     
     /*

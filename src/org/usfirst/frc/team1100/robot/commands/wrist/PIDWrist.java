@@ -3,6 +3,7 @@ package org.usfirst.frc.team1100.robot.commands.wrist;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
@@ -12,40 +13,47 @@ public class PIDWrist extends PIDCommand {
 	
 	PIDController pidController = getPIDController();
 	Wrist wrist;
+	Timer t;
 	int countOnTarget = 0;
+	double angle;
 	
 	/**
 	 * Sets up PID loop
 	 * @param angle angle of the wrist that's desired
 	 */
     public PIDWrist(double angle) {
-        super(.1,.1,.1);
+        super(.1,.01,.1);
         requires(Wrist.getInstance());
+        this.angle = angle;
         wrist = Wrist.getInstance();
-        //TODO: setInputRange(climber.getBottom(), climber.getTop()); 
         setSetpoint(angle);
-        pidController.setOutputRange(-1, 1);
+        setInputRange(1.7,5);//Backwards, bottom=3, top=.3
+        pidController.setOutputRange(-.75, .25);
         pidController.setPercentTolerance(0.1);
+        t = new Timer();
     }
     
     /**
      * Unused
      */
     protected void initialize() {
+    	t.start();
     }
     
     /**
      * Unused
      */
     protected void execute() {
+    	System.err.println("Running PIDWrist, angle:  "+angle);
     }
 
     /**
      * True if on target 10 times in a row, ensures that it will stay in same place
      */
     protected boolean isFinished() {
+    	/*
     	if (pidController.onTarget()) {
-    		if (countOnTarget == 10) {
+    		if (countOnTarget == 5) {
     			return true;
     		}
     		countOnTarget++;
@@ -54,12 +62,18 @@ public class PIDWrist extends PIDCommand {
     		countOnTarget = 0;
     	}
     	return false;
+    	*/
+    	
+    	return t.get() > 5;
     }
 
     /**
      * Sets speed of wrist to 0
      */
     protected void end() {
+    	//if (t.get() > 5) {
+    	System.err.println("DONE");
+    	
     	wrist.rotateWrist(0);
     }
 
@@ -83,7 +97,7 @@ public class PIDWrist extends PIDCommand {
 	 */
 	@Override
 	protected void usePIDOutput(double output) {
-		if (wrist.getVoltage() < .5 && output < 0) { //TODO: Change .5
+		if (wrist.getVoltage() < 2 && output < 0) { //TODO: Change .5
 			output *= .1;
 		}
 		wrist.rotateWrist(output);

@@ -26,13 +26,14 @@ public class ChangeHeading extends PIDCommand {
 	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
 	 * @param target the target heading for this command
 	 */
-    public ChangeHeading(double target) {
+    public ChangeHeading(double target, double speed) {
     	super(.07, .03, .1);
         requires(Drive.getInstance());
         countOnTarget = 0;
         setSetpoint(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
+        pidController.setOutputRange(-speed, speed);
         pidController.setPercentTolerance(0.5);
     }
 

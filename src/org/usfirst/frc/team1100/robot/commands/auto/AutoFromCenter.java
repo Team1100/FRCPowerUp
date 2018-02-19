@@ -40,20 +40,20 @@ public class AutoFromCenter extends CommandGroup {
     	// Drive forward 1 foot to clear the wall
     	addSequential(new DriveStraight(1, -0.75, 0));
     	// While driving, set the wrist angle for the switch
-    	addParallel(new PIDWrist(kSwitchWristAngle));
+    //addParallel(new PIDWrist(kSwitchWristAngle));
     	if (currentSide == Robot.LEFT_SIDE) // The center robot cannot be centered on the field
     	{
     		// Turn toward switch
-    		addSequential(new ChangeHeading(-62.5));
+    		addSequential(new ChangeHeading(-62.5, .9));
     		// Drive close to switch
     		addSequential(new DriveStraight(7.2, -defaultSpeed, -62.5));
     	} else {
     		// Turn toward switch
-    		addSequential(new ChangeHeading(45));
+    		addSequential(new ChangeHeading(45, .9));
     		// Drive close to switch
     		addSequential(new DriveStraight(5.7, -defaultSpeed, 45));
     	}
-    	addSequential(new ChangeHeading(0));
+    	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
     	addSequential(new DriveStraight(3, -defaultSpeed, 0));
     	// STOP!!!
@@ -64,18 +64,18 @@ public class AutoFromCenter extends CommandGroup {
     	// Back up from switch
     	addSequential(new DriveStraight(1, 0.5, 0));
     	// Turn to drive around switch
-    	addSequential(new ChangeHeading(currentSide * -90));
+    	addSequential(new ChangeHeading(currentSide * -90, .9));
     	// Drive past switch
     	addSequential(new DriveStraight(4, -defaultSpeed, currentSide * -90)); 
     	// Turn toward scale
-    	addSequential(new ChangeHeading(0));
+    	addSequential(new ChangeHeading(0, .9));
     	// Drive toward scale
     	addSequential(new DriveStraight(10, -defaultSpeed, 0));
     	// Is this our scale?
     	if (currentSide != scalePosition)
     	{
     		// Turn toward other side of field
-    		addSequential(new ChangeHeading(currentSide * 90));
+    		addSequential(new ChangeHeading(currentSide * 90, .9));
     		// Drive across field
     		addSequential(new DriveStraight(18, -defaultSpeed, currentSide * 90));
     		// Flip sides
