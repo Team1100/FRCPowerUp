@@ -91,6 +91,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
+		Limelight.getInstance().readNetworkTable();
 		SmartDashboard.putBoolean("Image Captured", Robot.imageCaptured);
 	}
 	
