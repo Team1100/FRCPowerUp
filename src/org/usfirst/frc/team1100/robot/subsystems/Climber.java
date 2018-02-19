@@ -28,7 +28,8 @@ public class Climber extends Subsystem {
     boolean canGoDown = true;
     private static double rmCurrent1, rmCurrent2;
     private final double RM_CURRENT_LIMIT = 25.0 * 25.0;
-    private final double tcGain = 0.01;    
+    private final double tcGain = 0.01;
+    private boolean slowDown;
     
     //TODO: Cant go down when hit speed controller
     
@@ -40,6 +41,7 @@ public class Climber extends Subsystem {
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
     	nearBottomLimit = new DigitalInput(RobotMap.C_NEAR_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
+    	slowDown = false;
     }
     
     /**
@@ -68,12 +70,14 @@ public class Climber extends Subsystem {
     	
     	if (speed < 0) {
     		canGoDown = true;
+    		slowDown = false;
     	} else if (speed > 0) {
     		canGoUp = true;
     	}
     	
-    	if (getNearBottomLimit() && speed > 0) {
+    	if ((getNearBottomLimit() || slowDown) && speed > 0) {
     		speed = 0.5*speed;
+    		slowDown = true;
     	} else if (!canGoDown && speed > 0) {
     		speed = 0;
     		out = false;
