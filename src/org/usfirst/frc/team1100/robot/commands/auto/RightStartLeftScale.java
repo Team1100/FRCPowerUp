@@ -23,45 +23,35 @@ public class RightStartLeftScale extends CommandGroup {
 	final double kForwardScaleWristAngle = 45;
 	final double kReverseScaleWristAngle = 120;
 	
-	private int currentSide;
-	
 	/**
 	 * Start with center of robot 2 feet from corner, and backwards. This auto will drive to scale,
 	 * 
 	 * @param defaultSpeed
-	 * @param initPosition
-	 * @param switchPosition
-	 * @param scalePosition
 	 */
     public RightStartLeftScale(double defaultSpeed) {
-    	int initPosition = -1;
-    	int scalePosition = 1;
     	// Do stuff if we are in the left or right position
     	// We're driving for the scale, never-mind the switch
-    	currentSide = initPosition;
     	// Start driving for the scale
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
 
 		// Turn toward other side of field
-		addSequential(new ChangeHeading(currentSide * 90, .9));
+		addSequential(new ChangeHeading(-90, .9));
 		// Drive across field
-		addSequential(new DriveStraight(12, -defaultSpeed, currentSide * 90));
+		addSequential(new DriveStraight(12, -defaultSpeed, -90));
 		addParallel(new PIDClimber(.5));
-		addSequential(new DriveStraight(4, -.6, currentSide * 90));
-		// Flip sides
-		currentSide = -currentSide;
+		addSequential(new DriveStraight(4, -.6, -90));
     	
     	// Turn to the scale
-    	addParallel(new ChangeHeading(currentSide*35, .6));
+    	addParallel(new ChangeHeading(35, .6));
     	addSequential(new ClimbToTop());
     	// Drive to scale
-    	addSequential(new DriveStraight(3, -.5, currentSide*35));
+    	addSequential(new DriveStraight(3, -.5, 35));
     	// While driving set wrist angle
     //addParallel(new PIDWrist(kForwardScaleWristAngle));
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
     	addSequential(new DriveStop());
-    	addSequential(new DriveStraight(3, .5, currentSide*35));
+    	addSequential(new DriveStraight(3, .5, 35));
     	// While driving, set the claw to load height
     	addParallel(new ClimbToBottom());
     	// Turn back toward platform zone
