@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.RumbleMeme;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
@@ -10,6 +11,8 @@ import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.input.*;
+
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,21 +56,17 @@ public class OI {
 		//xbox.getButtonA().whenPressed(new ChangeHeading(0));
 		
 		//Climber
-		
-		xbox.getButtonBack().whenPressed(new ClimbToTop()); //Scale
-		xbox.getButtonY().whenPressed(new PIDClimber(.45)); //3 Cubes
-		xbox.getButtonX().whenPressed(new PIDClimber(.25)); //2 Cubes
-		xbox.getButtonStart().whenPressed(new ClimbToBottom()); //Ground
+		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
+		xbox.getButtonX().whenPressed(new PIDClimber(.45)); //3 Cubes
+		xbox.getButtonB().whenPressed(new PIDClimber(.25)); //2 Cubes
+		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
 		
 		//Claw
 		xbox.getButtonLeftBumper().whenPressed(new OpenClaw());
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
-		//Intake
-		xbox.getButtonBack().whileHeld(new PullCubeIn());
-		xbox.getButtonStart().whileHeld(new ShootCubeOut());
-		
-		
+		leftStick.getButton(1).whileHeld(new RumbleMeme());
+		rightStick.getButton(1).whileHeld(new RumbleMeme());
 	}
 	
 	/**

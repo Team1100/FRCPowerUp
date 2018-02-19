@@ -12,9 +12,10 @@ public class PIDWrist extends PIDCommand {
 	
 	PIDController pidController = getPIDController();
 	Wrist wrist;
+	int countOnTarget = 0;
 	
     public PIDWrist(double angle) {
-        super(0,0,0);
+        super(.1,.1,.1);
         requires(Wrist.getInstance());
         wrist = Wrist.getInstance();
         //TODO: setInputRange(climber.getBottom(), climber.getTop()); 
@@ -31,16 +32,27 @@ public class PIDWrist extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	if (pidController.onTarget()) {
+    		if (countOnTarget == 10) {
+    			return true;
+    		}
+    		countOnTarget++;
+    		
+    	} else {
+    		countOnTarget = 0;
+    	}
+    	return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	wrist.rotateWrist(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	wrist.rotateWrist(0);
     }
 
 	@Override
@@ -50,6 +62,9 @@ public class PIDWrist extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		if (wrist.getVoltage() < .5 && output < 0) { //TODO: Change .5
+			output *= .1;
+		}
 		wrist.rotateWrist(output);
 		
 	}

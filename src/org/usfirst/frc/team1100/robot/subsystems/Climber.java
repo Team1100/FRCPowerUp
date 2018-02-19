@@ -57,6 +57,7 @@ public class Climber extends Subsystem {
      * @return Whether climb was successful, false if switch is triggered and wants to move past
      */
     public boolean climb(double speed) {
+    	SmartDashboard.putNumber("Climber height", (3.6-getVoltage())/3.6);
     	boolean out = true;
     	
     	if (getBottomLimit()) {

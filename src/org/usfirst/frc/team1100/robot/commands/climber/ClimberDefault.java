@@ -28,13 +28,11 @@ public class ClimberDefault extends Command {
     }
 
     /**
-     * Sets speed of climb to Xbox controller left stick, puts height (0 to 2) to SmartDashboard
+     * Sets speed of climb to Xbox controller left stick
      */
     protected void execute() {
     	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
     	Climber.getInstance().climb(speed);
-    	SmartDashboard.putNumber("Voltage", Climber.getInstance().getVoltage());
-    	SmartDashboard.putNumber("Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
     }
     
     /**

@@ -32,7 +32,7 @@ public class Wrist extends Subsystem {
     private Wrist() {
     	leftWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
-		rightWristMotor.setInverted(true);
+		leftWristMotor.setInverted(true);
 		pot = new AnalogInput(RobotMap.W_WRIST_POT);
     }
     

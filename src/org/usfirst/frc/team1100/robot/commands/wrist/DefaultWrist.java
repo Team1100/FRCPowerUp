@@ -5,6 +5,7 @@ import org.usfirst.frc.team1100.robot.OI;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -23,7 +24,8 @@ public class DefaultWrist extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	wrist.rotateWrist(-OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
+    	wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
+    	SmartDashboard.putNumber("Wrist Voltage", wrist.getVoltage());
     }
 
     // Make this return true when this Command no longer needs to run execute()

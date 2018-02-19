@@ -16,6 +16,7 @@ public class PIDClimber extends PIDCommand {
     
 	double height;
     Climber climber;
+    int countOnTarget = 0;
     
     /**
      * Sets up PID controller, setpoint, and PID values
@@ -29,7 +30,6 @@ public class PIDClimber extends PIDCommand {
         climber = Climber.getInstance();
         setInputRange(climber.getTop(), climber.getBottom()); 
         this.height = height;
-        SmartDashboard.putNumber("Goal", height+climber.getTop());
         setSetpoint(height+climber.getTop());
         pidController.setOutputRange(-1, 1);
         pidController.setPercentTolerance(0.1);
@@ -40,7 +40,6 @@ public class PIDClimber extends PIDCommand {
      */
     protected void initialize() {
         climber.climb(0);
-        SmartDashboard.putNumber("Goal", height+climber.getTop());
         setSetpoint(height+climber.getTop());
     }
     
@@ -49,7 +48,16 @@ public class PIDClimber extends PIDCommand {
      * @return whether climber is "close enough" to setpoint
      */
     protected boolean isFinished() {
-        return pidController.onTarget();
+    	if (pidController.onTarget()) {
+    		if (countOnTarget == 5) {
+    			return true;
+    		}
+    		countOnTarget++;
+    		
+    	} else {
+    		countOnTarget = 0;
+    	}
+    	return false;
     }
     
     /**
@@ -73,7 +81,6 @@ public class PIDClimber extends PIDCommand {
      */
 	@Override
 	protected double returnPIDInput() {
-        SmartDashboard.putNumber("Voltage", climber.getVoltage());
 		return climber.getVoltage();
 	}
 	

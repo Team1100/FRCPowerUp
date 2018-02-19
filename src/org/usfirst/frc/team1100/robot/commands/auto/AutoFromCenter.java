@@ -3,7 +3,7 @@ package org.usfirst.frc.team1100.robot.commands.auto;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
-import org.usfirst.frc.team1100.robot.commands.wrist.RotateWrist;
+import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
@@ -40,7 +40,7 @@ public class AutoFromCenter extends CommandGroup {
     	// While driving, set the height of the climber
     	addParallel(new PIDClimber(kSwitchHeight));
     	// While driving, set the wrist angle for the switch
-    	addParallel(new RotateWrist(kSwitchWristAngle));
+    	addParallel(new PIDWrist(kSwitchWristAngle));
     	if (currentSide == LEFT_SIDE) // The center robot cannot be centered on the field
     	{
     		// Turn toward switch

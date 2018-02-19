@@ -3,7 +3,7 @@ package org.usfirst.frc.team1100.robot.commands.auto;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
-import org.usfirst.frc.team1100.robot.commands.wrist.RotateWrist;
+import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
@@ -55,7 +55,7 @@ public class AutoFromSide extends CommandGroup {
     	// While driving set claw height for scale
     	addParallel(new PIDClimber(kScaleHeight));
     	// While driving set wrist angle
-    	addParallel(new RotateWrist(kForwardScaleWristAngle));
+    	addParallel(new PIDWrist(kForwardScaleWristAngle));
     	// Drive up to scale
     	addSequential(new DriveStraight(2, 0.5, currentSide * 90));
     	// STOP!!
