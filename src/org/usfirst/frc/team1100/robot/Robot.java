@@ -44,7 +44,6 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
 	private SaveCubePNG saveCubeThread;
-	public static SendableChooser<Double> angles = new SendableChooser<>();
 	//public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	/**
