@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 	public static final int CENTERED = 0;
 	public static final int RIGHT_SIDE = -1;
 	
-	final double DEFAULT_SPEED = 0.75;
+	final double DEFAULT_SPEED = 0.6;
 
 	private int currentSide;
 	
