@@ -6,13 +6,11 @@ import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
-import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
+import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.input.*;
-
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -65,6 +63,15 @@ public class OI {
 		xbox.getButtonLeftBumper().whenPressed(new OpenClaw());
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
+		
+		//Wrist
+		xbox.getDPAD().getDown().whenPressed(new PIDWrist(3)); //Score back wrist
+		xbox.getDPAD().getDown().whenPressed(new PIDWrist(2)); //Vertical
+		xbox.getDPAD().getDown().whenPressed(new PIDWrist(1)); //Score front wrist
+		xbox.getDPAD().getDown().whenPressed(new PIDWrist(0)); //Down wrist
+		
+		
+		//Rumbles Samara's controller when David wants it to
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());
 	}

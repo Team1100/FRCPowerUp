@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * This command controls the angle of the wrist using the right joystick of the xbox controller
  */
 public class DefaultWrist extends Command {
 	private Wrist wrist;
@@ -17,29 +17,40 @@ public class DefaultWrist extends Command {
         wrist = Wrist.getInstance();
     }
 
-    // Called just before this Command runs the first time
+
+    /**
+     * Sets wrist speed to 0
+     */
     protected void initialize() {
     	wrist.rotateWrist(0);
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Sets speed of wrist to xbox controller right joystick
+     */
     protected void execute() {
     	wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
     	SmartDashboard.putNumber("Wrist Voltage", wrist.getVoltage());
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Returns false because this is a default command
+     */
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Sets speed of wrist to 0
+     */
     protected void end() {
     	wrist.rotateWrist(0);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Sets speed of wrist to 0
+     */
     protected void interrupted() {
+    	wrist.rotateWrist(0);
     }
 }

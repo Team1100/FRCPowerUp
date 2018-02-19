@@ -200,6 +200,10 @@ public class XboxController extends Joystick {
 		return val;
 	}
 	
+	/**
+	 * Gets the dpad
+	 * @return the dpad
+	 */
 	public DirectionalPad getDPAD() {
 		return dpad;
 	}
@@ -230,7 +234,7 @@ public class XboxController extends Joystick {
         
         /**
          * Convert integers to DPAD values
-         * @param value
+         * @param angle the angle
          * @return DPAD with matching angle
          */
         public static DPAD getEnum(int angle) {
@@ -253,41 +257,39 @@ public class XboxController extends Joystick {
         
         private final Joystick parent;
         
-        public final Button up;
-        public final Button upRight;
-        public final Button right;
-        public final Button downRight;
-        public final Button down;
-        public final Button downLeft;
-        public final Button left;
-        public final Button upLeft;
+        private final Button up;
+        private final Button upRight;
+        private final Button right;
+        private final Button downRight;
+        private final Button down;
+        private final Button downLeft;
+        private final Button left;
+        private final Button upLeft;
         
         /**
          * Initializes buttons
          * @param parent 
          */
         DirectionalPad(final Joystick parent) {
-            
-            this.parent	    = parent;
-            this.up         = new DPadButton(this, DPAD.kUp);
-            this.upRight    = new DPadButton(this, DPAD.kUpRight);
-            this.right      = new DPadButton(this, DPAD.kRight);
-            this.downRight  = new DPadButton(this, DPAD.kDownRight);
-            this.down       = new DPadButton(this, DPAD.kDown);
-            this.downLeft   = new DPadButton(this, DPAD.kDownLeft);
-            this.left       = new DPadButton(this, DPAD.kDown);
-            this.upLeft     = new DPadButton(this, DPAD.kUpLeft);
+            this.parent	= parent;
+            this.up = new DPadButton(this, DPAD.kUp);
+            this.upRight = new DPadButton(this, DPAD.kUpRight);
+            this.right = new DPadButton(this, DPAD.kRight);
+            this.downRight = new DPadButton(this, DPAD.kDownRight);
+            this.down = new DPadButton(this, DPAD.kDown);
+            this.downLeft = new DPadButton(this, DPAD.kDownLeft);
+            this.left = new DPadButton(this, DPAD.kDown);
+            this.upLeft = new DPadButton(this, DPAD.kUpLeft);
         }
         
         /**
          * This class is used to represent each of the 8 values a
-         * dPad has as a button.
+         * dpad has as a button.
          */
         public static class DPadButton extends Button {
-
             private final DPAD direction;
             private final DirectionalPad parent;
-
+            
             /**
              * Constructor
              * @param parent
@@ -298,59 +300,101 @@ public class XboxController extends Joystick {
                 this.parent     = parent;
             }
             
+            /**
+             * True if dpad direction is this button
+             */
             @Override
             public boolean get() {
                 return parent.getPOV() == direction.value;
             }
         }
         
+        /**
+         * Gets the angle of the POV
+         * @return the angle of the POV
+         */
         public int getPOV() {
         	return parent.getPOV();
         }
         
         /**
-         * Just like getAngle, but returns a direction instead of an angle
+         * Gets the direction of the dpad
          * @return A DPAD direction
          */
         public DPAD getDirection() {
             return DPAD.getEnum(parent.getPOV());
         }
-
+        
+        /**
+         * True if dpad is at an angle
+         */
 		@Override
 		public boolean get() {
 			return getPOV() != -1;
 		}
 		
-		public boolean getUp() {
-			return up.get();
+		/**
+		 * Gets the up direction
+		 * @return up button
+		 */
+		public Button getUp() {
+			return up;
 		}
 		
-		public boolean getUpRight() {
-			return upRight.get();
+		/**
+		 * Gets the upper right direction
+		 * @return upper right button
+		 */
+		public Button getUpRight() {
+			return upRight;
 		}
 		
-		public boolean getRight() {
-			return right.get();
+		/**
+		 * Gets the right direction
+		 * @return right button
+		 */
+		public Button getRight() {
+			return right;
 		}
 		
-		public boolean getDownRight() {
-			return downRight.get();
+		/**
+		 * Gets the down right direction
+		 * @return down right button
+		 */
+		public Button getDownRight() {
+			return downRight;
 		}
 		
-		public boolean getDown() {
-			return down.get();
+		/**
+		 * Gets the down direction
+		 * @return down button
+		 */
+		public Button getDown() {
+			return down;
 		}
 		
-		public boolean getDownLeft() {
-			return downLeft.get();
+		/**
+		 * Gets the down left direction
+		 * @return down left button
+		 */
+		public Button getDownLeft() {
+			return downLeft;
 		}
 		
-		public boolean getLeft() {
-			return left.get();
+		/**
+		 * Gets the left direction
+		 * @return left button
+		 */
+		public Button getLeft() {
+			return left;
 		}
 		
-		public boolean getUpLeft() {
-			return upLeft.get();
+		/**
+		 * Gets the up left direction
+		 * @return left button
+		 */
+		public Button getUpLeft() {
+			return upLeft;
 		}
 		
 	}

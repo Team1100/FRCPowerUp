@@ -27,8 +27,8 @@ public class DriveStraight extends PIDCommand {
 	/**
 	 * 
 	 * @param distance in feet
-	 * @param speed
-	 * @param heading
+	 * @param speed speed of robot
+	 * @param heading heading of 'straight'
 	 */
     public DriveStraight(double distance, double speed, double heading) {
     	super(.07,.05,.3);

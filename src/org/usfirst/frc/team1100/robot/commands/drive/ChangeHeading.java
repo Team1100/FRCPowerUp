@@ -11,7 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 /**
  * This command uses the Drive susbsystem to turn the robot to a desired heading. The direction considered
  * 0 degrees is the direction in which the robot was oriented at the start of the match.
- * Yaw angle (the gyro value) is taken by calling an {@link org.usfirst.frc.team1100.robot.Robot#getAHRS OI class method},
+ * Yaw angle (the gyro value) is taken by calling an {@link org.usfirst.frc.team1100.robot.subsystems.Drive#getNavX OI class method},
  * then calling {@link com.kauailabs.navx.frc.AHRS#getYaw getYaw method}. This command uses a PID controller.
  * @see <a href="http://www.ni.com/white-paper/3782/en/">A lesson on what a PID Controller is and how it works.</a>
  */

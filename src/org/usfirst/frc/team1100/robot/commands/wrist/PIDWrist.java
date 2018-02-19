@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
- *
+ * Controls the wrist through a PID loop
  */
 public class PIDWrist extends PIDCommand {
 	
@@ -14,6 +14,10 @@ public class PIDWrist extends PIDCommand {
 	Wrist wrist;
 	int countOnTarget = 0;
 	
+	/**
+	 * Sets up PID loop
+	 * @param angle angle of the wrist that's desired
+	 */
     public PIDWrist(double angle) {
         super(.1,.1,.1);
         requires(Wrist.getInstance());
@@ -23,14 +27,22 @@ public class PIDWrist extends PIDCommand {
         pidController.setOutputRange(-1, 1);
         pidController.setPercentTolerance(0.1);
     }
-
+    
+    /**
+     * Unused
+     */
     protected void initialize() {
     }
-
+    
+    /**
+     * Unused
+     */
     protected void execute() {
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True if on target 10 times in a row, ensures that it will stay in same place
+     */
     protected boolean isFinished() {
     	if (pidController.onTarget()) {
     		if (countOnTarget == 10) {
@@ -44,22 +56,31 @@ public class PIDWrist extends PIDCommand {
     	return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Sets speed of wrist to 0
+     */
     protected void end() {
     	wrist.rotateWrist(0);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Sets speed of wrist to 0
+     */
     protected void interrupted() {
     	wrist.rotateWrist(0);
     }
-
+    
+    /**
+     * Returns angle of wrist in voltage
+     */
 	@Override
 	protected double returnPIDInput() {
 		return wrist.getVoltage();
 	}
-
+	
+	/**
+	 * Rotates wrist based on output unless wrist is going down and it wants to go down
+	 */
 	@Override
 	protected void usePIDOutput(double output) {
 		if (wrist.getVoltage() < .5 && output < 0) { //TODO: Change .5
