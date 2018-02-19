@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
+import org.usfirst.frc.team1100.robot.commands.auto.AutoFromSide;
 import org.usfirst.frc.team1100.robot.commands.auto.Square;
 import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
@@ -40,7 +42,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
-	Integer initPosition = 0;
+	public static Integer initPosition = 0;
 	private SaveCubePNG saveCubeThread;
 	public static SendableChooser<Double> angles = new SendableChooser<>();
 	//public static PowerDistributionPanel pdp = new PowerDistributionPanel();
@@ -49,6 +51,14 @@ public class Robot extends IterativeRobot {
 	 * Whether an image is captured
 	 */
 	public static boolean imageCaptured = false;
+	
+	static final int LEFT_SIDE = 1;
+	static final int CENTERED = 0;
+	static final int RIGHT_SIDE = -1;
+	
+	final double DEFAULT_SPEED = 0.75;
+
+	private int currentSide;
 	
 	/**
 	 * Called when the robot is first started up.
@@ -77,12 +87,10 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putData("Auto mode", chooser);
 		
 		// Choose initial field position
-		/*
 		initPositionChooser.addObject("Left", 1);
 		initPositionChooser.addObject("Middle",0);
 		initPositionChooser.addObject("Right",-1);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
-		*/
 	}
 
 	/**
@@ -110,12 +118,20 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() { 
-		//autonomousCommand = chooser.getSelected();
-		initPosition = initPositionChooser.getSelected();
-		String message = DriverStation.getInstance().getGameSpecificMessage();
-		autonomousCommand = new Square();
 		Drive.getInstance().getNavX().zeroYaw();
 		Limelight.getInstance().readNetworkTable();
+		initPosition = initPositionChooser.getSelected();
+		String message = DriverStation.getInstance().getGameSpecificMessage();
+		int switchPosition = message.charAt(0) == 'L' ? 1: -1;
+		int scalePosition = message.charAt(1) == 'L' ? 1: -1;
+		if (initPosition == CENTERED) {
+       		// Do stuff if we are in the center position
+        	autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
+        }
+        else {
+       		// Do stuff if we are in the left or right position
+        	autonomousCommand = new AutoFromSide(DEFAULT_SPEED, initPosition, switchPosition, scalePosition);
+        }
 		if (autonomousCommand != null)
 			//This is how one would use a command in another file. However, I like command groups.
 			//Command groups allow for clarity about when/where commands are run.
