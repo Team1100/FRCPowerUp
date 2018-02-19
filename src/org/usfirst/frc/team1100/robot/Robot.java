@@ -71,7 +71,7 @@ public class Robot extends IterativeRobot {
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();
-		PneumaticClimber.getInstance();
+		//PneumaticClimber.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
 

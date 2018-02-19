@@ -68,8 +68,8 @@ public class OI {
 		xbox.getDown().whenPressed(new PIDWrist(3));
 		
 		//Pneumatic Climber
-		xbox.getButtonBack().whenPressed(new PneumaticClimb());
-		xbox.getButtonStart().whenPressed(new PneumaticLower());
+		//xbox.getButtonBack().whenPressed(new PneumaticClimb());
+		//xbox.getButtonStart().whenPressed(new PneumaticLower());
 
 		
 		//Rumbles Samara's controller when David wants it to

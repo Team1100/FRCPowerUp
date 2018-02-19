@@ -20,7 +20,7 @@ public class CenterOnCube extends PIDCommand {
     	SmartDashboard.putNumber("D", 0);
     	requires(Limelight.getInstance());
     	requires(Drive.getInstance()); 
-        setInputRange(-27, 27);
+        setInputRange(-20, 20);
         pidController.setOutputRange(-.25, .25);
         pidController.setPercentTolerance(.5);
         setSetpoint(0);
@@ -75,7 +75,7 @@ public class CenterOnCube extends PIDCommand {
 		if (Limelight.getInstance().getArea() == -1) {
 			return 0;
 		}
-		return Limelight.getInstance().getX();
+		return Limelight.getInstance().getY();
 	}
 
 	@Override
