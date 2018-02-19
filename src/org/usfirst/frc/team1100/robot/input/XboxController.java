@@ -204,15 +204,79 @@ public class XboxController extends Joystick {
 	 * Gets the dpad
 	 * @return the dpad
 	 */
-	public DirectionalPad getDPAD() {
-		return dpad;
+	public boolean getDPAD() {
+		return dpad.get();
+	}
+	
+	/**
+	 * Gets the up direction
+	 * @return up button
+	 */
+	public Button getUp() {
+		return dpad.getUp();
+	}
+	
+	/**
+	 * Gets the upper right direction
+	 * @return upper right button
+	 */
+	public Button getUpRight() {
+		return dpad.getUpRight();
+	}
+	
+	/**
+	 * Gets the right direction
+	 * @return right button
+	 */
+	public Button getRight() {
+		return dpad.getRight();
+	}
+	
+	/**
+	 * Gets the down right direction
+	 * @return down right button
+	 */
+	public Button getDownRight() {
+		return dpad.getDownRight();
+	}
+	
+	/**
+	 * Gets the down direction
+	 * @return down button
+	 */
+	public Button getDown() {
+		return dpad.getDown();
+	}
+	
+	/**
+	 * Gets the down left direction
+	 * @return down left button
+	 */
+	public Button getDownLeft() {
+		return dpad.getDownLeft();
+	}
+	
+	/**
+	 * Gets the left direction
+	 * @return left button
+	 */
+	public Button getLeft() {
+		return dpad.getLeft();
+	}
+	
+	/**
+	 * Gets the up left direction
+	 * @return left button
+	 */
+	public Button getUpLeft() {
+		return dpad.getUpLeft();
 	}
 	
     /**
      * This is the relation of direction and number for .getPOV() used
      * in the DirectionalPad class.
      */
-    public static enum DPAD {
+    private static enum DPAD {
         kUp(0),
         kUpRight(45),
         kRight(90),
@@ -253,7 +317,7 @@ public class XboxController extends Joystick {
         }
     }
 	
-	public static class DirectionalPad extends Button {
+	private static class DirectionalPad extends Button {
         
         private final Joystick parent;
         
@@ -337,7 +401,7 @@ public class XboxController extends Joystick {
 		 * Gets the up direction
 		 * @return up button
 		 */
-		public Button getUp() {
+		private Button getUp() {
 			return up;
 		}
 		
@@ -345,7 +409,7 @@ public class XboxController extends Joystick {
 		 * Gets the upper right direction
 		 * @return upper right button
 		 */
-		public Button getUpRight() {
+		private Button getUpRight() {
 			return upRight;
 		}
 		
@@ -353,7 +417,7 @@ public class XboxController extends Joystick {
 		 * Gets the right direction
 		 * @return right button
 		 */
-		public Button getRight() {
+		private Button getRight() {
 			return right;
 		}
 		
@@ -361,7 +425,7 @@ public class XboxController extends Joystick {
 		 * Gets the down right direction
 		 * @return down right button
 		 */
-		public Button getDownRight() {
+		private Button getDownRight() {
 			return downRight;
 		}
 		
@@ -369,7 +433,7 @@ public class XboxController extends Joystick {
 		 * Gets the down direction
 		 * @return down button
 		 */
-		public Button getDown() {
+		private Button getDown() {
 			return down;
 		}
 		
@@ -377,7 +441,7 @@ public class XboxController extends Joystick {
 		 * Gets the down left direction
 		 * @return down left button
 		 */
-		public Button getDownLeft() {
+		private Button getDownLeft() {
 			return downLeft;
 		}
 		
@@ -385,7 +449,7 @@ public class XboxController extends Joystick {
 		 * Gets the left direction
 		 * @return left button
 		 */
-		public Button getLeft() {
+		private Button getLeft() {
 			return left;
 		}
 		
@@ -393,9 +457,8 @@ public class XboxController extends Joystick {
 		 * Gets the up left direction
 		 * @return left button
 		 */
-		public Button getUpLeft() {
+		private Button getUpLeft() {
 			return upLeft;
 		}
-		
 	}
 }

@@ -50,9 +50,7 @@ public class OI {
 		
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
-		
-		//xbox.getButtonA().whenPressed(new ChangeHeading(0));
-		
+
 		//Climber
 		xbox.getButtonY().whenPressed(new ClimbToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDClimber(.45)); //3 Cubes
@@ -65,10 +63,10 @@ public class OI {
 		
 		
 		//Wrist
-		xbox.getDPAD().getDown().whenPressed(new PIDWrist(3)); //Score back wrist
-		xbox.getDPAD().getDown().whenPressed(new PIDWrist(2)); //Vertical
-		xbox.getDPAD().getDown().whenPressed(new PIDWrist(1)); //Score front wrist
-		xbox.getDPAD().getDown().whenPressed(new PIDWrist(0)); //Down wrist
+		xbox.getDown().whenPressed(new PIDWrist(3)); //Score back wrist
+		xbox.getDown().whenPressed(new PIDWrist(2)); //Vertical
+		xbox.getDown().whenPressed(new PIDWrist(1)); //Score front wrist
+		xbox.getDown().whenPressed(new PIDWrist(0)); //Down wrist
 		
 		
 		//Rumbles Samara's controller when David wants it to
