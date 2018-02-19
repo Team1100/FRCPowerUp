@@ -6,9 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 import org.usfirst.frc.team1100.robot.commands.vision.DefaultVision;
-import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 
 /**
  * Controls Limelight camera
@@ -73,6 +71,10 @@ public class Limelight extends Subsystem {
 		area = area==0 ? -1 : area;
 		
 		cubeDetected = tv.getDouble(0) == 1;
+		
+		if (cubeDetected) {
+			table.getEntry("snapshot").forceSetNumber(1);
+		}
 		
 		//Publish Limelight values to ShuffleBoard
 		SmartDashboard.putNumber("Center X", x);

@@ -8,6 +8,8 @@ import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
+import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
+import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.input.*;
@@ -61,12 +63,15 @@ public class OI {
 		xbox.getButtonLeftBumper().whenPressed(new OpenClaw());
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
-		
 		//Wrist
-		xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
-		xbox.getButtonStart().whenPressed(new PIDWrist(3));
+		xbox.getUp().whenPressed(new PIDWrist(4.5));
+		xbox.getDown().whenPressed(new PIDWrist(3));
+		
+		//Pneumatic Climber
+		xbox.getButtonBack().whenPressed(new PneumaticClimb());
+		xbox.getButtonStart().whenPressed(new PneumaticLower());
 
-
+		
 		//Rumbles Samara's controller when David wants it to
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());

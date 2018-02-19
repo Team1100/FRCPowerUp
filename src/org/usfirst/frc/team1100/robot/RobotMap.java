@@ -37,7 +37,7 @@ public class RobotMap {
 	private final static int PWM_MXP_9 = 19;
 	
 	// List of PCM CAN IDs
-	private final static int PCM_CAN_0 = 0;
+	private final static int PCM_CAN = 0;
 	
 	// List of Talon SRX CAN IDs
 	private final static int SRX_CAN_0 = 0;
@@ -153,10 +153,15 @@ public class RobotMap {
 	public static final int W_PULL_MOTOR_RIGHT = SRX_CAN_1;
 	public static final int W_WRIST_MOTOR_LEFT = SRX_CAN_2;
 	public static final int W_WRIST_MOTOR_RIGHT = SRX_CAN_3;
-	public static final int W_PINCHER_CAN = PCM_CAN_0;
+	public static final int W_PINCHER_CAN = PCM_CAN;
 	public static final int W_PINCHER_0 = PCM_0; //left
 	public static final int W_PINCHER_1 = PCM_1; //left
 	public static final int W_PINCHER_2 = PCM_2; //right
 	public static final int W_PINCHER_3 = PCM_3; //right
 	public static final int W_WRIST_POT = ANALOG_1;
+	
+	//[P]neumatic Climber
+	public static final int P_CLIMBER_CAN = PCM_CAN;
+	public static final int P_CLIMBER_0 = PCM_4;
+	public static final int P_CLIMBER_1 = PCM_5;
 }

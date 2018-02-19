@@ -5,14 +5,15 @@ import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartRightScale;
 import org.usfirst.frc.team1100.robot.commands.auto.RightStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
-import org.usfirst.frc.team1100.robot.commands.vision.SaveCubePNG;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Climber;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.PneumaticClimber;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -39,7 +40,6 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
-	private SaveCubePNG saveCubeThread;
 	//public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	/**
@@ -71,9 +71,9 @@ public class Robot extends IterativeRobot {
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();
+		PneumaticClimber.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
-		saveCubeThread = new SaveCubePNG();
 
 		initPositionChooser.addObject("Left", 1);
 		initPositionChooser.addObject("Middle",0);
@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
+		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
@@ -148,6 +149,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
@@ -169,8 +171,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		Drive.getInstance().getNavX().zeroYaw();
-		saveCubeThread = new SaveCubePNG();
-		saveCubeThread.start();
 		imageCaptured = false;
 	}
 
@@ -181,6 +181,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
