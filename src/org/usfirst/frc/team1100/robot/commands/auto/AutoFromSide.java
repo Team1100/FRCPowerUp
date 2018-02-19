@@ -25,43 +25,51 @@ public class AutoFromSide extends CommandGroup {
 	
 	private int currentSide;
 	
+	/**
+	 * Start with center of robot 2 feet from corner, and backwards. This auto will drive to scale,
+	 * 
+	 * @param defaultSpeed
+	 * @param initPosition
+	 * @param switchPosition
+	 * @param scalePosition
+	 */
     public AutoFromSide(double defaultSpeed, int initPosition, int switchPosition, int scalePosition) {
     	// Do stuff if we are in the left or right position
     	// We're driving for the scale, never-mind the switch
     	currentSide = initPosition;
     	// Start driving for the scale
-    	addSequential(new DriveStraight(20, 1, 0));
+    	addSequential(new DriveStraight(17.6, -defaultSpeed, 0));
     	// Is this our scale?
     	if (scalePosition == (currentSide*Robot.RIGHT_SIDE))
     	{
     		// Turn toward other side of field
     		addSequential(new ChangeHeading(currentSide * 90));
     		// Drive across field
-    		addSequential(new DriveStraight(16, defaultSpeed, currentSide * 90));
-    		// Turn to the farther scale
-    		addSequential(new ChangeHeading(0));
+    		addSequential(new DriveStraight(18, defaultSpeed, currentSide * 90));
     		// Flip sides
     		currentSide = -currentSide;
     	}
+    	// Turn to the scale
+    	addSequential(new ChangeHeading(currentSide * -8));
     	// Drive to scale
-    	addSequential(new DriveStraight(7, defaultSpeed, 0));
+    	addSequential(new DriveStraight(8.1, defaultSpeed, currentSide * -8));
     	// Turn to scale
     	addSequential(new ChangeHeading(currentSide * 90));
+    	// Drive up to scale
+    	//addSequential(new DriveStraight(2, 0.5, currentSide * 90));
+    	// STOP!!
+    	//addSequential(new DriveStop());
     	// While driving set claw height for scale
     	addParallel(new ClimbToTop());
     	// While driving set wrist angle
     	addParallel(new PIDWrist(kForwardScaleWristAngle));
-    	// Drive up to scale
-    	addSequential(new DriveStraight(2, 0.5, currentSide * 90));
-    	// STOP!!
-    	addSequential(new DriveStop());
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
     	// While driving, set the claw to load height
     	addParallel(new ClimbToBottom());
     	// Turn back toward platform zone
-    	addSequential(new ChangeHeading(180));
+    	addSequential(new ChangeHeading(0));
     	// Drive back toward platform zone
-    	addSequential(new DriveStraight(7, defaultSpeed, 180));
+    	addSequential(new DriveStraight(8, defaultSpeed, 0));
     }
 }

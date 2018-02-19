@@ -24,54 +24,60 @@ public class AutoFromCenter extends CommandGroup {
 	final double kReverseScaleWristAngle = 120;
 	
 	private int currentSide;
-	
+	/**
+	 * Start with center of robot 2 feet to the right from the exchange zone, and BACKWARDS.
+	 * This auto puts cube in switch prepares to load next cube into robot.
+	 * 
+	 * @param defaultSpeed
+	 * @param switchPosition
+	 * @param scalePosition
+	 */
     public AutoFromCenter(double defaultSpeed, int switchPosition, int scalePosition) {
     	
     	// Do stuff if we are in the center position
     	// If we are in the center, we just chase the switch
     	currentSide = switchPosition;
     	// Drive forward 1 foot to clear the wall
-    	addSequential(new DriveStraight(1, 0.5, 0));
-    	// While driving, set the height of the climber
-    	addParallel(new ClimbToTop());
+    	addSequential(new DriveStraight(1, -0.75, 0));
     	// While driving, set the wrist angle for the switch
     	addParallel(new PIDWrist(kSwitchWristAngle));
     	if (currentSide == Robot.LEFT_SIDE) // The center robot cannot be centered on the field
     	{
     		// Turn toward switch
-    		addSequential(new ChangeHeading(-25));
+    		addSequential(new ChangeHeading(-62.5));
     		// Drive close to switch
-    		addSequential(new DriveStraight(15, defaultSpeed, currentSide * -20));
+    		addSequential(new DriveStraight(7.2, -defaultSpeed, -62.5));
     	} else {
     		// Turn toward switch
-    		addSequential(new ChangeHeading(20));
+    		addSequential(new ChangeHeading(45));
     		// Drive close to switch
-    		addSequential(new DriveStraight(13, defaultSpeed, currentSide * -20));
+    		addSequential(new DriveStraight(5.7, -defaultSpeed, 45));
     	}
+    	addSequential(new ChangeHeading(0));
     	// Drive up to the switch
-    	addSequential(new DriveStraight(0.25, 0.2, 0));
+    	addSequential(new DriveStraight(3, -defaultSpeed, 0));
     	// STOP!!!
     	addSequential(new DriveStop());
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
-    	// Whilie driving, bring the claw down to load height
-    	addParallel(new ClimbToBottom());
     	// Next, drive around to load a cube and target the scale
     	// Back up from switch
-    	addSequential(new DriveStraight(1, -0.25, 0));
+    	addSequential(new DriveStraight(1, 0.5, 0));
     	// Turn to drive around switch
     	addSequential(new ChangeHeading(currentSide * -90));
     	// Drive past switch
-    	addSequential(new DriveStraight(6, defaultSpeed, currentSide * -90)); 
-    	// Driving turn toward scale
-    	addSequential(new DriveStraight(6, defaultSpeed, 0));
+    	addSequential(new DriveStraight(4, -defaultSpeed, currentSide * -90)); 
+    	// Turn toward scale
+    	addSequential(new ChangeHeading(0));
+    	// Drive toward scale
+    	addSequential(new DriveStraight(10, defaultSpeed, 0));
     	// Is this our scale?
     	if (currentSide != scalePosition)
     	{
     		// Turn toward other side of field
     		addSequential(new ChangeHeading(currentSide * 90));
     		// Drive across field
-    		addSequential(new DriveStraight(16, defaultSpeed, currentSide * 90));
+    		addSequential(new DriveStraight(18, -defaultSpeed, currentSide * 90));
     		// Flip sides
     		currentSide = -currentSide;
     	}
