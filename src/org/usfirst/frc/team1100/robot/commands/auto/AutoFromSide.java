@@ -5,6 +5,9 @@ import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
+import org.usfirst.frc.team1100.robot.Robot;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -14,14 +17,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoFromSide extends CommandGroup {
 
-	final int LEFT_SIDE = 1;
-	final int RIGHT_SIDE = -1;
-		
-	/// TODO We need to figure out the heights
-	final double kLoadHeight = 0.0;
-	final double kSwitchHeight = 0.25;
-	final double kScaleHeight = 1.0;
-	
 	/// TODO We need to figure out the wrist angles
 	final double kLoadWristAngle = -20;
 	final double kSwitchWristAngle = 0;
@@ -37,7 +32,7 @@ public class AutoFromSide extends CommandGroup {
     	// Start driving for the scale
     	addSequential(new DriveStraight(20, 1, 0));
     	// Is this our scale?
-    	if (scalePosition == (currentSide*RIGHT_SIDE))
+    	if (scalePosition == (currentSide*Robot.RIGHT_SIDE))
     	{
     		// Turn toward other side of field
     		addSequential(new ChangeHeading(currentSide * 90));
@@ -53,7 +48,7 @@ public class AutoFromSide extends CommandGroup {
     	// Turn to scale
     	addSequential(new ChangeHeading(currentSide * 90));
     	// While driving set claw height for scale
-    	addParallel(new PIDClimber(kScaleHeight));
+    	addParallel(new ClimbToTop());
     	// While driving set wrist angle
     	addParallel(new PIDWrist(kForwardScaleWristAngle));
     	// Drive up to scale
@@ -63,7 +58,7 @@ public class AutoFromSide extends CommandGroup {
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
     	// While driving, set the claw to load height
-    	addParallel(new PIDClimber(kLoadHeight));
+    	addParallel(new ClimbToBottom());
     	// Turn back toward platform zone
     	addSequential(new ChangeHeading(180));
     	// Drive back toward platform zone

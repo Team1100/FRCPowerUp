@@ -40,7 +40,6 @@ public class Robot extends IterativeRobot {
 	 * The singular instance of the AHRS class. There's only one NavX on the robot.
 	 */
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
 	private SaveCubePNG saveCubeThread;
@@ -51,9 +50,9 @@ public class Robot extends IterativeRobot {
 	 */
 	public static boolean imageCaptured = false;
 	
-	static final int LEFT_SIDE = 1;
-	static final int CENTERED = 0;
-	static final int RIGHT_SIDE = -1;
+	public static final int LEFT_SIDE = 1;
+	public static final int CENTERED = 0;
+	public static final int RIGHT_SIDE = -1;
 	
 	final double DEFAULT_SPEED = 0.75;
 
@@ -78,14 +77,7 @@ public class Robot extends IterativeRobot {
 		
 		Drive.getInstance().getNavX().zeroYaw();
 		saveCubeThread = new SaveCubePNG();
-		
-		//Default code for auto selection, so I don't forget
-		
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		// SmartDashboard.putData("Auto mode", chooser);
-		
-		// Choose initial field position
+
 		initPositionChooser.addObject("Left", 1);
 		initPositionChooser.addObject("Middle",0);
 		initPositionChooser.addObject("Right",-1);

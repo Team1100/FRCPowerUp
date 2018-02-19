@@ -5,6 +5,9 @@ import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
+import org.usfirst.frc.team1100.robot.Robot;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
+import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -14,14 +17,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoFromCenter extends CommandGroup {
 
-	final int LEFT_SIDE = 1;
-	final int RIGHT_SIDE = -1;
-
-	/// TODO We need to figure out the heights
-	final double kLoadHeight = 0.0;
-	final double kSwitchHeight = 0.25;
-	final double kScaleHeight = 1.0;
-	
 	/// TODO We need to figure out the wrist angles
 	final double kLoadWristAngle = -20;
 	final double kSwitchWristAngle = 0;
@@ -38,10 +33,10 @@ public class AutoFromCenter extends CommandGroup {
     	// Drive forward 1 foot to clear the wall
     	addSequential(new DriveStraight(1, 0.5, 0));
     	// While driving, set the height of the climber
-    	addParallel(new PIDClimber(kSwitchHeight));
+    	addParallel(new ClimbToTop());
     	// While driving, set the wrist angle for the switch
     	addParallel(new PIDWrist(kSwitchWristAngle));
-    	if (currentSide == LEFT_SIDE) // The center robot cannot be centered on the field
+    	if (currentSide == Robot.LEFT_SIDE) // The center robot cannot be centered on the field
     	{
     		// Turn toward switch
     		addSequential(new ChangeHeading(-25));
@@ -60,7 +55,7 @@ public class AutoFromCenter extends CommandGroup {
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
     	// Whilie driving, bring the claw down to load height
-    	addParallel(new PIDClimber(kLoadHeight));
+    	addParallel(new ClimbToBottom());
     	// Next, drive around to load a cube and target the scale
     	// Back up from switch
     	addSequential(new DriveStraight(1, -0.25, 0));
