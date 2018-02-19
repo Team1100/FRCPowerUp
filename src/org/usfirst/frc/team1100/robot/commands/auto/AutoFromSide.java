@@ -45,14 +45,14 @@ public class AutoFromSide extends CommandGroup {
     		// Turn toward other side of field
     		addSequential(new ChangeHeading(currentSide * 90));
     		// Drive across field
-    		addSequential(new DriveStraight(18, defaultSpeed, currentSide * 90));
+    		addSequential(new DriveStraight(18, -defaultSpeed, currentSide * 90));
     		// Flip sides
     		currentSide = -currentSide;
     	}
     	// Turn to the scale
     	addSequential(new ChangeHeading(currentSide * -8));
     	// Drive to scale
-    	addSequential(new DriveStraight(8.1, defaultSpeed, currentSide * -8));
+    	addSequential(new DriveStraight(8.1, -defaultSpeed, currentSide * -8));
     	// Turn to scale
     	addSequential(new ChangeHeading(currentSide * 90));
     	// Drive up to scale

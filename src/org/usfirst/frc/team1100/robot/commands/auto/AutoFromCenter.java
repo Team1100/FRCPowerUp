@@ -70,7 +70,7 @@ public class AutoFromCenter extends CommandGroup {
     	// Turn toward scale
     	addSequential(new ChangeHeading(0));
     	// Drive toward scale
-    	addSequential(new DriveStraight(10, defaultSpeed, 0));
+    	addSequential(new DriveStraight(10, -defaultSpeed, 0));
     	// Is this our scale?
     	if (currentSide != scalePosition)
     	{
