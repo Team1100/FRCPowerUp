@@ -66,12 +66,12 @@ public class OI {
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
 		//Wrist
-		xbox.getButtonStart().whenPressed(new PIDWrist(3.5));
-		xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
+		//xbox.getButtonStart().whenPressed(new PIDWrist(3.5));
+		//xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
 		
 		//Pneumatic Climber
-		//xbox.getButtonBack().whenPressed(new PneumaticClimb());
-		//xbox.getButtonStart().whenPressed(new PneumaticLower());
+		xbox.getButtonBack().whenPressed(new PneumaticClimb());
+		xbox.getButtonStart().whenPressed(new PneumaticLower());
 		
 		//Vision
 		xbox.getDown().whenPressed(new GrabCube());

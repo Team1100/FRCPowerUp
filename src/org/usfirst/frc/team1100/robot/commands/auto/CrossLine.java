@@ -9,6 +9,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class CrossLine extends CommandGroup {
     public CrossLine() {
-    	addSequential(new DriveStraight(12, -.6, 0));
+    	addSequential(new DriveStraight(12, .6, 0));
     }
 }

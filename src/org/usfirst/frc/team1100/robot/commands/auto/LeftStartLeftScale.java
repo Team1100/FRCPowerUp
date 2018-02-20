@@ -1,8 +1,10 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
+import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
@@ -29,22 +31,23 @@ public class LeftStartLeftScale extends CommandGroup {
 	 * @param defaultSpeed
 	 */
     public LeftStartLeftScale(double defaultSpeed) {
-    	addSequential(new DriveStraight(15, -defaultSpeed, 0));
+    	addParallel(new ClimbToTop());
+    	addSequential(new DriveStraight(17, -defaultSpeed, 0));
+    	//addParallel(new PneumaticClimb());
     	addSequential(new DriveStraight(1, -.8, 0));
     	addSequential(new DriveStraight(1, -.7, 0));
     	
-    //addParallel(new PIDClimber(.4));
     	addSequential(new DriveStraight(1, -.6, 0));
+    //addParallel(new PneumaticClimb());
+    	addSequential(new ChangeHeadingWhileUp(40, 1));
     	
-    	addParallel(new ChangeHeading(40, .6));
-    //addSequential(new ClimbToTop());
     	
-    	addSequential(new DriveStraight(2.75, -.5, 40));
+    	addSequential(new DriveStraight(1.5, -.5, 40));
     //addParallel(new PIDWrist(kForwardScaleWristAngle));
-    //addSequential(new ShootCubeOut());
+    	addSequential(new ShootCubeOut());
     	addSequential(new DriveStop());
-    	addSequential(new DriveStraight(2.75, .5, 40));
-    //addParallel(new ClimbToBottom());
+    	addSequential(new DriveStraight(1.5, .5, 40));
+    	addSequential(new ClimbToBottom());
     	addSequential(new ChangeHeading(0, 1));
     	
     }

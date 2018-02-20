@@ -14,8 +14,6 @@ public class ShootCubeOut extends Command {
     Timer t;
     
     public ShootCubeOut() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
         t = new Timer();

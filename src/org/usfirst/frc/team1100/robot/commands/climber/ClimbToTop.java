@@ -19,7 +19,7 @@ public class ClimbToTop extends Command {
     public ClimbToTop() {
         requires(Climber.getInstance());
         climber = Climber.getInstance();
-        this.speed = .7;
+        this.speed = .65;
     }
     
     /**

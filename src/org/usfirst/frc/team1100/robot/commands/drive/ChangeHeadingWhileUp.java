@@ -15,7 +15,7 @@ import com.kauailabs.navx.frc.AHRS;
  * then calling {@link com.kauailabs.navx.frc.AHRS#getYaw getYaw method}. This command uses a PID controller.
  * @see <a href="http://www.ni.com/white-paper/3782/en/">A lesson on what a PID Controller is and how it works.</a>
  */
-public class ChangeHeading extends PIDCommand {
+public class ChangeHeadingWhileUp extends PIDCommand {
 
     private PIDController pidController = getPIDController();
 	private AHRS ahrs = Drive.getInstance().getNavX();
@@ -26,15 +26,15 @@ public class ChangeHeading extends PIDCommand {
 	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
 	 * @param target the target heading for this command
 	 */
-    public ChangeHeading(double target, double speed) {
-    	super(.07, .03, .1);
+    public ChangeHeadingWhileUp(double target, double speed) {
+    	super(.045, .0175, .07);
         requires(Drive.getInstance());
         countOnTarget = 0;
         setSetpoint(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
         pidController.setOutputRange(-speed, speed);
-        pidController.setPercentTolerance(1);
+        pidController.setPercentTolerance(2);
     }
 
     /**
