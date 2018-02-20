@@ -120,7 +120,7 @@ public class Limelight extends Subsystem {
      * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new DefaultVision());
+        //setDefaultCommand(new DefaultVision());
     }
 }
 

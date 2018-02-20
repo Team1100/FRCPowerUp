@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
+import org.usfirst.frc.team1100.robot.commands.auto.CrossLine;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartRightScale;
 import org.usfirst.frc.team1100.robot.commands.auto.RightStartLeftScale;
@@ -52,8 +53,6 @@ public class Robot extends IterativeRobot {
 	public static final int RIGHT_SIDE = -1;
 	
 	final double DEFAULT_SPEED = 0.9;
-
-	private int currentSide;
 	
 	/**
 	 * Called when the robot is first started up.
@@ -71,13 +70,14 @@ public class Robot extends IterativeRobot {
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();
-		//PneumaticClimber.getInstance();
+		PneumaticClimber.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
 
 		initPositionChooser.addObject("Left", 1);
 		initPositionChooser.addObject("Middle",0);
 		initPositionChooser.addObject("Right",-1);
+		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
 	}
 
@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
@@ -124,18 +124,20 @@ public class Robot extends IterativeRobot {
        		// Do stuff if we are in the center position
         	autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
         }
-        else  if (initPosition == RIGHT_SIDE){
+        else  if (initPosition == LEFT_SIDE) {
         	if (scalePosition == 1) {
         		autonomousCommand = new LeftStartLeftScale(DEFAULT_SPEED);
         	} else {
         		autonomousCommand = new LeftStartRightScale(DEFAULT_SPEED);
         	}
-        } else {
+        } else if (initPosition == RIGHT_SIDE) {
         	if (scalePosition == 1) {
         		autonomousCommand = new RightStartLeftScale(DEFAULT_SPEED);
         	} else {
         		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED);
         	}
+        } else {
+        	autonomousCommand = (new CrossLine());
         }
 		if (autonomousCommand != null)
 			//This is how one would use a command in another file. However, I like command groups.
@@ -149,7 +151,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
@@ -181,7 +183,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
@@ -189,7 +191,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
-		
 	}
 
 	/**

@@ -11,6 +11,7 @@ import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
+import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.input.*;
 
@@ -64,17 +65,20 @@ public class OI {
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
 		//Wrist
-		xbox.getUp().whenPressed(new PIDWrist(4.5));
-		xbox.getDown().whenPressed(new PIDWrist(3));
+		xbox.getUp().whenPressed(new PIDWrist(3.5));
+		xbox.getDown().whenPressed(new PIDWrist(4.5));
 		
 		//Pneumatic Climber
-		//xbox.getButtonBack().whenPressed(new PneumaticClimb());
+		xbox.getButtonBack().whenPressed(new PneumaticClimb());
 		//xbox.getButtonStart().whenPressed(new PneumaticLower());
 
+		xbox.getButtonStart().whenPressed(new GrabCube());
 		
-		//Rumbles Samara's controller when David wants it to
+		//Rumbles Samara's controller when Anthony wants it to
+		/*
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());
+		*/
 	}
 	
 	/**

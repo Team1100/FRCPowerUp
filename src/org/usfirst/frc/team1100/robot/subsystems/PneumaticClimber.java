@@ -14,15 +14,15 @@ public class PneumaticClimber extends Subsystem {
 	 * The singular instance of the PneumaticClimber subsystem
 	 */
 	private static PneumaticClimber climber;
+	
+	private boolean isDown;
 
-	/*
-	 * The two PWM motors driving the claw
-	 */
 	DoubleSolenoid pClimber;
 
 	
 	private PneumaticClimber( ) {
 		pClimber = new DoubleSolenoid(RobotMap.P_CLIMBER_CAN, RobotMap.P_CLIMBER_0, RobotMap.P_CLIMBER_1);
+		isDown = pClimber.get()==DoubleSolenoid.Value.kReverse;
 	}
 	
 	/**
@@ -39,6 +39,7 @@ public class PneumaticClimber extends Subsystem {
 	 */
 	public void climb() {
 		pClimber.set(DoubleSolenoid.Value.kForward);
+		isDown = false;
 	}
 	
 	/**
@@ -46,6 +47,11 @@ public class PneumaticClimber extends Subsystem {
 	 */
 	public void lower() {
 		pClimber.set(DoubleSolenoid.Value.kReverse);
+		isDown = true;
+	}
+	
+	public boolean isDown() {
+		return isDown;
 	}
 	
 	/**

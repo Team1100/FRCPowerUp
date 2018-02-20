@@ -5,6 +5,7 @@ import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Controls the wrist through a PID loop
@@ -23,11 +24,14 @@ public class PIDWrist extends PIDCommand {
 	 */
     public PIDWrist(double angle) {
         super(.1,.01,.1);
+        SmartDashboard.putNumber("P", .06);
+    	SmartDashboard.putNumber("I", .01);
+    	SmartDashboard.putNumber("D", 0);
         requires(Wrist.getInstance());
         this.angle = angle;
         wrist = Wrist.getInstance();
         setSetpoint(angle);
-        setInputRange(1.7,5);//Backwards, bottom=3, top=.3
+        setInputRange(3.5,5);//Backwards, bottom=3, top=.3
         pidController.setOutputRange(-.75, .25);
         pidController.setPercentTolerance(0.1);
         t = new Timer();
@@ -45,6 +49,9 @@ public class PIDWrist extends PIDCommand {
      */
     protected void execute() {
     	System.err.println("Running PIDWrist, angle:  "+angle);
+    	pidController.setP(SmartDashboard.getNumber("P", .06));
+    	pidController.setI(SmartDashboard.getNumber("I", .01));
+    	pidController.setD(SmartDashboard.getNumber("D", 0));
     }
 
     /**
