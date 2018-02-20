@@ -6,7 +6,7 @@ import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
-import org.usfirst.frc.team1100.robot.commands.wrist.LowerWithTime;
+import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
@@ -53,7 +53,7 @@ public class LeftStartLeftScale extends CommandGroup {
     	
     	addParallel(new ClimbToBottom());
     	addSequential(new ChangeHeadingWhileUp(-35, 1));
-    	addSequential(new LowerWithTime());
+    	addSequential(new LowerWrist());
     	addSequential(new GrabCube());
     	
     }

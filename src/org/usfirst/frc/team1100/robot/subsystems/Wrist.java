@@ -6,6 +6,7 @@ import org.usfirst.frc.team1100.robot.commands.wrist.DefaultWrist;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -28,11 +29,19 @@ public class Wrist extends Subsystem {
 	 * Analog encoder
 	 */
     AnalogInput pot; // potentiometer
+    
+    DigitalInput topLimit, bottomLimit;
+    
+    boolean canGoUp = true;
+    boolean canGoDown = true;
 	
     private Wrist() {
     	leftWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
 		leftWristMotor.setInverted(true);
+		
+		topLimit = new DigitalInput(RobotMap.W_TOP_WRIST_LIMIT);
+		bottomLimit = new DigitalInput(RobotMap.W_BOTTOM_WRIST_LIMIT);
 		pot = new AnalogInput(RobotMap.W_WRIST_POT);
     }
     
@@ -48,12 +57,13 @@ public class Wrist extends Subsystem {
 	 */
 	public boolean rotateWrist(double speed) {
 		if (!PneumaticClimber.getInstance().isDown() && !Claw.getInstance().isOpen()) {
-			if (-.5>speed) speed = -.5;
-			if (.5<speed) speed = .5;
-			// rotate the wrist
-			leftWristMotor.set(speed);
-			rightWristMotor.set(speed);
-			return true;
+			if ((getTop() && speed > 0) || (getBottom() && speed < 0) || (!getBottom() && !getTop())){
+				if (-.5>speed) speed = -.375;
+				if (.25<speed) speed = .25;
+				leftWristMotor.set(speed);
+				rightWristMotor.set(speed);
+				return true;
+			}
 		} 
 		speed = 0;
 		leftWristMotor.set(speed);
@@ -69,10 +79,15 @@ public class Wrist extends Subsystem {
 		return pot.getAverageVoltage();
 	}
 	
+	public boolean getTop() {
+		return topLimit.get();
+	}
+	
+	public boolean getBottom() {
+		return !bottomLimit.get();
+	}
     
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        setDefaultCommand(new DefaultWrist());
     }
 }
 

@@ -8,23 +8,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LowerWithTime extends Command {
-	Timer t;
-    public LowerWithTime() {
+public class LowerWrist extends Command {
+	boolean done = false;
+    public LowerWrist() {
         requires(Wrist.getInstance());
-        t = new Timer();
     }
 
     protected void initialize() {
-    	t.start();
     }
 
     protected void execute() {
-    	Wrist.getInstance().rotateWrist(.4);
+    	done = !Wrist.getInstance().rotateWrist(1);
     }
 
     protected boolean isFinished() {
-        return t.get() > 2;
+        return done;
     }
 
     protected void end() {

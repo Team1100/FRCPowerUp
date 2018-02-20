@@ -5,7 +5,7 @@ import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
-import org.usfirst.frc.team1100.robot.commands.wrist.LowerWithTime;
+import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
@@ -88,7 +88,7 @@ public class AutoFromCenter extends CommandGroup {
     	}
     	addParallel(new CloseClaw());
     	addSequential(new ChangeHeadingWhileUp(35*-currentSide, 1));
-    	addSequential(new LowerWithTime());
+    	addSequential(new LowerWrist());
     	addSequential(new GrabCube());
     }
 }

@@ -8,23 +8,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseWithTime extends Command {
-	Timer t;
-    public RaiseWithTime() {
+public class RaiseWrist extends Command {
+	boolean done = false;
+    public RaiseWrist() {
         requires(Wrist.getInstance());
-        t = new Timer();
     }
 
     protected void initialize() {
-    	t.start();
     }
 
     protected void execute() {
-    	Wrist.getInstance().rotateWrist(-.7);
+    	done = !Wrist.getInstance().rotateWrist(-1);
     }
 
     protected boolean isFinished() {
-        return t.get() > 2;
+        return done;
     }
 
     protected void end() {

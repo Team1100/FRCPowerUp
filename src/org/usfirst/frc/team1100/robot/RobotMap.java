@@ -154,6 +154,8 @@ public class RobotMap {
 	public static final int W_PULL_MOTOR_RIGHT = SRX_CAN_1;
 	public static final int W_WRIST_MOTOR_LEFT = SRX_CAN_2;
 	public static final int W_WRIST_MOTOR_RIGHT = SRX_CAN_3;
+	public static final int W_TOP_WRIST_LIMIT = DIO_8;
+	public static final int W_BOTTOM_WRIST_LIMIT = DIO_9;
 	public static final int W_PINCHER_CAN = PCM_CAN;
 	public static final int W_PINCHER_0 = PCM_0; //both
 	public static final int W_PINCHER_1 = PCM_1; //both

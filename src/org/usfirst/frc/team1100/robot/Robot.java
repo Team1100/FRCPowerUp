@@ -98,7 +98,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Climber Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 
@@ -149,7 +149,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Climber Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 	
@@ -180,7 +180,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Climber Pot Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Climber Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 

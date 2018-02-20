@@ -13,9 +13,9 @@ import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCubeRaw;
-import org.usfirst.frc.team1100.robot.commands.wrist.LowerWithTime;
+import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
-import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWithTime;
+import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.input.*;
 import org.usfirst.frc.team1100.robot.triggers.Proximity;
 
@@ -71,8 +71,8 @@ public class OI {
 		//Wrist
 		//xbox.getButtonStart().whenPressed(new PIDWrist(2.5));
 		//xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
-		xbox.getDown().whenPressed(new LowerWithTime());
-		xbox.getUp().whenPressed(new RaiseWithTime());
+		xbox.getDown().whenPressed(new LowerWrist());
+		xbox.getUp().whenPressed(new RaiseWrist());
 		
 		//Pneumatic Climber
 		//xbox.getButtonBack().whenPressed(new PneumaticClimb());
@@ -84,7 +84,6 @@ public class OI {
 		//Proximity sensor
 		Proximity.getInstance().whenActive(new CloseClaw());
 		
-		//Rumbles Samara's controller when Anthony wants it to
 		
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());
