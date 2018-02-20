@@ -49,7 +49,7 @@ public class CenterOnCube extends PIDCommand {
     // Make this return true when this Command no longer needs to run execute()
     
     protected boolean isFinished() {
-    	return t.get()>1;
+    	return t.get()>1.5;
     }
 
     /**

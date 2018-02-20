@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
  * DriveStop sends a zero speed instruction to the drive and 
  * finishes.. 
  * 
- * @author cp18587 (2/5/2018)
  */
 public class DriveStop extends Command {
 

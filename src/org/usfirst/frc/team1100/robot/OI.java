@@ -11,7 +11,7 @@ import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
-import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
+import org.usfirst.frc.team1100.robot.commands.vision.GrabCubeRaw;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.input.*;
 
@@ -72,7 +72,7 @@ public class OI {
 		xbox.getButtonBack().whenPressed(new PneumaticClimb());
 		//xbox.getButtonStart().whenPressed(new PneumaticLower());
 
-		xbox.getButtonStart().whenPressed(new GrabCube());
+		xbox.getButtonStart().whenPressed(new GrabCubeRaw());
 		
 		//Rumbles Samara's controller when Anthony wants it to
 		/*
