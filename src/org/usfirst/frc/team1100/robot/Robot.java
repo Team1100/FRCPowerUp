@@ -118,20 +118,20 @@ public class Robot extends IterativeRobot {
 		Limelight.getInstance().readNetworkTable();
 		initPosition = initPositionChooser.getSelected();
 		String message = DriverStation.getInstance().getGameSpecificMessage();
-		int switchPosition = message.charAt(0) == 'L' ? 1: -1;
-		int scalePosition = message.charAt(1) == 'L' ? 1: -1;
+		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
+		int scalePosition = message.charAt(1) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		if (initPosition == CENTERED) {
        		// Do stuff if we are in the center position
         	autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
         }
-        else  if (initPosition == RIGHT_SIDE){
-        	if (scalePosition == 1) {
+        else  if (initPosition == LEFT_SIDE){
+        	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new LeftStartLeftScale(DEFAULT_SPEED);
         	} else {
         		autonomousCommand = new LeftStartRightScale(DEFAULT_SPEED);
         	}
         } else {
-        	if (scalePosition == 1) {
+        	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new RightStartLeftScale(DEFAULT_SPEED);
         	} else {
         		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED);
