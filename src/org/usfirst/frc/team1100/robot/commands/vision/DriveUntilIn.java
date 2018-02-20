@@ -28,7 +28,7 @@ public class DriveUntilIn extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Area", Limelight.getInstance().getArea());
-        return Limelight.getInstance().getArea()==-1;
+        return Limelight.getInstance().getArea()==-1 || Limelight.getInstance().getArea()>65;
     }
 
     // Called once after isFinished returns true

@@ -31,7 +31,7 @@ public class PIDWrist extends PIDCommand {
         this.angle = angle;
         wrist = Wrist.getInstance();
         setSetpoint(angle);
-        setInputRange(3.5,5);//Backwards, bottom=3, top=.3
+        setInputRange(1.3,5);//Backwards, bottom=3, top=.3
         pidController.setOutputRange(-.75, .25);
         pidController.setPercentTolerance(0.1);
         t = new Timer();

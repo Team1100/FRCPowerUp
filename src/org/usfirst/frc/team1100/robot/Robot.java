@@ -43,11 +43,6 @@ public class Robot extends IterativeRobot {
 	public static Integer initPosition = 0;
 	//public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
-	/**
-	 * Whether an image is captured
-	 */
-	public static boolean imageCaptured = false;
-	
 	public static final int LEFT_SIDE = 1;
 	public static final int CENTERED = 0;
 	public static final int RIGHT_SIDE = -1;
@@ -89,7 +84,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		Limelight.getInstance().readNetworkTable();
-		SmartDashboard.putBoolean("Image Captured", Robot.imageCaptured);
 	}
 	
 	/**
@@ -171,7 +165,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		Drive.getInstance().getNavX().zeroYaw();
-		imageCaptured = false;
 	}
 
 	/**

@@ -37,7 +37,7 @@ public class RightStartLeftScale extends CommandGroup {
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
 
 		// Turn toward other side of field
-		addSequential(new ChangeHeading(90, .9));
+		addSequential(new ChangeHeading(-90, .9));
 		// Drive across field
 		addParallel(new ClimbToTop());
 		addSequential(new DriveStraight(5, -defaultSpeed, -90));
@@ -47,16 +47,16 @@ public class RightStartLeftScale extends CommandGroup {
 		addSequential(new DriveStraight(2, -.7, -90));
     	
     	// Turn to the scale
-    	addSequential(new ChangeHeadingWhileUp(35, .8));
+    	addSequential(new ChangeHeadingWhileUp(30, .8));
     	
     	// Drive to scale
-    	addSequential(new DriveStraight(3, -.65, 35));
+    	addSequential(new DriveStraight(3, -.65, 30));
     	// While driving set wrist angle
     //addParallel(new PIDWrist(kForwardScaleWristAngle));
     	// Shoot the cube
     	addSequential(new ShootCubeOut());
     	addSequential(new DriveStop());
-    	addSequential(new DriveStraight(3, .65, 35));
+    	addSequential(new DriveStraight(3, .65, 30));
     	// While driving, set the claw to load height
     	addParallel(new ClimbToBottom());
     	// Turn back toward platform zone

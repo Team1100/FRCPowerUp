@@ -47,7 +47,7 @@ public class Wrist extends Subsystem {
 	 * @return true if move successful
 	 */
 	public boolean rotateWrist(double speed) {
-		if (!PneumaticClimber.getInstance().isDown()) {
+		if (!PneumaticClimber.getInstance().isDown() && !Claw.getInstance().isOpen()) {
 			if (-.5>speed) speed = -.5;
 			if (.5<speed) speed = .5;
 			// rotate the wrist

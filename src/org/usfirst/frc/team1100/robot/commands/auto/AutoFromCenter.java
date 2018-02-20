@@ -1,11 +1,16 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
  
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
+import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
+import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
+import org.usfirst.frc.team1100.robot.commands.wrist.LowerWithTime;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
+import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
+import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
@@ -51,11 +56,11 @@ public class AutoFromCenter extends CommandGroup {
     		// Turn toward switch
     		addSequential(new ChangeHeading(45, .9));
     		// Drive close to switch
-    		addSequential(new DriveStraight(5.7, -defaultSpeed, 45));
+    		addSequential(new DriveStraight(4, -defaultSpeed, 45));
     	}
     	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
-    	addSequential(new DriveStraight(3, -defaultSpeed, 0));
+    	addSequential(new DriveStraight(2.9, -.75, 0));
     	// STOP!!!
     	addSequential(new DriveStop());
     	// Shoot the cube
@@ -81,5 +86,9 @@ public class AutoFromCenter extends CommandGroup {
     		// Flip sides
     		currentSide = -currentSide;
     	}
+    	addParallel(new CloseClaw());
+    	addSequential(new ChangeHeadingWhileUp(35*-currentSide, 1));
+    	addSequential(new LowerWithTime());
+    	addSequential(new GrabCube());
     }
 }

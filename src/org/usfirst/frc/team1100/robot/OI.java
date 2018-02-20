@@ -13,8 +13,11 @@ import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCubeRaw;
+import org.usfirst.frc.team1100.robot.commands.wrist.LowerWithTime;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
+import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWithTime;
 import org.usfirst.frc.team1100.robot.input.*;
+import org.usfirst.frc.team1100.robot.triggers.Proximity;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -66,21 +69,26 @@ public class OI {
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
 		//Wrist
-		//xbox.getButtonStart().whenPressed(new PIDWrist(3.5));
+		//xbox.getButtonStart().whenPressed(new PIDWrist(2.5));
 		//xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
+		xbox.getDown().whenPressed(new LowerWithTime());
+		xbox.getUp().whenPressed(new RaiseWithTime());
 		
 		//Pneumatic Climber
-		xbox.getButtonBack().whenPressed(new PneumaticClimb());
-		xbox.getButtonStart().whenPressed(new PneumaticLower());
+		//xbox.getButtonBack().whenPressed(new PneumaticClimb());
+		//xbox.getButtonStart().whenPressed(new PneumaticLower());
 		
 		//Vision
-		xbox.getDown().whenPressed(new GrabCube());
+		//xbox.getDown().whenPressed(new GrabCube());
+		
+		//Proximity sensor
+		Proximity.getInstance().whenActive(new CloseClaw());
 		
 		//Rumbles Samara's controller when Anthony wants it to
-		/*
+		
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());
-		*/
+		
 	}
 	
 	/**

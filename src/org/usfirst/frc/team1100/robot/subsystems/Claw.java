@@ -1,8 +1,8 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.AnalogInput;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
@@ -26,20 +26,17 @@ public class Claw extends Subsystem {
 	/*
 	 * The two PWM motors driving the claw
 	 */
-	DoubleSolenoid pincherLeft;
+	DoubleSolenoid pincher;
 	
-	/*
-	 * The two PWM motors driving the claw
-	 */
-	DoubleSolenoid pincherRight;
+	DigitalInput proximity;
 	
-
+	private boolean isOpen = false;;
 	/**
 	 * Sets up talons and drivetrain
 	 */
 	private Claw() {
-		pincherLeft = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
-		pincherRight = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_2, RobotMap.W_PINCHER_3);
+		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
+		proximity = new DigitalInput(RobotMap.W_PROXIMITY);
 	}
 
 	/**
@@ -57,24 +54,30 @@ public class Claw extends Subsystem {
 	 * This function triggers the PCM module to open the claw.
 	 */
 	public void open() {
+		isOpen = true;
 		// close the claw
-		pincherLeft.set(DoubleSolenoid.Value.kForward);
-		pincherRight.set(DoubleSolenoid.Value.kForward);
+		pincher.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
 	 * This function triggers the PCM module to close the claw.
 	 */
 	public void close() {
+		isOpen = false;
 		// close the claw
-		pincherLeft.set(DoubleSolenoid.Value.kReverse);
-		pincherRight.set(DoubleSolenoid.Value.kReverse);
+		pincher.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	public boolean isOpen() {
+		return isOpen;
+	}
+	
+	public boolean getProximity() {
+		return proximity.get();
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
 	}
 
 
