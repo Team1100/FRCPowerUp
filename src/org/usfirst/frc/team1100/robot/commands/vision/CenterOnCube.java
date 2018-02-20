@@ -18,9 +18,6 @@ public class CenterOnCube extends PIDCommand {
     public CenterOnCube() {
     	super(.06, .01, 0);
     	t = new Timer();
-    	SmartDashboard.putNumber("P", .06);
-    	SmartDashboard.putNumber("I", .01);
-    	SmartDashboard.putNumber("D", 0);
     	requires(Limelight.getInstance());
     	requires(Drive.getInstance()); 
         setInputRange(-20, 20);
@@ -41,13 +38,11 @@ public class CenterOnCube extends PIDCommand {
      * Unused, all of the content normally present is in returnPIDInput() and usePIDOutput
      */
     protected void execute() {
-    	pidController.setP(SmartDashboard.getNumber("P", .06));
-    	pidController.setI(SmartDashboard.getNumber("I", .01));
-    	pidController.setD(SmartDashboard.getNumber("D", 0));
     }
-
-    // Make this return true when this Command no longer needs to run execute()
     
+    /**
+     * Finished after 1.5 seconds
+     */
     protected boolean isFinished() {
     	return t.get()>1.5;
     }

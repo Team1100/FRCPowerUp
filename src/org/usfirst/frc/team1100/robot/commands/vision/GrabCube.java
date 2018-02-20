@@ -1,40 +1,45 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
+import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class GrabCube extends Command {
-
+	
+	Timer t;
+	GrabCubeRaw command;
     public GrabCube() {
         requires(Drive.getInstance());
         requires(Intake.getInstance());
-        
+        requires(Claw.getInstance());
+        t = new Timer();
+        command = new GrabCubeRaw();
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
+    	t.start();
+    	command.start();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return t.get() > 1.5;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	command.cancel();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
+    	command.cancel();
     }
 }

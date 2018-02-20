@@ -33,18 +33,18 @@ public class LeftStartLeftScale extends CommandGroup {
     	addSequential(new DriveStraight(1, -.8, 0));
     	addSequential(new DriveStraight(1, -.7, 0));
     	
-    	addParallel(new PIDClimber(.4));
+    //addParallel(new PIDClimber(.4));
     	addSequential(new DriveStraight(1, -.6, 0));
     	
     	addParallel(new ChangeHeading(40, .6));
-    	addSequential(new ClimbToTop());
+    //addSequential(new ClimbToTop());
     	
     	addSequential(new DriveStraight(2.75, -.5, 40));
     //addParallel(new PIDWrist(kForwardScaleWristAngle));
-    	addSequential(new ShootCubeOut());
+    //addSequential(new ShootCubeOut());
     	addSequential(new DriveStop());
     	addSequential(new DriveStraight(2.75, .5, 40));
-    	addParallel(new ClimbToBottom());
+    //addParallel(new ClimbToBottom());
     	addSequential(new ChangeHeading(0, 1));
     	
     }
