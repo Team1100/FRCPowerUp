@@ -23,7 +23,7 @@ public class UserDrive extends Command {
     }
 
     /**
-     * unused
+     * Unused
      */
     protected void initialize() {
     }
@@ -37,17 +37,22 @@ public class UserDrive extends Command {
     	Drive.getInstance().tankDrive(left, right);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Always false, this is a default command
+     */
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Unused
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Unused
+     */
     protected void interrupted() {
     }
 }

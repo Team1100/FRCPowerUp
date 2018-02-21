@@ -8,6 +8,7 @@ import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
+import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
@@ -21,35 +22,34 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class RightStartRightScale extends CommandGroup {
 
-	/// TODO We need to figure out the wrist angles
-	final double kLoadWristAngle = -20;
-	final double kSwitchWristAngle = 0;
-	final double kForwardScaleWristAngle = 45;
-	final double kReverseScaleWristAngle = 120;
-	
 	/**
-	 * Start with center of robot 2 feet from corner, and backwards. This auto will drive to scale,
+	 * Start with center of robot 2 feet from corner, and backwards.
+	 * <p>
+	 * This auto will start on the right, and drive to the right scale,
+	 * deposit a cube into that scale, then turn around and grab the first cube it sees.
 	 * 
-	 * @param defaultSpeed
+	 * @param defaultSpeed the speed which the robot will mostly move
 	 */
     public RightStartRightScale(double defaultSpeed) {
+    	//Drive to scale, prep for depositing cube
+    	addParallel(new RaiseWrist());
     	addParallel(new ClimbToTop());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
-    	//addParallel(new PneumaticClimb());
+    //addParallel(new PneumaticClimb());
     	addSequential(new DriveStraight(1, -.8, 0));
     	addSequential(new DriveStraight(1, -.7, 0));
-    	
     	addSequential(new DriveStraight(1, -.6, 0));
-    //addParallel(new PneumaticClimb());
+    	
+    	//Turn to scale, drive up to it
     	addSequential(new ChangeHeadingWhileUp(-40, 1));
-    	
-    	
     	addSequential(new DriveStraight(1.5, -.5, -40));
-    //addParallel(new PIDWrist(kForwardScaleWristAngle));
+    	
+    	//Shoot cube into scale, back up, lower elevator/climber
     	addSequential(new ShootCubeOut());
     	addSequential(new DriveStop());
     	addSequential(new DriveStraight(.75, .6, -40));
     	
+    	//Turn to approximate location of a cube, get that cube
     	addParallel(new ClimbToBottom());
     	addSequential(new ChangeHeadingWhileUp(35, 1));
     	addSequential(new LowerWrist());

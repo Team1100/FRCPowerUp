@@ -6,38 +6,53 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * This command drives the robot forward, without using the NavX
  */
 public class DriveForward extends Command {
 	Encoder encoder;
 	Drive drive;
 	double distance, speed;
+	
+	/**
+	 * Uses the drive subsystem and an encoder
+	 * @param distance the distance in feet in which the robot will move
+	 * @param speed the speed in which the robot will move
+	 */
     public DriveForward(double distance, double speed) {
         requires(Drive.getInstance());
         drive = Drive.getInstance();
         encoder = drive.getEncoder();
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Unused
+     */
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Drives forward at given speed
+     */
     protected void execute() {
     	drive.tankDrive(speed, speed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True when robot is equal or has passed desired distance
+     */
     protected boolean isFinished() {
     	return Math.abs(encoder.getDistance()) >= Math.abs(distance);
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Unused
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Unused
+     */
     protected void interrupted() {
     }
 }

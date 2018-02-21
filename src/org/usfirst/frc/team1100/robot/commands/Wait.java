@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * This command makes the robot wait for a specified number of seconds. This is 
+ * used in auto for ensuring we don't hit another robot in CrossLine.java
+ * @see org.usfirst.frc.team1100.robot.commands.auto.Wait
  */
 public class Wait extends Command {
 	Timer t;
@@ -14,26 +16,35 @@ public class Wait extends Command {
     	this.time = time;
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Starts timer
+     */
     protected void initialize() {
     	t.start();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Unused
+     */
     protected void execute() {
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True when timer has gone over specified time
+     */
     protected boolean isFinished() {
         return t.get()>time;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Unused
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Unused
+     */
     protected void interrupted() {
     }
 }

@@ -149,7 +149,7 @@ public class RobotMap {
 	public static final int C_CLIMB_PDP_TWO = PDP_11; // TODO Check this port
 	//they are named "one" and "two" because it doesn't matter what side they're on
 	
-	// Cla[W]
+	// Cla[W] and [W]rist and Intake
 	public static final int W_PULL_MOTOR_LEFT = SRX_CAN_0;
 	public static final int W_PULL_MOTOR_RIGHT = SRX_CAN_1;
 	public static final int W_WRIST_MOTOR_LEFT = SRX_CAN_2;

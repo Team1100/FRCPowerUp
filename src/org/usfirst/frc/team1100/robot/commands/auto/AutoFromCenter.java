@@ -6,14 +6,10 @@ import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
-import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
+import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
-import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
-import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -45,7 +41,7 @@ public class AutoFromCenter extends CommandGroup {
     	// Drive forward 1 foot to clear the wall
     	addSequential(new DriveStraight(1, -0.75, 0));
     	// While driving, set the wrist angle for the switch
-    //addParallel(new PIDWrist(kSwitchWristAngle));
+    	addParallel(new RaiseWrist());
     	if (currentSide == Robot.LEFT_SIDE) // The center robot cannot be centered on the field
     	{
     		// Turn toward switch

@@ -44,14 +44,14 @@ public class ClimbToTop extends Command {
     }
 
     /**
-     * Unused
+     * Stops climbing
      */
     protected void end() {
     	climber.climb(0);
     }
     
     /**
-     * Unused
+     * Stops climbing
      */
     protected void interrupted() {
     	climber.climb(0);

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * User control of the climber through Xbox controller left joystick. Used for
- * resetting the potentiometer while robot is in developement
+ * resetting the potentiometer while robot is in development
  */
 public class DefaultClimber extends Command {
 	

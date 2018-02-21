@@ -42,12 +42,15 @@ public class ClimbToBottom extends Command {
     }
 
     /**
-     * Unused
+     * Stops climbing
      */
     protected void end() {
+    	climber.climb(0);
     }
     
-
+    /**
+     * Stops climbing
+     */
     protected void interrupted() {
     	climber.climb(0);
     }

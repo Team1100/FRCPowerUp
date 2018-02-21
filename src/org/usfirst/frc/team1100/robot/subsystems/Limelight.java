@@ -6,10 +6,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1100.robot.commands.vision.DefaultVision;
-
 /**
- * Controls Limelight camera
+ * THis subsystem controls Limelight camera
  */
 public class Limelight extends Subsystem {
 	
@@ -19,7 +17,7 @@ public class Limelight extends Subsystem {
 	private boolean cubeDetected;
 	
 	
-	/**
+	/*
 	 * Gets table, turns on Limelight LED to be turned off later
 	 */
     private Limelight() {
@@ -35,6 +33,10 @@ public class Limelight extends Subsystem {
 		
     }
     
+    /**
+     * Gets the singular instance of the Limelight subsystem
+     * @return the Limelight instance
+     */
     public static Limelight getInstance() {
     	if (lime == null) lime = new Limelight();
     	return lime;
@@ -114,8 +116,6 @@ public class Limelight extends Subsystem {
     	return -1;
     }
     
-    
-
     /**
      * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
      */

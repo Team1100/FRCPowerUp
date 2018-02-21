@@ -25,8 +25,8 @@ public class DriveStraight extends PIDCommand {
 	double speed, distance;
 	
 	/**
-	 * 
-	 * @param distance in feet
+	 * Sets up PID controller, uses drive subsystem
+	 * @param distance distance in feet
 	 * @param speed speed of robot
 	 * @param heading heading of 'straight'
 	 */
@@ -43,29 +43,48 @@ public class DriveStraight extends PIDCommand {
         pidController.setContinuous();
         pidController.setPercentTolerance(0.5);
     }
-
+    
+    /**
+     * Resets encoder, begins driving
+     */
     protected void initialize() {
     	encoder.reset();
         Drive.getInstance().arcadeDrive(-speed, 0);
     }
-
+    
+    /**
+     * True when robot is equal or has passed desired distance
+     */
     protected boolean isFinished() {
         SmartDashboard.putNumber("Distance (steps)", encoder.getDistance());
         return Math.abs(encoder.getDistance()) >= Math.abs(distance);
     }
-
+    
+    /**
+     * Unused
+     */
     protected void end() {
     }
-
+    
+    /**
+     * Stops all driving
+     */
     protected void interrupted() {
         Drive.getInstance().arcadeDrive(0, 0);
     }
-
+    
+    /**
+     * Returns NavX yaw
+     */
 	@Override
 	protected double returnPIDInput() {
 		return Drive.getInstance().getNavX().getYaw();
 	}
-
+	
+	/**
+	 * Drives based on output
+	 * @param output output of PID controller
+	 */
 	@Override
 	protected void usePIDOutput(double output) {
 		Drive.getInstance().arcadeDrive(-speed, -output);

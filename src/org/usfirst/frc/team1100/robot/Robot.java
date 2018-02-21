@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * Called once each time the robot enters Disabled mode.
-	 * Disabled mode is when the amount of joysticks connected are insufficient for the code.
+	 * Turns of the blinding light of the limelight
 	 */
 
 	@Override
@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 	
 	/**
 	 * Called when the robot is in Disabled mode.
-	 * I don't think there's ever a need to actually use this function.
+	 * Writes all of the sensor values to ShuffleBoard
 	 */
 	@Override
 	public void disabledPeriodic() {
@@ -170,7 +170,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * Called periodically during teleop (~20ms).
 	 * Continues to run commands either triggered in the OI class, or the default
-	 * commands for any given subsystem.
+	 * commands for any given subsystem. Also writes sensor values to ShuffleBoard
 	 */
 	@Override
 	public void teleopPeriodic() {

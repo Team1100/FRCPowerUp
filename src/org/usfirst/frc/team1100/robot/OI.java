@@ -98,11 +98,18 @@ public class OI {
 		return xbox;
 	}
 	
-
+	/**
+	 * Gets the AttackThree instance of the left stick
+	 * @return the left joystick
+	 */
 	public AttackThree getLeftStick() {
 		return leftStick;
 	}
 	
+	/**
+	 * Gets the AttackThree instance of the right stick
+	 * @return the right joystick
+	 */
 	public AttackThree getRightStick() {
 		return rightStick; 
 	}
