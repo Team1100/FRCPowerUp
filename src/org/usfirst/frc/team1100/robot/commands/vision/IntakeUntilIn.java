@@ -4,51 +4,58 @@ import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * THis command runs the intake wheels until the cube is in the claw
  */
 public class IntakeUntilIn extends Command {
 
     Intake intake;
     Timer t;
-    double time;
     
+    /**
+     * Uses intake subsystem
+     */
     public IntakeUntilIn() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Intake.getInstance());
-    	
         intake = Intake.getInstance();
-        
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Runs intake wheels
+     */
     protected void initialize() {
     	intake.setSpeed(-.5);
     	intake.spinWheels();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Runs intake wheels
+     */
     protected void execute() {
-    	SmartDashboard.putNumber("Area", Limelight.getInstance().getArea());
     	intake.spinWheels();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True if cube is in claw
+     */
     protected boolean isFinished() {
+    	//My logic is that if the cube is so close to the camera that everything is too dark to
+    	//detect the cube, or if 65% of the image is the cube, the robot has the cube
         return Limelight.getInstance().getArea()==-1 || Limelight.getInstance().getArea() > 65;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Stops intake wheels
+     */
     protected void end() {
     	intake.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Stops intake wheels
+     */
     protected void interrupted() {
     	intake.stop();
     }

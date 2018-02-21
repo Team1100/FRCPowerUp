@@ -78,7 +78,7 @@ public class DriveStraight extends PIDCommand {
      */
 	@Override
 	protected double returnPIDInput() {
-		return Drive.getInstance().getNavX().getYaw();
+		return ahrs.getYaw();
 	}
 	
 	/**

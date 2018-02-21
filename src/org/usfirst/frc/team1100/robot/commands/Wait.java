@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * This command makes the robot wait for a specified number of seconds. This is 
  * used in auto for ensuring we don't hit another robot in CrossLine.java
- * @see org.usfirst.frc.team1100.robot.commands.auto.Wait
+ * @see org.usfirst.frc.team1100.robot.commands.Wait
  */
 public class Wait extends Command {
 	Timer t;

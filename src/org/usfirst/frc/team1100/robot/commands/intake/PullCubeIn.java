@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * This command pulls a cube in via the intake wheels
  */
 public class PullCubeIn extends Command {
 
@@ -14,40 +14,50 @@ public class PullCubeIn extends Command {
     Timer t;
     double time;
     
+    /**
+     * Uses intake subsystem, initializes timer
+     * @param time time desired to pull in cube
+     */
     public PullCubeIn(double time) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
         this.time = time;
         t = new Timer();
-        
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Starts timer, spins wheels
+     */
     protected void initialize() {
     	t.start();
     	intake.setSpeed(-.5);
     	intake.spinWheels();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Spins intake wheels
+     */
     protected void execute() {
     	intake.spinWheels();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True if timer is over desired time
+     */
     protected boolean isFinished() {
         return t.get()>this.time;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Stops intake wheels
+     */
     protected void end() {
     	intake.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Stops intake wheels
+     */
     protected void interrupted() {
     	intake.stop();
     }

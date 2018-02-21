@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.PIDController;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.Robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -25,6 +24,7 @@ public class ChangeHeadingWhileUp extends PIDCommand {
 	/**
 	 * Requires Drive subsystem. Constructor sets up pidController. PID values pretested.
 	 * @param target the target heading for this command
+	 * @param speed the limiting speed of the robot while turning
 	 */
     public ChangeHeadingWhileUp(double target, double speed) {
     	super(.045, .0175, .07);

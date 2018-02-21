@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 /**
  * This subsystem represents the piece of the
  * robot that grabs a cube, pulls it in,
@@ -18,21 +16,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class Claw extends Subsystem {
 
-	/**
+	/*
 	 * The singular instance of the Claw subsystem
 	 */
 	private static Claw claw;
 
-	/*
-	 * The two PWM motors driving the claw
-	 */
 	DoubleSolenoid pincher;
 	
 	DigitalInput proximity;
 	
 	private boolean isOpen = false;;
-	/**
-	 * Sets up talons and drivetrain
+	
+	/*
+	 * Sets up double solenoid and proximity sensor
 	 */
 	private Claw() {
 		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
@@ -47,8 +43,6 @@ public class Claw extends Subsystem {
 		if (claw == null) claw = new Claw();
 		return claw;
 	}
-
-	// PINCHER FUNCTIONS
 	
 	/**
 	 * This function triggers the PCM module to open the claw.
@@ -68,18 +62,26 @@ public class Claw extends Subsystem {
 		pincher.set(DoubleSolenoid.Value.kReverse);
 	}
 	
+	/**
+	 * Gets the state of the claw
+	 * @return state of the claw
+	 */
 	public boolean isOpen() {
 		return isOpen;
 	}
 	
+	/**
+	 * Gets the state of the proximity sensor that detects the cube
+	 * @return the state of the proximity sensor
+	 */
 	public boolean getProximity() {
 		return proximity.get();
 	}
-
+	
+	/**
+	 * Unused, no default command
+	 */
 	@Override
 	protected void initDefaultCommand() {
 	}
-
-
-
 }

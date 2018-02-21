@@ -16,16 +16,16 @@ public class Fold extends Command {
     }
     
     /**
-     * Activates folder
+     * Unused
      */
     protected void initialize() {
-    	folder.fold();
     }
     
     /**
-     * Unused
+     * Activates folder
      */
-    protected void execute() {
+    protected void execut() {
+    	folder.fold();
     }
     
     /**

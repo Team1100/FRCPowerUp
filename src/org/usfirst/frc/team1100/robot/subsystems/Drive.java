@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
-import org.usfirst.frc.team1100.robot.commands.drive.UserDrive;
+import org.usfirst.frc.team1100.robot.commands.drive.DefaultDrive;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -18,43 +18,33 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class Drive extends Subsystem {
 
 	final double PERCENT_SPEED = .8;
-	/**
-	 * The singular instance of the Drive subsystem
-	 */
 	private static Drive drive;
-	/**
-	 * The drivetrain instance
-	 */
 	private static DifferentialDrive drivetrain;
 	Encoder encoder;
-	final double PULSE_PER_FOOT = 4090; // TODO - Calibrate this to the selected unit of measure
-	private VictorSP wario, toad, mario, peach, luigi, waluigi;
+	final double PULSE_PER_FOOT = 4090;
+	private VictorSP toad, mario, peach, luigi;
 	private AHRS ahrs;
 	
-	/**
+	/*
 	 * Sets up talons and drivetrain
 	 */
 	private Drive() {
+		//Speed controllers
 		toad = new VictorSP(RobotMap.D_TOAD);
 		mario = new VictorSP(RobotMap.D_MARIO);
 		peach = new VictorSP(RobotMap.D_PEACH);
 		luigi = new VictorSP(RobotMap.D_LUIGI);
-		ahrs = new AHRS(RobotMap.D_NAVX);
 		SpeedControllerGroup left = new SpeedControllerGroup(toad, mario);
 		SpeedControllerGroup right = new SpeedControllerGroup(peach, luigi);
 		left.setInverted(true);
 		right.setInverted(true);
 		
+		//Sensors
+		ahrs = new AHRS(RobotMap.D_NAVX);
 		encoder = new Encoder(RobotMap.D_ENCODER_MARIOTOAD_A, RobotMap.D_ENCODER_MARIOTOAD_B);
         encoder.setDistancePerPulse(1/PULSE_PER_FOOT);
-        //-2 1/2
-        //+6 1/2
-        //-2 1/2
         
-        
-		//new updated driving class allows tank drive
 		drivetrain = new DifferentialDrive(left, right);
-		
 	}
 	
 	/**
@@ -65,13 +55,6 @@ public class Drive extends Subsystem {
 		if (drive == null) drive = new Drive();
 		return drive;
 	}
-	
-	/**
-	 * Sets the default command to userDrive
-	 */
-    public void initDefaultCommand() {
-        setDefaultCommand(new UserDrive());
-    }
     
     /**
      * Plugs joystick values into tankDrive
@@ -98,5 +81,11 @@ public class Drive extends Subsystem {
     	return encoder;
     }
     
+    /**
+	 * Sets the default command to userDrive
+	 */
+    public void initDefaultCommand() {
+        setDefaultCommand(new DefaultDrive());
+    }
 }
 

@@ -25,9 +25,6 @@ public class Limelight extends Subsystem {
     	//Assign Limelight table to variable table
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		
-		//Start cube-saving thread
-		
-		
 		//Turn green LEDs on Limelight on. Turning on in constructor, then off in readNetworkTable() seems to work.
 		table.getEntry("ledMode").forceSetNumber(0);
 		
@@ -117,10 +114,9 @@ public class Limelight extends Subsystem {
     }
     
     /**
-     * Sets default command to {@link org.usfirst.frc.team1100.robot.commands.vision.DefaultVision DefaultVision}
+     * Unused
      */
     public void initDefaultCommand() {
-        //setDefaultCommand(new DefaultVision());
     }
 }
 

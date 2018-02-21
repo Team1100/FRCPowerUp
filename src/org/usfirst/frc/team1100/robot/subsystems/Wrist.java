@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
-import org.usfirst.frc.team1100.robot.commands.wrist.DefaultWrist;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -35,6 +34,9 @@ public class Wrist extends Subsystem {
     boolean canGoUp = true;
     boolean canGoDown = true;
 	
+    /*
+     * Initializes wrist hardware
+     */
     private Wrist() {
     	leftWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_LEFT);
 		rightWristMotor = new WPI_TalonSRX(RobotMap.W_WRIST_MOTOR_RIGHT);
@@ -45,13 +47,19 @@ public class Wrist extends Subsystem {
 		pot = new AnalogInput(RobotMap.W_WRIST_POT);
     }
     
+    /**
+     * Gets the singular instance of the wrist subsystem
+     * @return the wrist subsystem instance
+     */
     public static Wrist getInstance() {
     	if (wrist == null) wrist = new Wrist();
     	return wrist;
     }
     
 	/**
-	 * Move wrist with the given speed.
+	 * Move wrist with the given speed, unless moving past limit switches.
+	 * <p>
+	 * The speed is limited here, because the robot will be smashed into bits otherwise.
 	 * @param speed Speed of wrist motor
 	 * @return true if move successful
 	 */

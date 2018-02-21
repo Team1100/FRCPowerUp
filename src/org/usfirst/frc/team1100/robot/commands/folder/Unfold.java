@@ -16,16 +16,17 @@ public class Unfold extends Command {
     }
     
     /**
-     * Activates folder
-     */
-    protected void initialize() {
-    	folder.unfold();
-    }
-    
-    /**
      * Unused
      */
+    protected void initialize() {
+    }
+    
+    
+    /**
+     * Activates folder
+     */
     protected void execute() {
+    	folder.unfold();
     }
     
     /**

@@ -5,7 +5,6 @@ import org.usfirst.frc.team1100.robot.commands.intake.DefaultIntake;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,8 +21,9 @@ public class Intake extends Subsystem {
 	WPI_TalonSRX leftPullMotor;
 	WPI_TalonSRX rightPullMotor;
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+    /*
+     * Initializes intake hardware
+     */
 	private Intake() {
 		leftPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_LEFT);
 		rightPullMotor = new WPI_TalonSRX(RobotMap.W_PULL_MOTOR_RIGHT);
@@ -31,6 +31,10 @@ public class Intake extends Subsystem {
 		speed = 0;
 	}
 	
+	/**
+	 * Gets the singular instance of the intake subsystem
+	 * @return the intake subsystem instance
+	 */
 	public static Intake getInstance() {
 		if (intake == null) intake = new Intake();
 		return intake;
@@ -50,7 +54,6 @@ public class Intake extends Subsystem {
 	 * the claw.
 	 */
 	public void spinWheels() {
-		// pull cube in
 		leftPullMotor.set(speed);
 		rightPullMotor.set(speed);
 	}
@@ -62,11 +65,14 @@ public class Intake extends Subsystem {
 		leftPullMotor.set(0);
 		rightPullMotor.set(0);
 	}
-
+	
+	/**
+	 * Sets default command to Default intake
+	 * @see org.usfirst.frc.team1100.robot.commands.intake.DefaultIntake
+	 */
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DefaultIntake());
-		
 	}
 }
 

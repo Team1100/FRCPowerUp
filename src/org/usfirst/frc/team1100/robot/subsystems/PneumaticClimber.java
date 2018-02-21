@@ -58,7 +58,6 @@ public class PneumaticClimber extends Subsystem {
 	 * Unused
 	 */
     public void initDefaultCommand() {
-
     }
 }
 

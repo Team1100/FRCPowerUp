@@ -4,39 +4,50 @@ import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * This command has the robot drive until the cube is in the claw
  */
 public class DriveUntilIn extends Command {
-
+	
+	/**
+	 * Uses the drive subsystem
+	 */
     public DriveUntilIn() {
         requires(Drive.getInstance());
-        requires(Limelight.getInstance());
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Unused
+     */
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Drives with the limelight being the 'front'
+     */
     protected void execute() {
     	Drive.getInstance().tankDrive(-.6, -.6);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True when the cube is in the claw
+     */
     protected boolean isFinished() {
-    	SmartDashboard.putNumber("Area", Limelight.getInstance().getArea());
+    	//My logic is that if the cube is so close to the camera that everything is too dark to
+    	//detect the cube, or if 65% of the image is the cube, the robot has the cube
         return Limelight.getInstance().getArea()==-1 || Limelight.getInstance().getArea()>65;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Unused
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Unused
+     */
     protected void interrupted() {
     }
 }

@@ -9,7 +9,16 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * or axis can be accessed through the functions written here.
  */
 public class XboxController extends Joystick {
-
+	
+	/*                                                                      *
+	 * ---------------------NOTE TO FUTURE TEAM MEMBERS---------------------*
+	 *                                                                      *
+	 * This was an extremely annoying class to write.                       *
+	 * Do yourself a favor and copy this file into the newest robot project.*
+	 *                                                                      *
+	 * - Grant Perkins, 2018                                                *
+	 *                                                                      *
+	 */
 	private JoystickButton buttonA;
 	private JoystickButton buttonB;
 	private JoystickButton buttonX;
@@ -50,7 +59,7 @@ public class XboxController extends Joystick {
 		 */
 		kXRight(4),
 		/**
-		 * RIght stick, y axis
+		 * Right stick, y axis
 		 */
 		kYRight(5);
 
@@ -72,10 +81,8 @@ public class XboxController extends Joystick {
 	 * Initializes a XBOX Controller on a specific channel, mapping the buttons. The
 	 * JoyStick will never return a value in between +/- the deadband value.
 	 * 
-	 * @param channel
-	 *            the channel the Controller is plugged into
-	 * @param deadband
-	 *            the value of the deadband, from 0 to 1
+	 * @param channel the channel the Controller is plugged into
+	 * @param deadband the value of the deadband, from 0 to 1
 	 */
 	public XboxController(int channel, double deadband) {
 		super(channel);
@@ -213,7 +220,7 @@ public class XboxController extends Joystick {
 	 * @return up button
 	 */
 	public Button getUp() {
-		return dpad.getUp();
+		return dpad.up;
 	}
 	
 	/**
@@ -221,7 +228,7 @@ public class XboxController extends Joystick {
 	 * @return upper right button
 	 */
 	public Button getUpRight() {
-		return dpad.getUpRight();
+		return dpad.upRight;
 	}
 	
 	/**
@@ -229,7 +236,7 @@ public class XboxController extends Joystick {
 	 * @return right button
 	 */
 	public Button getRight() {
-		return dpad.getRight();
+		return dpad.right;
 	}
 	
 	/**
@@ -237,7 +244,7 @@ public class XboxController extends Joystick {
 	 * @return down right button
 	 */
 	public Button getDownRight() {
-		return dpad.getDownRight();
+		return dpad.downRight;
 	}
 	
 	/**
@@ -245,7 +252,7 @@ public class XboxController extends Joystick {
 	 * @return down button
 	 */
 	public Button getDown() {
-		return dpad.getDown();
+		return dpad.down;
 	}
 	
 	/**
@@ -253,7 +260,7 @@ public class XboxController extends Joystick {
 	 * @return down left button
 	 */
 	public Button getDownLeft() {
-		return dpad.getDownLeft();
+		return dpad.downLeft;
 	}
 	
 	/**
@@ -261,7 +268,7 @@ public class XboxController extends Joystick {
 	 * @return left button
 	 */
 	public Button getLeft() {
-		return dpad.getLeft();
+		return dpad.left;
 	}
 	
 	/**
@@ -269,7 +276,7 @@ public class XboxController extends Joystick {
 	 * @return left button
 	 */
 	public Button getUpLeft() {
-		return dpad.getUpLeft();
+		return dpad.upLeft;
 	}
 	
     /**
@@ -295,40 +302,20 @@ public class XboxController extends Joystick {
         DPAD(final int value) {
             this.value = value;
         }
-        
-        /**
-         * Convert integers to DPAD values
-         * @param angle the angle
-         * @return DPAD with matching angle
-         */
-        public static DPAD getEnum(int angle) {
-            angle = Math.abs(angle);
-            angle %= 360;
-            angle = Math.round(angle / 45) * 45;    // May have rounding errors. Due to rounding errors.
-            
-            DPAD[] all = DPAD.values();
-            
-            for(int i = 0; i < all.length; i++) {
-                if (all[i].value == angle) {
-                    return all[i] ;
-                }
-            }
-            return DPAD.kUp;
-        }
     }
 	
 	private static class DirectionalPad extends Button {
         
         private final Joystick parent;
         
-        private final Button up;
-        private final Button upRight;
-        private final Button right;
-        private final Button downRight;
-        private final Button down;
-        private final Button downLeft;
-        private final Button left;
-        private final Button upLeft;
+        final Button up;
+        final Button upRight;
+        final Button right;
+        final Button downRight;
+        final Button down;
+        final Button downLeft;
+        final Button left;
+        final Button upLeft;
         
         /**
          * Initializes buttons
@@ -361,7 +348,7 @@ public class XboxController extends Joystick {
              */
             DPadButton(final DirectionalPad parent, final DPAD dPadDirection) {
                 this.direction  = dPadDirection;
-                this.parent     = parent;
+                this.parent = parent;
             }
             
             /**
@@ -382,83 +369,11 @@ public class XboxController extends Joystick {
         }
         
         /**
-         * Gets the direction of the dpad
-         * @return A DPAD direction
-         */
-        public DPAD getDirection() {
-            return DPAD.getEnum(parent.getPOV());
-        }
-        
-        /**
          * True if dpad is at an angle
          */
 		@Override
 		public boolean get() {
 			return getPOV() != -1;
-		}
-		
-		/**
-		 * Gets the up direction
-		 * @return up button
-		 */
-		private Button getUp() {
-			return up;
-		}
-		
-		/**
-		 * Gets the upper right direction
-		 * @return upper right button
-		 */
-		private Button getUpRight() {
-			return upRight;
-		}
-		
-		/**
-		 * Gets the right direction
-		 * @return right button
-		 */
-		private Button getRight() {
-			return right;
-		}
-		
-		/**
-		 * Gets the down right direction
-		 * @return down right button
-		 */
-		private Button getDownRight() {
-			return downRight;
-		}
-		
-		/**
-		 * Gets the down direction
-		 * @return down button
-		 */
-		private Button getDown() {
-			return down;
-		}
-		
-		/**
-		 * Gets the down left direction
-		 * @return down left button
-		 */
-		private Button getDownLeft() {
-			return downLeft;
-		}
-		
-		/**
-		 * Gets the left direction
-		 * @return left button
-		 */
-		private Button getLeft() {
-			return left;
-		}
-		
-		/**
-		 * Gets the up left direction
-		 * @return left button
-		 */
-		private Button getUpLeft() {
-			return upLeft;
 		}
 	}
 }

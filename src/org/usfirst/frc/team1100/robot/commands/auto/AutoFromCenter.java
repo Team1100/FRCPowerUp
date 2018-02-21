@@ -29,9 +29,9 @@ public class AutoFromCenter extends CommandGroup {
 	 * Start with center of robot 2 feet to the right from the exchange zone, and BACKWARDS.
 	 * This auto puts cube in switch prepares to load next cube into robot.
 	 * 
-	 * @param defaultSpeed
-	 * @param switchPosition
-	 * @param scalePosition
+	 * @param defaultSpeed the default speed for most of the driving being done in this command
+	 * @param switchPosition the position (1 or -1) of the switch 
+	 * @param scalePosition (1 or -1) of the scale
 	 */
     public AutoFromCenter(double defaultSpeed, int switchPosition, int scalePosition) {
     	
@@ -60,7 +60,7 @@ public class AutoFromCenter extends CommandGroup {
     	// STOP!!!
     	addSequential(new DriveStop());
     	// Shoot the cube
-    	addSequential(new ShootCubeOut());
+    	addSequential(new ShootCubeOut(1));
     	// Next, drive around to load a cube and target the scale
     	// Back up from switch
     	addSequential(new DriveStraight(1, 0.5, 0));

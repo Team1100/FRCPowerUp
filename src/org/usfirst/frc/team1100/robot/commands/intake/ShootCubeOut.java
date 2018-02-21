@@ -6,43 +6,58 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * This command shoots out a cube via the intake wheels
  */
 public class ShootCubeOut extends Command {
 
     Intake intake;
     Timer t;
+    double time;
     
-    public ShootCubeOut() {
+    /**
+     * Uses intake subsystem, sets up timer
+     * @param time time which the wheels will roll
+     */
+    public ShootCubeOut(double time) {
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
         t = new Timer();
+        this.time = time;
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Starts timer, spins wheels
+     */
     protected void initialize() {
     	intake.setSpeed(1);
     	intake.spinWheels();
     	t.start();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Spins intake wheels
+     */
     protected void execute() {
     	intake.spinWheels();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * True if timer is over desired time
+     */
     protected boolean isFinished() {
-    	return t.get()>1;
+    	return t.get()>time;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Stops intake wheels
+     */
     protected void end() {
     	intake.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Stops intake wheels
+     */
     protected void interrupted() {
     	intake.stop();
     }

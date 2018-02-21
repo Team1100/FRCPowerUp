@@ -23,13 +23,11 @@ public class Climber extends Subsystem {
     final double CLIMB_RANGE = 3.6;
     boolean canGoUp = true;
     boolean canGoDown = true;
-    private static double rmCurrent1, rmCurrent2;
-    private final double RM_CURRENT_LIMIT = 25.0 * 25.0;
-    private final double tcGain = 0.01;
     private boolean slowDown;
     
-    //TODO: Cant go down when hit speed controller
-    
+    /*
+     * Initializes all hardware instances
+     */
     private Climber() {
     	climberOne = new VictorSP(RobotMap.C_CLIMB_ONE);
     	climberTwo = new VictorSP(RobotMap.C_CLIMB_TWO);
@@ -83,12 +81,6 @@ public class Climber extends Subsystem {
     		out = false;
     	}
     	
-    	if (climberOneHot() || climberTwoHot())
-    	{
-    		speed = 0;
-    		out = false;
-    	}
-    	
     	climberOne.set(speed);
     	climberTwo.set(speed);
     	return out;
@@ -128,13 +120,6 @@ public class Climber extends Subsystem {
     	return !topLimit.get();
     }
     
-    /**
-     * Xbox Left Joystick Y
-     */
-    public void initDefaultCommand() {
-    	setDefaultCommand(new DefaultClimber());
-    }
-    
     /*
      * Sets bottom to current voltage
      */
@@ -168,25 +153,9 @@ public class Climber extends Subsystem {
     }
     
     /**
-     * Checks if motor ONE is too hot
-     * @return True if it is too hot
+     * Control this subsystem manually with Xbox Left Joystick Y
      */
-    public boolean climberOneHot() {
-    	//double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_ONE);
-    	//rmCurrent1 = rmCurrent1 + tcGain*((current*current) - rmCurrent1); // calculate the RM part of RMS current
-    	//return rmCurrent1 > RM_CURRENT_LIMIT;
-    	return false;
-    }
-    
-    /**
-     * Checks if motor TWO is too hot
-     * @return True if it is too hot
-     */
-    public boolean climberTwoHot() {
-    	//double current = Robot.pdp.getCurrent(RobotMap.C_CLIMB_PDP_TWO);
-    	//rmCurrent2 = rmCurrent2 + tcGain*((current*current) - rmCurrent2); // calculate the RM part of RMS current
-    	//return rmCurrent2 > RM_CURRENT_LIMIT;
-    	return false;
+    public void initDefaultCommand() {
+    	setDefaultCommand(new DefaultClimber());
     }
 }
-

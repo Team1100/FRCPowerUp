@@ -9,6 +9,7 @@ import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Climber;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
+import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticClimber;
@@ -17,7 +18,6 @@ import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
-	//public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	public static final int LEFT_SIDE = 1;
 	public static final int CENTERED = 0;
@@ -66,6 +65,7 @@ public class Robot extends IterativeRobot {
 		Intake.getInstance();
 		Wrist.getInstance();
 		PneumaticClimber.getInstance();
+		Folder.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
 

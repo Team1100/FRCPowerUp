@@ -5,16 +5,22 @@ import org.usfirst.frc.team1100.robot.subsystems.PneumaticClimber;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Makes the Pneumatic Climber climb
+ * This command makes the Pneumatic Climber climb
  */
 public class PneumaticClimb extends Command {
 	PneumaticClimber climber;
 	
+	/**
+	 * Uses the pneumatic climber subsystem
+	 */
     public PneumaticClimb() {
         requires(PneumaticClimber.getInstance());
         climber = PneumaticClimber.getInstance();
     }
-
+    
+    /**
+     * Unused
+     */
     protected void initialize() {
     }
 
@@ -31,10 +37,16 @@ public class PneumaticClimb extends Command {
     protected boolean isFinished() {
         return true;
     }
-
+    
+    /**
+     * Unused
+     */
     protected void end() {
     }
-
+    
+    /**
+     * Unused
+     */
     protected void interrupted() {
     }
 }

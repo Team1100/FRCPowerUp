@@ -35,7 +35,7 @@ public class DefaultClimber extends Command {
     }
     
     /**
-     * Never true, just interrupted
+     * Always false, this is a default command
      */
     protected boolean isFinished() {
         return false;

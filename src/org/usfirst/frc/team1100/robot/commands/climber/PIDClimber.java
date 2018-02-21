@@ -4,7 +4,6 @@ import org.usfirst.frc.team1100.robot.subsystems.Climber;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * PIDClimber uses the Climber subsystem and is based on the 

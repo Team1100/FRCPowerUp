@@ -42,7 +42,7 @@ public class LeftStartRightScale extends CommandGroup {
     	addSequential(new DriveStraight(3, -.65, -35));
 
     	// Shoot the cube into scale, back up
-    	addSequential(new ShootCubeOut());
+    	addSequential(new ShootCubeOut(1));
     	addParallel(new ClimbToBottom());
     	addSequential(new DriveStraight(3, .65, -35));
     	

@@ -4,28 +4,35 @@ import org.usfirst.frc.team1100.robot.OI;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * This command allows manual control of the intake wheels via the Xbox controller
+ * triggers
  */
 public class DefaultIntake extends Command {
 
     Intake intake;
     double in, out;
     
+    /**
+     * Uses the intake subsystem
+     */
     public DefaultIntake() {
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Stops all intake movement
+     */
     protected void initialize() {
     	intake.stop();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Uses Xbox triggers to control intake wheels
+     */
     protected void execute() {
     	out = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kRightTrigger);
     	in = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kLeftTrigger);
@@ -33,18 +40,23 @@ public class DefaultIntake extends Command {
     	intake.spinWheels();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Always false, this is a default command
+     */
     protected boolean isFinished() {
     	return false;
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Stops all intake movement
+     */
     protected void end() {
     	intake.stop();
     }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    
+    /**
+     * Stops all intake movement
+     */
     protected void interrupted() {
     	intake.stop();
     }

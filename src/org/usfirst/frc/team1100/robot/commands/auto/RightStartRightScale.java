@@ -1,19 +1,14 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
-import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
-import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
-import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
-import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -45,12 +40,11 @@ public class RightStartRightScale extends CommandGroup {
     	addSequential(new DriveStraight(1.5, -.5, -40));
     	
     	//Shoot cube into scale, back up, lower elevator/climber
-    	addSequential(new ShootCubeOut());
-    	addSequential(new DriveStop());
+    	addSequential(new ShootCubeOut(1));
+    	addParallel(new ClimbToBottom());
     	addSequential(new DriveStraight(.75, .6, -40));
     	
     	//Turn to approximate location of a cube, get that cube
-    	addParallel(new ClimbToBottom());
     	addSequential(new ChangeHeadingWhileUp(35, 1));
     	addSequential(new LowerWrist());
     	addSequential(new GrabCube());
