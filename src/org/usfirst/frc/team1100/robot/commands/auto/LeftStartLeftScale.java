@@ -8,6 +8,7 @@ import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
+import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStop;
 import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
@@ -33,6 +34,7 @@ public class LeftStartLeftScale extends CommandGroup {
 	 * @param defaultSpeed
 	 */
     public LeftStartLeftScale(double defaultSpeed) {
+    	addParallel(new RaiseWrist());
     	addParallel(new ClimbToTop());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
     	//addParallel(new PneumaticClimb());
@@ -45,7 +47,6 @@ public class LeftStartLeftScale extends CommandGroup {
     	
     	
     	addSequential(new DriveStraight(1.5, -.5, 40));
-    //addParallel(new PIDWrist(kForwardScaleWristAngle));
     	addSequential(new ShootCubeOut());
     	addSequential(new DriveStop());
     	addSequential(new DriveStraight(1.5, .5, 40));
