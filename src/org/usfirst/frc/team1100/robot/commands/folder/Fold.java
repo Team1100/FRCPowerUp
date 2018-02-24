@@ -24,7 +24,7 @@ public class Fold extends Command {
     /**
      * Activates folder
      */
-    protected void execut() {
+    protected void execute() {
     	folder.fold();
     }
     

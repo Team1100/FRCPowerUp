@@ -3,13 +3,13 @@ package org.usfirst.frc.team1100.robot;
 import org.usfirst.frc.team1100.robot.commands.RumbleMeme;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
-import org.usfirst.frc.team1100.robot.commands.climber.PIDClimber;
+import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
+import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
+import org.usfirst.frc.team1100.robot.commands.elevator.PIDElevator;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
-import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
-import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticLower;
+import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
+import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCubeRaw;
@@ -58,24 +58,21 @@ public class OI {
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 
-		//Climber
-		xbox.getButtonY().whenPressed(new ClimbToTop());    //Scale
-		xbox.getButtonX().whenPressed(new PIDClimber(.45)); //3 Cubes
-		xbox.getButtonB().whenPressed(new PIDClimber(.18)); //2 Cubes
-		xbox.getButtonA().whenPressed(new ClimbToBottom()); //Ground
+		//Elevator
+		xbox.getButtonY().whenPressed(new ElevateToTop()); //Scale
+		xbox.getButtonX().whenPressed(new PIDElevator(.55)); //Switch
+		xbox.getButtonA().whenPressed(new ElevateToBottom()); //Ground
 		
 		//Claw
 		xbox.getButtonLeftBumper().whenPressed(new OpenClaw());
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
 		//Wrist
-		//xbox.getButtonStart().whenPressed(new PIDWrist(2.5));
-		//xbox.getButtonBack().whenPressed(new PIDWrist(4.5));
 		xbox.getDown().whenPressed(new LowerWrist());
 		xbox.getUp().whenPressed(new RaiseWrist());
 		
-		//Pneumatic Climber
-		//xbox.getButtonBack().whenPressed(new PneumaticClimb());
+		//Pneumatic Elevator
+		//xbox.getButtonBack().whenPressed(new PneumaticElevate());
 		//xbox.getButtonStart().whenPressed(new PneumaticLower());
 		
 		//Vision

@@ -1,23 +1,23 @@
-package org.usfirst.frc.team1100.robot.commands.climber;
+package org.usfirst.frc.team1100.robot.commands.elevator;
 
 import org.usfirst.frc.team1100.robot.OI;
 import org.usfirst.frc.team1100.robot.input.XboxController;
-import org.usfirst.frc.team1100.robot.subsystems.Climber;
+import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * User control of the climber through Xbox controller left joystick. Used for
+ * User control of the elevator through Xbox controller left joystick. Used for
  * resetting the potentiometer while robot is in development
  */
-public class DefaultClimber extends Command {
+public class DefaultElevator extends Command {
 	
 	double speed = 0;
 	/**
-	 * Requires Climber
+	 * Requires Elevator
 	 */
-    public DefaultClimber() {
-        requires(Climber.getInstance());
+    public DefaultElevator() {
+        requires(Elevator.getInstance());
     }
     
     /**
@@ -31,7 +31,7 @@ public class DefaultClimber extends Command {
      */
     protected void execute() {
     	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
-    	Climber.getInstance().climb(speed);
+    	Elevator.getInstance().climb(speed);
     }
     
     /**

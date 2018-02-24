@@ -162,7 +162,7 @@ public class RobotMap {
 	public static final int W_WRIST_POT = ANALOG_1;
 	public static final int W_PROXIMITY = DIO_7;
 	
-	//[P]neumatic Climber
+	//[P]neumatic Elevator
 	public static final int P_CLIMBER_CAN = PCM_CAN;
 	public static final int P_CLIMBER_0 = PCM_6;
 	public static final int P_CLIMBER_1 = PCM_7;

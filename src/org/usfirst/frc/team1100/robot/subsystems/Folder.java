@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * This subsystem controls the 2 pneumatic pistons the fold the climber/elevator
+ * This subsystem controls the 2 pneumatic pistons the fold the elevator/elevator
  */
 public class Folder extends Subsystem {
 

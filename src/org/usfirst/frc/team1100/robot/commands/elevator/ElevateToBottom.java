@@ -1,23 +1,23 @@
-package org.usfirst.frc.team1100.robot.commands.climber;
+package org.usfirst.frc.team1100.robot.commands.elevator;
 
-import org.usfirst.frc.team1100.robot.subsystems.Climber;
+import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Moves climber all the way to the bottom
+ * Moves elevator all the way to the bottom
  */
-public class ClimbToBottom extends Command {
+public class ElevateToBottom extends Command {
 	
-	Climber climber;
+	Elevator elevator;
 	boolean finished = false;
 	
 	/**
-	 * Requires Climber
+	 * Requires Elevator
 	 */
-    public ClimbToBottom() {
-        requires(Climber.getInstance());
-        climber = Climber.getInstance();
+    public ElevateToBottom() {
+        requires(Elevator.getInstance());
+        elevator = Elevator.getInstance();
     }
     
     /**
@@ -30,12 +30,12 @@ public class ClimbToBottom extends Command {
      * Climbs down until limited
      */
     protected void execute() {
-    	finished = !climber.climb(.7);
+    	finished = !elevator.climb(.7);
     }
     
     /**
      * Gets state of climbing down
-     * @return Whether climber can't go down anymore
+     * @return Whether elevator can't go down anymore
      */
     protected boolean isFinished() {
         return finished;
@@ -45,13 +45,13 @@ public class ClimbToBottom extends Command {
      * Stops climbing
      */
     protected void end() {
-    	climber.climb(0);
+    	elevator.climb(0);
     }
     
     /**
      * Stops climbing
      */
     protected void interrupted() {
-    	climber.climb(0);
+    	elevator.climb(0);
     }
 }

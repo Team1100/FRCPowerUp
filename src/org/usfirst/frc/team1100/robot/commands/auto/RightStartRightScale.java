@@ -2,13 +2,13 @@ package org.usfirst.frc.team1100.robot.commands.auto;
 
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
+import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
+import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
-import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
+import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -28,9 +28,9 @@ public class RightStartRightScale extends CommandGroup {
     public RightStartRightScale(double defaultSpeed) {
     	//Drive to scale, prep for depositing cube
     	addParallel(new RaiseWrist());
-    	addParallel(new ClimbToTop());
+    	addParallel(new ElevateToTop());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
-    //addParallel(new PneumaticClimb());
+    //addParallel(new PneumaticElevate());
     	addSequential(new DriveStraight(1, -.8, 0));
     	addSequential(new DriveStraight(1, -.7, 0));
     	addSequential(new DriveStraight(1, -.6, 0));
@@ -39,9 +39,9 @@ public class RightStartRightScale extends CommandGroup {
     	addSequential(new ChangeHeadingWhileUp(-40, 1));
     	addSequential(new DriveStraight(1.5, -.5, -40));
     	
-    	//Shoot cube into scale, back up, lower elevator/climber
+    	//Shoot cube into scale, back up, lower elevator/elevator
     	addSequential(new ShootCubeOut(1));
-    	addParallel(new ClimbToBottom());
+    	addParallel(new ElevateToBottom());
     	addSequential(new DriveStraight(.75, .6, -40));
     	
     	//Turn to approximate location of a cube, get that cube

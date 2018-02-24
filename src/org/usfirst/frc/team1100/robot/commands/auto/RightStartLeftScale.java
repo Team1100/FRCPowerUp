@@ -3,11 +3,11 @@ package org.usfirst.frc.team1100.robot.commands.auto;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
+import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
+import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
-import org.usfirst.frc.team1100.robot.commands.pneumaticclimber.PneumaticClimb;
+import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToBottom;
-import org.usfirst.frc.team1100.robot.commands.climber.ClimbToTop;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -29,8 +29,8 @@ public class RightStartLeftScale extends CommandGroup {
     	addParallel(new RaiseWrist());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
 		addSequential(new ChangeHeading(-90, .9));
-		addParallel(new ClimbToTop());
-	//TODO: addParallel(new PneumaticClimb());
+		addParallel(new ElevateToTop());
+	//TODO: addParallel(new PneumaticElevate());
 		addSequential(new DriveStraight(5, -defaultSpeed, -90));
 		addSequential(new DriveStraight(2, -.75, -90));
 		addSequential(new DriveStraight(2, -.6, -90)); //There's a significant bump around here, so we slow down.
@@ -43,7 +43,7 @@ public class RightStartLeftScale extends CommandGroup {
 
     	// Shoot the cube into scale, back up
     	addSequential(new ShootCubeOut(1));
-    	addParallel(new ClimbToBottom());
+    	addParallel(new ElevateToBottom());
     	addSequential(new DriveStraight(3, .65, 30));
     	
     	// Turn back toward platform zone

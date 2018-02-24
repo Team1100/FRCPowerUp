@@ -7,12 +7,12 @@ import org.usfirst.frc.team1100.robot.commands.auto.LeftStartRightScale;
 import org.usfirst.frc.team1100.robot.commands.auto.RightStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
-import org.usfirst.frc.team1100.robot.subsystems.Climber;
+import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Limelight;
-import org.usfirst.frc.team1100.robot.subsystems.PneumaticClimber;
+import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -60,11 +60,11 @@ public class Robot extends IterativeRobot {
 		OI.getInstance();
 		Drive.getInstance();
 		Limelight.getInstance();
-		Climber.getInstance();
+		Elevator.getInstance();
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();
-		PneumaticClimber.getInstance();
+		PneumaticElevator.getInstance();
 		Folder.getInstance();
 		
 		Drive.getInstance().getNavX().zeroYaw();
@@ -94,11 +94,11 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
-		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
-		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
-		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
+		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
+		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
+		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Climber Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 
@@ -145,11 +145,11 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
-		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
-		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
-		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
+		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
+		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
+		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Climber Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 	
@@ -176,11 +176,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
-		SmartDashboard.putBoolean("Top", Climber.getInstance().getTopLimit());
-		SmartDashboard.putBoolean("Near Bottom", Climber.getInstance().getNearBottomLimit());
-		SmartDashboard.putBoolean("Bottom", Climber.getInstance().getBottomLimit());
+		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
+		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
+		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Climber Percent", (3.6-Climber.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
 		Scheduler.getInstance().run();
 	}
 

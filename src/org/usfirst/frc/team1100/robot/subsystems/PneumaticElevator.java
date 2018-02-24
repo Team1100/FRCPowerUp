@@ -8,34 +8,34 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class PneumaticClimber extends Subsystem {
+public class PneumaticElevator extends Subsystem {
 	
 	/*
-	 * The singular instance of the PneumaticClimber subsystem
+	 * The singular instance of the PneumaticElevator subsystem
 	 */
-	private static PneumaticClimber climber;
+	private static PneumaticElevator climber;
 	
 	private boolean isDown;
 
 	DoubleSolenoid pClimber;
 
 	
-	private PneumaticClimber( ) {
+	private PneumaticElevator( ) {
 		pClimber = new DoubleSolenoid(RobotMap.P_CLIMBER_CAN, RobotMap.P_CLIMBER_0, RobotMap.P_CLIMBER_1);
 		isDown = pClimber.get()==DoubleSolenoid.Value.kReverse;
 	}
 	
 	/**
-	 * Gets the singular instance of the PneumaticClimber subsystem
-	 * @return the singular instance of the PneumaticClimber subsystem
+	 * Gets the singular instance of the PneumaticElevator subsystem
+	 * @return the singular instance of the PneumaticElevator subsystem
 	 */
-	public static PneumaticClimber getInstance() {
-		if (climber == null) climber = new PneumaticClimber();
+	public static PneumaticElevator getInstance() {
+		if (climber == null) climber = new PneumaticElevator();
 		return climber;
 	}
 	
 	/**
-	 * Extends the climber
+	 * Extends the elevator
 	 */
 	public void climb() {
 		pClimber.set(DoubleSolenoid.Value.kForward);
@@ -43,7 +43,7 @@ public class PneumaticClimber extends Subsystem {
 	}
 	
 	/**
-	 * Lowers the climber
+	 * Lowers the elevator
 	 */
 	public void lower() {
 		pClimber.set(DoubleSolenoid.Value.kReverse);

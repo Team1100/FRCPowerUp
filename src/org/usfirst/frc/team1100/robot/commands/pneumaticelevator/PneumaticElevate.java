@@ -1,21 +1,21 @@
-package org.usfirst.frc.team1100.robot.commands.pneumaticclimber;
+package org.usfirst.frc.team1100.robot.commands.pneumaticelevator;
 
-import org.usfirst.frc.team1100.robot.subsystems.PneumaticClimber;
+import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command makes the Pneumatic Climber climb
+ * This command makes the Pneumatic Elevator climb
  */
-public class PneumaticClimb extends Command {
-	PneumaticClimber climber;
+public class PneumaticElevate extends Command {
+	PneumaticElevator climber;
 	
 	/**
-	 * Uses the pneumatic climber subsystem
+	 * Uses the pneumatic elevator subsystem
 	 */
-    public PneumaticClimb() {
-        requires(PneumaticClimber.getInstance());
-        climber = PneumaticClimber.getInstance();
+    public PneumaticElevate() {
+        requires(PneumaticElevator.getInstance());
+        climber = PneumaticElevator.getInstance();
     }
     
     /**
@@ -25,7 +25,7 @@ public class PneumaticClimb extends Command {
     }
 
     /**
-     * Makes climber climb
+     * Makes elevator climb
      */
     protected void execute() {
     	climber.climb();
