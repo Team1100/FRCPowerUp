@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.ToggleOverride;
 import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
 import org.usfirst.frc.team1100.robot.commands.auto.CrossLine;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
@@ -30,7 +31,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * appropriate time.
  * 
  * @author Grant Perkins, Tejas Maraliga, Thor Smith, and Chris Perkins
- * @version Week 5
+ * @version Week 7
  * 
  */
 public class Robot extends IterativeRobot {
@@ -47,6 +48,7 @@ public class Robot extends IterativeRobot {
 	public static final int RIGHT_SIDE = -1;
 	
 	final double DEFAULT_SPEED = 0.9;
+	public static boolean manualOverride = false;
 	
 	/**
 	 * Called when the robot is first started up.
@@ -74,6 +76,7 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Right",-1);
 		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
+		SmartDashboard.putData("Safety Override", new ToggleOverride());
 	}
 
 	/**

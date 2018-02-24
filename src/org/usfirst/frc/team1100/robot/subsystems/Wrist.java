@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
+import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.RobotMap;
+import org.usfirst.frc.team1100.robot.commands.wrist.DefaultWrist;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -64,7 +66,8 @@ public class Wrist extends Subsystem {
 	 * @return true if move successful
 	 */
 	public boolean rotateWrist(double speed) {
-		if (!PneumaticElevator.getInstance().isDown() && !Claw.getInstance().isOpen()) {
+		
+		if (Robot.manualOverride || (!PneumaticElevator.getInstance().isDown() && !Claw.getInstance().isOpen())) {
 			if ((getTop() && speed > 0) || (getBottom() && speed < 0) || (!getBottom() && !getTop())){
 				if (-.5>speed) speed = -.375;
 				if (.25<speed) speed = .25;
@@ -96,6 +99,7 @@ public class Wrist extends Subsystem {
 	}
     
     public void initDefaultCommand() {
+    	setDefaultCommand(new DefaultWrist());
     }
 }
 

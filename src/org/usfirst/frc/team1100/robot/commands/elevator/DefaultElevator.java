@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.elevator;
 
 import org.usfirst.frc.team1100.robot.OI;
+import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 
@@ -30,8 +31,10 @@ public class DefaultElevator extends Command {
      * Sets speed of climb to Xbox controller left stick
      */
     protected void execute() {
-    	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
-    	Elevator.getInstance().climb(speed);
+    	if (Robot.manualOverride) {
+	    	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
+	    	Elevator.getInstance().climb(speed);
+    	}
     }
     
     /**
