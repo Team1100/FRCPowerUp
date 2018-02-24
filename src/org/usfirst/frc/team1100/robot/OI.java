@@ -76,12 +76,12 @@ public class OI {
 		//xbox.getButtonStart().whenPressed(new PneumaticLower());
 		
 		//Vision
-		//xbox.getDown().whenPressed(new GrabCube());
+		leftStick.getButton(3).whenPressed(new GrabCube());
 		
 		//Proximity sensor
 		Proximity.getInstance().whenActive(new CloseClaw());
 		
-		
+		//Memes
 		leftStick.getButton(1).whileHeld(new RumbleMeme());
 		rightStick.getButton(1).whileHeld(new RumbleMeme());
 		
