@@ -1,11 +1,15 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.Climb;
 import org.usfirst.frc.team1100.robot.commands.RumbleMeme;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
+import org.usfirst.frc.team1100.robot.commands.claw.ToggleClaw;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.elevator.PIDElevator;
+import org.usfirst.frc.team1100.robot.commands.folder.Fold;
+import org.usfirst.frc.team1100.robot.commands.folder.Unfold;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
@@ -54,7 +58,6 @@ public class OI {
 	 */
 	private OI() {
 		xbox = new XboxController(RobotMap.U_XBOX, 0.1);
-		
 		leftStick = new AttackThree(RobotMap.U_LEFT, 0.1);
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 
@@ -72,14 +75,18 @@ public class OI {
 		xbox.getUp().whenPressed(new RaiseWrist());
 		
 		//Pneumatic Elevator
-		//xbox.getButtonBack().whenPressed(new PneumaticElevate());
-		//xbox.getButtonStart().whenPressed(new PneumaticLower());
+		xbox.getButtonBack().whenPressed(new PneumaticElevate());
+		xbox.getButtonStart().whenPressed(new PneumaticLower());
 		
 		//Vision
 		leftStick.getButton(3).whenPressed(new GrabCube());
 		
 		//Proximity sensor
 		Proximity.getInstance().whenActive(new CloseClaw());
+		
+		//Folding
+		leftStick.getButton(8).whenPressed(new Climb());
+		leftStick.getButton(9).whenPressed(new Unfold());
 		
 		//Memes
 		leftStick.getButton(1).whileHeld(new RumbleMeme());

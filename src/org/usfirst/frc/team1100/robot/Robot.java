@@ -19,8 +19,10 @@ import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -49,7 +51,7 @@ public class Robot extends IterativeRobot {
 	
 	final double DEFAULT_SPEED = 0.9;
 	public static boolean manualOverride = false;
-	
+	//PowerDistributionPanel pdp = new PowerDistributionPanel();
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -68,6 +70,7 @@ public class Robot extends IterativeRobot {
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
 		Folder.getInstance();
+		//LiveWindow.disableAllTelemetry();
 		
 		Drive.getInstance().getNavX().zeroYaw();
 
@@ -77,6 +80,7 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
 		SmartDashboard.putData("Safety Override", new ToggleOverride());
+		//SmartDashboard.putData("PDP", pdp);
 	}
 
 	/**
@@ -164,6 +168,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
+		manualOverride = false;
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}

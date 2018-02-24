@@ -32,14 +32,14 @@ public class Folder extends Subsystem {
      * Activates folder
      */
     public void fold() {
-    	pFolder.set(DoubleSolenoid.Value.kForward);
+    	pFolder.set(DoubleSolenoid.Value.kReverse);
     }
     
     /**
      * Deactivates folder
      */
     public void unfold() {
-    	pFolder.set(DoubleSolenoid.Value.kReverse);
+    	pFolder.set(DoubleSolenoid.Value.kForward);
     }
     
     /**

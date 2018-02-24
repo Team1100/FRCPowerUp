@@ -29,9 +29,9 @@ public class DefaultWrist extends Command {
      * Sets speed of wrist to xbox controller right joystick
      */
     protected void execute() {
-    	if (Robot.manualOverride) {
-    		wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
-    	}
+    	//if (Robot.manualOverride) {
+    		wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft));
+    	//}
     }
 
     /**

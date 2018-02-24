@@ -7,6 +7,7 @@ import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
+import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -30,7 +31,7 @@ public class LeftStartRightScale extends CommandGroup {
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
 		addSequential(new ChangeHeading(90, .9));
 		addParallel(new ElevateToTop());
-	//TODO: addParallel(new PneumaticElevate());
+	    addParallel(new PneumaticElevate());
 		addSequential(new DriveStraight(5, -defaultSpeed, 90));
 		addSequential(new DriveStraight(2, -.75, 90));
 		addSequential(new DriveStraight(2, -.6, 90)); //There's a significant bump around here, so we slow down.
@@ -44,6 +45,7 @@ public class LeftStartRightScale extends CommandGroup {
     	// Shoot the cube into scale, back up
     	addSequential(new ShootCubeOut(1));
     	addParallel(new ElevateToBottom());
+    	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(3, .65, -35));
     	
     	// Turn back toward platform zone

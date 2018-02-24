@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -66,16 +67,15 @@ public class Wrist extends Subsystem {
 	 * @return true if move successful
 	 */
 	public boolean rotateWrist(double speed) {
-		
-		if (Robot.manualOverride || (!PneumaticElevator.getInstance().isDown() && !Claw.getInstance().isOpen())) {
+		if (Robot.manualOverride || (PneumaticElevator.getInstance().isDown() && !Claw.getInstance().isOpen())) {
 			if ((getTop() && speed > 0) || (getBottom() && speed < 0) || (!getBottom() && !getTop())){
-				if (-.5>speed) speed = -.375;
+				if (-.375>speed) speed = -.375;
 				if (.25<speed) speed = .25;
 				leftWristMotor.set(speed);
 				rightWristMotor.set(speed);
 				return true;
 			}
-		} 
+		}
 		speed = 0;
 		leftWristMotor.set(speed);
 		rightWristMotor.set(speed);

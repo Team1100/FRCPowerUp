@@ -32,7 +32,7 @@ public class DefaultElevator extends Command {
      */
     protected void execute() {
     	if (Robot.manualOverride) {
-	    	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
+	    	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight);
 	    	Elevator.getInstance().climb(speed);
     	}
     }

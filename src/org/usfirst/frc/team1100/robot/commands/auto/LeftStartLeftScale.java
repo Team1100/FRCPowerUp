@@ -6,6 +6,7 @@ import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
+import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
@@ -31,7 +32,7 @@ public class LeftStartLeftScale extends CommandGroup {
     	addParallel(new RaiseWrist());
     	addParallel(new ElevateToTop());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));
-    //TODO: addParallel(new PneumaticElevate());
+    	addParallel(new PneumaticElevate());
     	addSequential(new DriveStraight(1, -.8, 0));
     	addSequential(new DriveStraight(1, -.7, 0));
     	addSequential(new DriveStraight(1, -.6, 0));
@@ -43,6 +44,7 @@ public class LeftStartLeftScale extends CommandGroup {
     	//Shoot cube into scale, back up, lower elevator/elevator
     	addSequential(new ShootCubeOut(1));
     	addParallel(new ElevateToBottom());
+    	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1.5, .5, 40));
     	
     	//Turn to approximate location of a cube, get that cube
