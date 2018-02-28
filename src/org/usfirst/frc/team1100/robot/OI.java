@@ -64,6 +64,7 @@ public class OI {
 		//Elevator
 		xbox.getButtonY().whenPressed(new ElevateToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDElevator(.55)); //Switch
+		xbox.getButtonB().whenPressed(new PIDElevator(.875)); //Climb
 		xbox.getButtonA().whenPressed(new ElevateToBottom()); //Ground
 		
 		//Claw

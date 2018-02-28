@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 	public static final int RIGHT_SIDE = -1;
 	
 	final double DEFAULT_SPEED = 0.9;
-	public static boolean manualOverride = false;
+	public static boolean manualOverride = true;
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
 	/**
 	 * Called when the robot is first started up.
@@ -87,7 +87,6 @@ public class Robot extends IterativeRobot {
 	 * Called once each time the robot enters Disabled mode.
 	 * Turns of the blinding light of the limelight
 	 */
-
 	@Override
 	public void disabledInit() {
 		Limelight.getInstance().readNetworkTable();

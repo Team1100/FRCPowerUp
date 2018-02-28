@@ -69,8 +69,8 @@ public class Wrist extends Subsystem {
 	public boolean rotateWrist(double speed) {
 		if (Robot.manualOverride || (PneumaticElevator.getInstance().isDown() && !Claw.getInstance().isOpen())) {
 			if ((getTop() && speed > 0) || (getBottom() && speed < 0) || (!getBottom() && !getTop())){
-				if (-.375>speed) speed = -.375;
-				if (.25<speed) speed = .25;
+				if (-.5>speed) speed = -.5;
+				if (.375<speed) speed = .375;
 				leftWristMotor.set(speed);
 				rightWristMotor.set(speed);
 				return true;

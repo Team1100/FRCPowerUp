@@ -34,6 +34,8 @@ public class DefaultDrive extends Command {
     protected void execute() {
     	left = OI.getInstance().getLeftStick().getAxis(AttackThree.AttackThreeAxis.kY);
     	right = OI.getInstance().getRightStick().getAxis(AttackThree.AttackThreeAxis.kY);
+    	left *= 1.25;
+    	right *= 1.25;
     	Drive.getInstance().tankDrive(left, right);
     }
 

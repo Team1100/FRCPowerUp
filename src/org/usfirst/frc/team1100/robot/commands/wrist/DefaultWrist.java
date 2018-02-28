@@ -30,7 +30,7 @@ public class DefaultWrist extends Command {
      */
     protected void execute() {
     	//if (Robot.manualOverride) {
-    		wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft));
+    		wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
     	//}
     }
 

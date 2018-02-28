@@ -17,7 +17,7 @@ public class Climb extends CommandGroup {
 	 */
     public Climb() {
         addParallel(new Fold());
-        addSequential(new Wait(.75));
+        addSequential(new Wait(1.5));
         addSequential(new ElevateToBottom());
     }
 }

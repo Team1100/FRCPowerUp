@@ -19,7 +19,7 @@ public class ElevateToTop extends Command {
     public ElevateToTop() {
         requires(Elevator.getInstance());
         elevator = Elevator.getInstance();
-        this.speed = .6;
+        this.speed = .9;
     }
     
     /**
