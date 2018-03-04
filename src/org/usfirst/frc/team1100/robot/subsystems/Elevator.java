@@ -60,6 +60,9 @@ public class Elevator extends Subsystem {
     		canGoDown = false;
     	} else if (getTopLimit()) {
     		canGoUp = false;
+    	} else if (getNearBottomLimit()) {
+    		canGoUp = true;
+    		canGoDown = true;
     	}
     	
     	if (speed < 0) {
