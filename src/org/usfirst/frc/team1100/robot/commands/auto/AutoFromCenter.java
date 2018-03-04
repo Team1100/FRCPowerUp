@@ -45,9 +45,9 @@ public class AutoFromCenter extends CommandGroup {
     	if (currentSide == Robot.LEFT_SIDE) // The center robot cannot be centered on the field
     	{
     		// Turn toward switch
-    		addSequential(new ChangeHeading(-62.5, .9));
+    		addSequential(new ChangeHeading(-60, .9));
     		// Drive close to switch
-    		addSequential(new DriveStraight(7.2, -defaultSpeed, -62.5));
+    		addSequential(new DriveStraight(7, -defaultSpeed, -60));
     	} else {
     		// Turn toward switch
     		addSequential(new ChangeHeading(45, .9));
@@ -57,10 +57,8 @@ public class AutoFromCenter extends CommandGroup {
     	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
     	addSequential(new DriveStraight(2.9, -.75, 0));
-    	// STOP!!!
-    	addSequential(new DriveStop());
     	// Shoot the cube
-    	addSequential(new ShootCubeOut(1));
+    	addSequential(new ShootCubeOut(.75, 1));
     	// Next, drive around to load a cube and target the scale
     	// Back up from switch
     	addSequential(new DriveStraight(1, 0.5, 0));

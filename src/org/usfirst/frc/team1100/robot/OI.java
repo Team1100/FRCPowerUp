@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.commands.Climb;
 import org.usfirst.frc.team1100.robot.commands.RumbleMeme;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
@@ -21,7 +20,6 @@ import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.PIDWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.input.*;
-import org.usfirst.frc.team1100.robot.triggers.Proximity;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -82,17 +80,10 @@ public class OI {
 		//Vision
 		leftStick.getButton(3).whenPressed(new GrabCube());
 		
-		//Proximity sensor
-		Proximity.getInstance().whenActive(new CloseClaw());
-		
 		//Folding
-		leftStick.getButton(8).whenPressed(new Climb());
+		leftStick.getButton(8).whenPressed(new Fold());
 		leftStick.getButton(9).whenPressed(new Unfold());
-		
-		//Memes
-		leftStick.getButton(1).whileHeld(new RumbleMeme());
-		rightStick.getButton(1).whileHeld(new RumbleMeme());
-		
+		//rightStick.getButton(3).whenPressed(new ShootCubeOut(1, .5));
 	}
 	
 	/**

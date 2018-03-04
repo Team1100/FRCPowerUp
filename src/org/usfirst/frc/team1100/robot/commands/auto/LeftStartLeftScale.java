@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
+import org.usfirst.frc.team1100.robot.commands.Wait;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
@@ -27,7 +28,6 @@ public class LeftStartLeftScale extends CommandGroup {
 	 * @param defaultSpeed the speed which the robot will mostly move
 	 */
     public LeftStartLeftScale(double defaultSpeed) {
-    	
     	//Drive to scale, prep for depositing cube
     	addParallel(new RaiseWrist());
     	addParallel(new ElevateToTop());
@@ -42,7 +42,7 @@ public class LeftStartLeftScale extends CommandGroup {
     	addSequential(new DriveStraight(1.5, -.5, 40));
     	
     	//Shoot cube into scale, back up, lower elevator/elevator
-    	addSequential(new ShootCubeOut(1));
+    	addSequential(new ShootCubeOut(.9, .5));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1.5, .5, 40));

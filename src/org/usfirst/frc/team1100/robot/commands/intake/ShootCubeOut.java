@@ -13,23 +13,25 @@ public class ShootCubeOut extends Command {
     Intake intake;
     Timer t;
     double time;
+    double speed;
     
     /**
      * Uses intake subsystem, sets up timer
      * @param time time which the wheels will roll
      */
-    public ShootCubeOut(double time) {
+    public ShootCubeOut(double time, double speed) {
     	requires(Intake.getInstance());
         intake = Intake.getInstance();
         t = new Timer();
         this.time = time;
+        this.speed = speed;
     }
 
     /**
      * Starts timer, spins wheels
      */
     protected void initialize() {
-    	intake.setSpeed(1);
+    	intake.setSpeed(speed);
     	intake.spinWheels();
     	t.start();
     }

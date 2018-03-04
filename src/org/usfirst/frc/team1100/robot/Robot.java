@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.commands.ToggleOverride;
 import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
 import org.usfirst.frc.team1100.robot.commands.auto.CrossLine;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
@@ -50,7 +49,6 @@ public class Robot extends IterativeRobot {
 	public static final int RIGHT_SIDE = -1;
 	
 	final double DEFAULT_SPEED = 0.9;
-	public static boolean manualOverride = true;
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
 	/**
 	 * Called when the robot is first started up.
@@ -79,7 +77,6 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Right",-1);
 		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
-		SmartDashboard.putData("Safety Override", new ToggleOverride());
 		//SmartDashboard.putData("PDP", pdp);
 	}
 
@@ -167,7 +164,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		manualOverride = false;
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}

@@ -31,10 +31,9 @@ public class DefaultElevator extends Command {
      * Sets speed of climb to Xbox controller left stick
      */
     protected void execute() {
-    	if (Robot.manualOverride) {
-	    	speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
-	    	Elevator.getInstance().climb(speed);
-    	}
+	    speed = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYLeft);
+	    Elevator.getInstance().climb(speed);
+    	
     }
     
     /**
