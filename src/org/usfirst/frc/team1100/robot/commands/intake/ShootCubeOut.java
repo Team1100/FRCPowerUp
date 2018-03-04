@@ -18,6 +18,7 @@ public class ShootCubeOut extends Command {
     /**
      * Uses intake subsystem, sets up timer
      * @param time time which the wheels will roll
+     * @param speed speed which the wheels will roll
      */
     public ShootCubeOut(double time, double speed) {
     	requires(Intake.getInstance());
