@@ -18,13 +18,13 @@ public class CenterOnCube extends PIDCommand {
 	/**
 	 * Uses the drive subsystem, sets up PID controller
 	 */
-    public CenterOnCube() {
-    	super(.06, .01, 0);
+    public CenterOnCube(double tolerance) {
+    	super(.05, .01, 0);
     	t = new Timer();
     	requires(Drive.getInstance()); 
         setInputRange(-20, 20);
-        pidController.setOutputRange(-.75, .75);
-        pidController.setPercentTolerance(1);
+        pidController.setOutputRange(-1, 1);
+        pidController.setPercentTolerance(tolerance);
         setSetpoint(0);
     }
 
@@ -79,6 +79,6 @@ public class CenterOnCube extends PIDCommand {
 	 */
 	@Override
 	protected void usePIDOutput(double output) {
-		Drive.getInstance().tankDrive(-output, output);
+		Drive.getInstance().tankDrive(output, -output);
 	}
 }

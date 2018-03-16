@@ -78,7 +78,8 @@ public class OI {
 		xbox.getButtonStart().whenPressed(new PneumaticLower());
 		
 		//Vision
-		leftStick.getButton(3).whenPressed(new GrabCube());
+		leftStick.getButton(3).whenPressed(new CenterOnCube(3));
+		rightStick.getButton(11).whenPressed(new GrabCube());
 		
 		//Folding
 		leftStick.getButton(8).whenPressed(new Fold());

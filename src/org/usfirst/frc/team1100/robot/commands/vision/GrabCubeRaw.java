@@ -17,7 +17,7 @@ public class GrabCubeRaw extends CommandGroup {
 	 */
     public GrabCubeRaw() {
     	addSequential(new OpenClaw());
-        addSequential(new CenterOnCube());
+        addSequential(new CenterOnCube(2));
         addParallel(new IntakeUntilIn());
         addSequential(new DriveUntilIn());
         addSequential(new DriveForward(.5, .6));
