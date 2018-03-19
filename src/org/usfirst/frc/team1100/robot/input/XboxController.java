@@ -76,6 +76,31 @@ public class XboxController extends Joystick {
 			this.key = key;
 		}
 	}
+	
+	/**
+     * Relation of direction and number for .getPOV() used
+     * in the DirectionalPad class.
+     */
+    private static enum Direction {
+        kUp(0),
+        kUpRight(45),
+        kRight(90),
+        kDownRight(135),
+        kDown(180),
+        kDownLeft(225),
+        kLeft(270),
+        kUpLeft(315);
+
+        private int value;
+
+        /**
+         * Constructor
+         * @param value
+         */
+        Direction(int value) {
+            this.value = value;
+        }
+    }
 
 	/**
 	 * Initializes a XBOX Controller on a specific channel, mapping the buttons. The
@@ -211,100 +236,15 @@ public class XboxController extends Joystick {
 	 * Gets the dpad
 	 * @return the dpad
 	 */
-	public boolean getDPAD() {
-		return dpad.get();
+	public DirectionalPad getDPad() {
+		return dpad;
 	}
 	
 	/**
-	 * Gets the up direction
-	 * @return up button
+	 * This class is for the DPad on the xbox controller.
+	 *
 	 */
-	public Button getUp() {
-		return dpad.up;
-	}
-	
-	/**
-	 * Gets the upper right direction
-	 * @return upper right button
-	 */
-	public Button getUpRight() {
-		return dpad.upRight;
-	}
-	
-	/**
-	 * Gets the right direction
-	 * @return right button
-	 */
-	public Button getRight() {
-		return dpad.right;
-	}
-	
-	/**
-	 * Gets the down right direction
-	 * @return down right button
-	 */
-	public Button getDownRight() {
-		return dpad.downRight;
-	}
-	
-	/**
-	 * Gets the down direction
-	 * @return down button
-	 */
-	public Button getDown() {
-		return dpad.down;
-	}
-	
-	/**
-	 * Gets the down left direction
-	 * @return down left button
-	 */
-	public Button getDownLeft() {
-		return dpad.downLeft;
-	}
-	
-	/**
-	 * Gets the left direction
-	 * @return left button
-	 */
-	public Button getLeft() {
-		return dpad.left;
-	}
-	
-	/**
-	 * Gets the up left direction
-	 * @return left button
-	 */
-	public Button getUpLeft() {
-		return dpad.upLeft;
-	}
-	
-    /**
-     * This is the relation of direction and number for .getPOV() used
-     * in the DirectionalPad class.
-     */
-    private static enum DPAD {
-        kUp(0),
-        kUpRight(45),
-        kRight(90),
-        kDownRight(135),
-        kDown(180),
-        kDownLeft(225),
-        kLeft(270),
-        kUpLeft(315);
-
-        private int value;
-
-        /**
-         * Constructor
-         * @param value
-         */
-        DPAD(final int value) {
-            this.value = value;
-        }
-    }
-	
-	private static class DirectionalPad extends Button {
+	public static class DirectionalPad extends Button {
         
         private final Joystick parent;
         
@@ -321,43 +261,16 @@ public class XboxController extends Joystick {
          * Initializes buttons
          * @param parent 
          */
-        DirectionalPad(final Joystick parent) {
+        DirectionalPad(Joystick parent) {
             this.parent	= parent;
-            this.up = new DPadButton(this, DPAD.kUp);
-            this.upRight = new DPadButton(this, DPAD.kUpRight);
-            this.right = new DPadButton(this, DPAD.kRight);
-            this.downRight = new DPadButton(this, DPAD.kDownRight);
-            this.down = new DPadButton(this, DPAD.kDown);
-            this.downLeft = new DPadButton(this, DPAD.kDownLeft);
-            this.left = new DPadButton(this, DPAD.kDown);
-            this.upLeft = new DPadButton(this, DPAD.kUpLeft);
-        }
-        
-        /**
-         * This class is used to represent each of the 8 values a
-         * dpad has as a button.
-         */
-        public static class DPadButton extends Button {
-            private final DPAD direction;
-            private final DirectionalPad parent;
-            
-            /**
-             * Constructor
-             * @param parent
-             * @param dPad
-             */
-            DPadButton(final DirectionalPad parent, final DPAD dPadDirection) {
-                this.direction  = dPadDirection;
-                this.parent = parent;
-            }
-            
-            /**
-             * True if dpad direction is this button
-             */
-            @Override
-            public boolean get() {
-                return parent.getPOV() == direction.value;
-            }
+            this.up = new DPadButton(this, Direction.kUp);
+            this.upRight = new DPadButton(this, Direction.kUpRight);
+            this.right = new DPadButton(this, Direction.kRight);
+            this.downRight = new DPadButton(this, Direction.kDownRight);
+            this.down = new DPadButton(this, Direction.kDown);
+            this.downLeft = new DPadButton(this, Direction.kDownLeft);
+            this.left = new DPadButton(this, Direction.kDown);
+            this.upLeft = new DPadButton(this, Direction.kUpLeft);
         }
         
         /**
@@ -375,5 +288,96 @@ public class XboxController extends Joystick {
 		public boolean get() {
 			return getPOV() != -1;
 		}
+		
+		/**
+		 * Gets the up direction
+		 * @return up button
+		 */
+		public Button getUp() {
+			return up;
+		}
+		
+		/**
+		 * Gets the upper right direction
+		 * @return upper right button
+		 */
+		public Button getUpRight() {
+			return upRight;
+		}
+		
+		/**
+		 * Gets the right direction
+		 * @return right button
+		 */
+		public Button getRight() {
+			return right;
+		}
+		
+		/**
+		 * Gets the down right direction
+		 * @return down right button
+		 */
+		public Button getDownRight() {
+			return downRight;
+		}
+		
+		/**
+		 * Gets the down direction
+		 * @return down button
+		 */
+		public Button getDown() {
+			return down;
+		}
+		
+		/**
+		 * Gets the down left direction
+		 * @return down left button
+		 */
+		public Button getDownLeft() {
+			return downLeft;
+		}
+		
+		/**
+		 * Gets the left direction
+		 * @return left button
+		 */
+		public Button getLeft() {
+			return left;
+		}
+		
+		/**
+		 * Gets the up left direction
+		 * @return left button
+		 */
+		public Button getUpLeft() {
+			return upLeft;
+		}
+		
+		/**
+         * This class is used to represent each of the 8 values a
+         * dpad has as a button.
+         */
+        public static class DPadButton extends Button {
+            private final Direction direction;
+            private final DirectionalPad parent;
+            
+            /**
+             * Constructor
+             * @param parent
+             * @param dPad
+             */
+            DPadButton(DirectionalPad parent, Direction dPadDirection) {
+                this.direction  = dPadDirection;
+                this.parent = parent;
+            }
+            
+            /**
+             * True if dpad direction is this button
+             */
+            @Override
+            public boolean get() {
+                return parent.getPOV() == direction.value;
+            }
+        }
 	}
 }

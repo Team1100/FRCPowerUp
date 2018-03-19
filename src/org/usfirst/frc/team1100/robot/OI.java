@@ -70,8 +70,8 @@ public class OI {
 		xbox.getButtonRightBumper().whenPressed(new CloseClaw());
 		
 		//Wrist
-		xbox.getDown().whenPressed(new LowerWrist());
-		xbox.getUp().whenPressed(new RaiseWrist());
+		xbox.getDPad().getDown().whenPressed(new LowerWrist());
+		xbox.getDPad().getUp().whenPressed(new RaiseWrist());
 		
 		//Pneumatic Elevator
 		xbox.getButtonBack().whenPressed(new PneumaticElevate());
@@ -84,7 +84,6 @@ public class OI {
 		//Folding
 		leftStick.getButton(8).whenPressed(new Fold());
 		leftStick.getButton(9).whenPressed(new Unfold());
-		//rightStick.getButton(3).whenPressed(new ShootCubeOut(1, .5));
 	}
 	
 	/**
