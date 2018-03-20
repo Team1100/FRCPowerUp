@@ -130,7 +130,7 @@ public class Robot extends IterativeRobot {
         	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new RightStartLeftScale(DEFAULT_SPEED);
         	} else {
-        		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED,switchPosition);
+        		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED, switchPosition);
         	}
         } else {
         	autonomousCommand = (new CrossLine());

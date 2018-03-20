@@ -64,22 +64,20 @@ public class RightStartRightScale extends CommandGroup {
     	addSequential(new LowerWrist());
     	addSequential(new OpenClaw());
         addSequential(new CenterOnCube(3));
-    	// only use time no vision!
+    	//Grab cube
     	addParallel(new DriveStraight(5.3, .8, 17));
         addSequential(new PullCubeIn(1));
         addSequential(new CloseClaw());
         addSequential(new PullCubeIn(1));
         addSequential(new DriveStraight(.5, -.8, 17));
-        addSequential(new WristTime(1.3));
-        addSequential(new DriveStraight(.5, 1, 17));
-        addSequential(new ShootCubeOut(1, .4));
-        addSequential(new DriveStraight(1, -1, 17));
         
-        /*
-    	if (currentSide == Robot.RIGHT_SIDE) {
+        if (currentSide == Robot.RIGHT_SIDE) {
+	        addSequential(new WristTime(1.3));
+	        addSequential(new DriveStraight(.5, 1, 17));
+	        addSequential(new ShootCubeOut(1, .4));
+	        addSequential(new DriveStraight(1, -1, 17));
         	addSequential(new WristTime(1.5));
         	addSequential(new ShootCubeOut(.9, .9));
     	}
-    	*/
     }
 }
