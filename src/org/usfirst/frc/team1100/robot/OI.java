@@ -79,7 +79,7 @@ public class OI {
 		
 		//Vision
 		leftStick.getButton(3).whenPressed(new CenterOnCube(3));
-		rightStick.getButton(11).whenPressed(new GrabCube());
+		rightStick.getButton(11).whenPressed(new GrabCubeRaw());
 		
 		//Folding
 		leftStick.getButton(8).whenPressed(new Fold());
