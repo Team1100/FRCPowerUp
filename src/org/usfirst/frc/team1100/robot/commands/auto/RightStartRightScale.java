@@ -54,7 +54,7 @@ public class RightStartRightScale extends CommandGroup {
     	addSequential(new DriveStraight(1.5, -.5, -40));
     	
     	//Shoot cube into scale, back up, lower elevator/elevator
-    	addSequential(new ShootCubeOut(.9, .9));
+    	addSequential(new ShootCubeOut(2, .8));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1, .6, -40));
