@@ -145,11 +145,9 @@ public class RobotMap {
 	public static final int C_BOTTOM_SWITCH = DIO_4;
 	public static final int C_TOP_SWITCH = DIO_5;
 	public static final int C_NEAR_BOTTOM_SWITCH = DIO_6;
-	public static final int C_CLIMB_PDP_ONE = PDP_4; // TODO Check this port
-	public static final int C_CLIMB_PDP_TWO = PDP_11; // TODO Check this port
 	//they are named "one" and "two" because it doesn't matter what side they're on
 	
-	// Cla[W] and [W]rist and Intake
+	//Cla[W] and [W]rist and Intake
 	public static final int W_PULL_MOTOR_LEFT = SRX_CAN_0;
 	public static final int W_PULL_MOTOR_RIGHT = SRX_CAN_1;
 	public static final int W_WRIST_MOTOR_LEFT = SRX_CAN_2;

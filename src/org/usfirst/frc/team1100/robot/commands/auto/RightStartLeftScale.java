@@ -28,7 +28,7 @@ public class RightStartLeftScale extends CommandGroup {
     public RightStartLeftScale(double defaultSpeed) {
     	//Drive down, then across field to scale
     	addParallel(new RaiseWrist());
-    	addSequential(new DriveStraight(15.5, -defaultSpeed, 0));
+    	addSequential(new DriveStraight(16.5, -defaultSpeed, 0));
 		addSequential(new ChangeHeading(-90, .9));
 		addParallel(new ElevateToTop());
 		addParallel(new PneumaticElevate());
@@ -36,11 +36,11 @@ public class RightStartLeftScale extends CommandGroup {
 		addSequential(new DriveStraight(2, -.75, -90));
 		addSequential(new DriveStraight(2, -.6, -90)); //There's a significant bump around here, so we slow down.
 		addSequential(new DriveStraight(5, -.8, -90));
-		addSequential(new DriveStraight(2, -.7, -90));
+		addSequential(new DriveStraight(3.5, -.7, -90));
     	
 		//Turn and drive to the scale
     	addSequential(new ChangeHeadingWhileUp(22.5, .8));
-    	addSequential(new DriveStraight(3, -.65, 22.5));
+    	addSequential(new DriveStraight(3.5, -.65, 22.5));
 
     	// Shoot the cube into scale, back up
     	addSequential(new ShootCubeOut(2, .5));

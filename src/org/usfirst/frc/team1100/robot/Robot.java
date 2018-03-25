@@ -153,6 +153,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Encoder",Drive.getInstance().getEncoder().getDistance());
+		System.err.println(Drive.getInstance().getEncoder().getRaw());
 		Scheduler.getInstance().run();
 	}
 	
@@ -178,6 +180,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		//CameraServer.getInstance().startAutomaticCapture();
+		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
