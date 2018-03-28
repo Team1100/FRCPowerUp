@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * appropriate time.
  * 
  * @author Grant Perkins, Tejas Maraliga, Thor Smith, and Chris Perkins
- * @version Week 7
+ * @version District Championship
  * 
  */
 public class Robot extends IterativeRobot {
