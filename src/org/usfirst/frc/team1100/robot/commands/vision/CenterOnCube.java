@@ -22,7 +22,7 @@ public class CenterOnCube extends PIDCommand {
     	super(.05, .01, 0);
     	t = new Timer();
     	requires(Drive.getInstance()); 
-        setInputRange(-20, 20);
+        setInputRange(0, 640);
         pidController.setOutputRange(-1, 1);
         pidController.setPercentTolerance(tolerance);
         setSetpoint(0);
