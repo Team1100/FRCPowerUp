@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Pi;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -67,10 +67,10 @@ public class CenterOnCube extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		//If not detected, end
-		if (Limelight.getInstance().getArea() == -1) {
+		if (Pi.getInstance().getCX() == -1) {
 			return 0;
 		}
-		return Limelight.getInstance().getY();
+		return Pi.getInstance().getCX();
 	}
 	
 	/**

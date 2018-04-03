@@ -11,7 +11,7 @@ import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
-import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Pi;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 		// If you fail to do this, the robot will not work and then it will be considered a software issue
 		OI.getInstance();
 		Drive.getInstance();
-		Limelight.getInstance();
+		Pi.getInstance();
 		Elevator.getInstance();
 		Claw.getInstance();
 		Intake.getInstance();
@@ -86,7 +86,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		Limelight.getInstance().readNetworkTable();
+		
 	}
 	
 	/**
@@ -112,7 +112,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() { 
 		Drive.getInstance().getNavX().zeroYaw();
-		Limelight.getInstance().readNetworkTable();
 		initPosition = initPositionChooser.getSelected();
 		String message = DriverStation.getInstance().getGameSpecificMessage();
 		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
@@ -133,7 +132,7 @@ public class Robot extends IterativeRobot {
         		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED, switchPosition);
         	}
         } else {
-        	autonomousCommand = (new CrossLine());
+        	autonomousCommand = new CrossLine();
         }
 			//This is how one would use a command in another file. However, I like command groups.
 			//Command groups allow for clarity about when/where commands are run.
@@ -153,7 +152,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
-		SmartDashboard.putNumber("Encoder",Drive.getInstance().getEncoder().getDistance());
+		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		System.err.println(Drive.getInstance().getEncoder().getRaw());
 		Scheduler.getInstance().run();
 	}

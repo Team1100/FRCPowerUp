@@ -1,14 +1,14 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Pi;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This command has the robot drive until the cube is in the claw
  */
-public class DriveUntilIn extends Command {
+public class DriveUntilIn extends Command { 
 	
 	/**
 	 * Uses the drive subsystem
@@ -36,7 +36,7 @@ public class DriveUntilIn extends Command {
     protected boolean isFinished() {
     	//My logic is that if the cube is so close to the camera that everything is too dark to
     	//detect the cube, or if 65% of the image is the cube, the robot has the cube
-        return Limelight.getInstance().getArea()==-1 || Limelight.getInstance().getArea()>65;
+        return Pi.getInstance().getCX()==-1;
     }
 
     /**
