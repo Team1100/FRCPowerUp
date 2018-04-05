@@ -14,7 +14,7 @@ public class Pi extends Subsystem {
     private static NetworkTable table;
     
     private Pi() {
-    	table = NetworkTableInstance.getDefault().getTable("SmartDashboard");
+    	table = NetworkTableInstance.getDefault().getTable("Pi");
     }
     
     public static Pi getInstance() {
@@ -28,6 +28,10 @@ public class Pi extends Subsystem {
     
     public double getCY() {
     	return table.getEntry("centery").getDouble(-1);
+    }
+    
+    public double getArea() {
+    	return table.getEntry("Area").getDouble(-1);
     }
     
     public void initDefaultCommand() {

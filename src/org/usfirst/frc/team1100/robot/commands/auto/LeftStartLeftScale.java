@@ -35,7 +35,6 @@ public class LeftStartLeftScale extends CommandGroup {
 	 */
     public LeftStartLeftScale(double defaultSpeed) {
     	//Drive to scale, prep for depositing cube
-    	addSequential(new Wait(6));
     	addParallel(new RaiseWrist());
     	addParallel(new ElevateToTop());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));

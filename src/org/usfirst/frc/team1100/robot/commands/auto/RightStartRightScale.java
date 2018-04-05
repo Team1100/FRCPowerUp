@@ -41,7 +41,6 @@ public class RightStartRightScale extends CommandGroup {
     public RightStartRightScale(double defaultSpeed, int switchPosition) {
     	currentSide = switchPosition;
     	//Drive to scale, prep for depositing cube
-    	addSequential(new Wait(6));
     	addParallel(new RaiseWrist());
     	addParallel(new ElevateToTop());
     	addSequential(new DriveStraight(17, -defaultSpeed, 0));

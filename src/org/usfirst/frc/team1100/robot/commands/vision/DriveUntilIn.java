@@ -36,7 +36,7 @@ public class DriveUntilIn extends Command {
     protected boolean isFinished() {
     	//My logic is that if the cube is so close to the camera that everything is too dark to
     	//detect the cube, or if 65% of the image is the cube, the robot has the cube
-        return Pi.getInstance().getCX()==-1;
+        return Pi.getInstance().getArea() == -1 || Pi.getInstance().getArea() > 65;
     }
 
     /**
