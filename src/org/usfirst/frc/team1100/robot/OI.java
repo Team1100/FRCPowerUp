@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.Lower;
 import org.usfirst.frc.team1100.robot.commands.RumbleMeme;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
@@ -63,7 +64,7 @@ public class OI {
 		xbox.getButtonY().whenPressed(new ElevateToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDElevator(.55)); //Switch
 		xbox.getButtonB().whenPressed(new PIDElevator(.875)); //Climb
-		xbox.getButtonA().whenPressed(new ElevateToBottom()); //Ground
+		xbox.getButtonA().whenPressed(new Lower()); //Ground
 		
 		//Claw
 		xbox.getButtonLeftBumper().whenPressed(new OpenClaw());

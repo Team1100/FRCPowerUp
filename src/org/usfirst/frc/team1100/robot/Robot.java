@@ -11,17 +11,17 @@ import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
+import org.usfirst.frc.team1100.robot.subsystems.LEDs;
 import org.usfirst.frc.team1100.robot.subsystems.Pi;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
+import org.usfirst.frc.team1100.robot.subsystems.Proximity;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -40,6 +40,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * The singular instance of the AHRS class. There's only one NavX on the robot.
 	 */
+	CameraServer cs;
 	Command autonomousCommand;
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
@@ -68,7 +69,11 @@ public class Robot extends IterativeRobot {
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
 		Folder.getInstance();
-		//LiveWindow.disableAllTelemetry();
+		LEDs.getInstance();
+		Proximity.getInstance();
+		
+		cs = CameraServer.getInstance();
+		cs.startAutomaticCapture("Drive", 0);
 		
 		Drive.getInstance().getNavX().zeroYaw();
 
@@ -77,7 +82,6 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Right",-1);
 		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
-		//SmartDashboard.putData("PDP", pdp);
 	}
 
 	/**
@@ -102,6 +106,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putBoolean("Proximity", Proximity.getInstance().getProximity());
 		Scheduler.getInstance().run();
 	}
 
@@ -153,7 +158,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
 		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
-		System.err.println(Drive.getInstance().getEncoder().getRaw());
+		SmartDashboard.putBoolean("Proximity", Proximity.getInstance().getProximity());
 		Scheduler.getInstance().run();
 	}
 	
@@ -178,7 +183,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
@@ -186,6 +190,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putBoolean("Proximity", Proximity.getInstance().getProximity());
 		Scheduler.getInstance().run();
 	}
 
