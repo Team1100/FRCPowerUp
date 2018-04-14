@@ -37,6 +37,7 @@ public class RightStartRightScale extends CommandGroup {
 	 * deposit a cube into that scale, then turn around and grab the first cube it sees.
 	 * 
 	 * @param defaultSpeed the speed which the robot will mostly move
+	 * @param switchPosition starting position of switch
 	 */
     public RightStartRightScale(double defaultSpeed, int switchPosition) {
     	currentSide = switchPosition;
@@ -51,10 +52,10 @@ public class RightStartRightScale extends CommandGroup {
     	
     	//Turn to scale, drive up to it
     	addSequential(new ChangeHeadingWhileUp(-40, 1));
-    	addSequential(new DriveStraight(1.5, -.5, -40));
+    	addSequential(new DriveStraight(1.5, -.6, -40));
     	
     	//Shoot cube into scale, back up, lower elevator/elevator
-    	addSequential(new ShootCubeOut(2, .8));
+    	addSequential(new ShootCubeOut(2, .5));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1, .6, -40));
@@ -63,7 +64,7 @@ public class RightStartRightScale extends CommandGroup {
     	addParallel(new ChangeHeading(14, 1));
     	addSequential(new LowerWrist());
     	addSequential(new OpenClaw());
-        addSequential(new CenterOnCube(3));
+        //addSequential(new CenterOnCube(3));
     	//Grab cube
     	addParallel(new DriveStraight(5.3, .8, 17));
         addSequential(new PullCubeIn(1));

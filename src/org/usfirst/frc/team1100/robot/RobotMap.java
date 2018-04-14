@@ -142,6 +142,7 @@ public class RobotMap {
 	//[C]limber
 	public static final int C_CLIMB_ONE = PWM_2;
 	public static final int C_CLIMB_TWO = PWM_3;
+	public static final int C_CLIMB_THREE = PWM_6;
 	public static final int C_CLIMB_POT = ANALOG_0;
 	public static final int C_BOTTOM_SWITCH = DIO_4;
 	public static final int C_TOP_SWITCH = DIO_5;

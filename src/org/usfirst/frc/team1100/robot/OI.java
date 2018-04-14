@@ -4,10 +4,10 @@ import org.usfirst.frc.team1100.robot.commands.Lower;
 import org.usfirst.frc.team1100.robot.commands.RumbleMeme;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
-import org.usfirst.frc.team1100.robot.commands.claw.ToggleClaw;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.elevator.PIDElevator;
+import org.usfirst.frc.team1100.robot.commands.elevator.StopElevator;
 import org.usfirst.frc.team1100.robot.commands.folder.Fold;
 import org.usfirst.frc.team1100.robot.commands.folder.Unfold;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
@@ -63,7 +63,7 @@ public class OI {
 		//Elevator
 		xbox.getButtonY().whenPressed(new ElevateToTop()); //Scale
 		xbox.getButtonX().whenPressed(new PIDElevator(.55)); //Switch
-		xbox.getButtonB().whenPressed(new PIDElevator(.875)); //Climb
+		xbox.getButtonB().whenPressed(new StopElevator()); //Stop
 		xbox.getButtonA().whenPressed(new Lower()); //Ground
 		
 		//Claw

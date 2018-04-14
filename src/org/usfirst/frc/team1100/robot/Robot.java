@@ -11,10 +11,8 @@ import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
-import org.usfirst.frc.team1100.robot.subsystems.LEDs;
 import org.usfirst.frc.team1100.robot.subsystems.Pi;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
-import org.usfirst.frc.team1100.robot.subsystems.Proximity;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -49,7 +47,7 @@ public class Robot extends IterativeRobot {
 	public static final int CENTERED = 0;
 	public static final int RIGHT_SIDE = -1;
 	
-	final double DEFAULT_SPEED = 0.9;
+	final double DEFAULT_SPEED = 1.0;
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
 	/**
 	 * Called when the robot is first started up.
@@ -69,8 +67,6 @@ public class Robot extends IterativeRobot {
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
 		Folder.getInstance();
-		LEDs.getInstance();
-		Proximity.getInstance();
 		
 		cs = CameraServer.getInstance();
 		cs.startAutomaticCapture("Drive", 0);
@@ -105,8 +101,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
-		SmartDashboard.putBoolean("Proximity", Proximity.getInstance().getProximity());
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
 
@@ -156,9 +151,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
-		SmartDashboard.putBoolean("Proximity", Proximity.getInstance().getProximity());
 		Scheduler.getInstance().run();
 	}
 	
@@ -189,8 +183,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
-		SmartDashboard.putBoolean("Proximity", Proximity.getInstance().getProximity());
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
 
