@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Pi;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -17,12 +17,13 @@ public class CenterOnCube extends PIDCommand {
 	
 	/**
 	 * Uses the drive subsystem, sets up PID controller
+	 * @param tolerance tolerance of PID loop
 	 */
     public CenterOnCube(double tolerance) {
     	super(.05, .01, 0);
     	t = new Timer();
     	requires(Drive.getInstance()); 
-        setInputRange(-20, 20);
+        setInputRange(0, 640);
         pidController.setOutputRange(-1, 1);
         pidController.setPercentTolerance(tolerance);
         setSetpoint(0);
@@ -67,10 +68,10 @@ public class CenterOnCube extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		//If not detected, end
-		if (Limelight.getInstance().getArea() == -1) {
+		if (Pi.getInstance().getCX() == -1) {
 			return 0;
 		}
-		return Limelight.getInstance().getY();
+		return Pi.getInstance().getCX();
 	}
 	
 	/**

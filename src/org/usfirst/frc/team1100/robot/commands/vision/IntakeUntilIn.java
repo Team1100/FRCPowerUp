@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1100.robot.commands.vision;
 
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
-import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Pi;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Timer;
@@ -43,7 +43,7 @@ public class IntakeUntilIn extends Command {
     protected boolean isFinished() {
     	//My logic is that if the cube is so close to the camera that everything is too dark to
     	//detect the cube, or if 65% of the image is the cube, the robot has the cube
-        return Limelight.getInstance().getArea()==-1 || Limelight.getInstance().getArea() > 65;
+        return Pi.getInstance().getArea() == -1 || Pi.getInstance().getArea() > 65;
     }
 
     /**

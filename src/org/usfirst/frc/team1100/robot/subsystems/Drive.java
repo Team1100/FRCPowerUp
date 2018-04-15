@@ -39,6 +39,7 @@ public class Drive extends Subsystem {
 		left.setInverted(true);
 		right.setInverted(true);
 		
+		
 		//Sensors
 		ahrs = new AHRS(RobotMap.D_NAVX);
 		encoder = new Encoder(RobotMap.D_ENCODER_MARIOTOAD_A, RobotMap.D_ENCODER_MARIOTOAD_B);
@@ -62,9 +63,17 @@ public class Drive extends Subsystem {
      * @param rightSpeed right joystick value
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-    	drivetrain.tankDrive(leftSpeed*PERCENT_SPEED, rightSpeed*PERCENT_SPEED);
+    	drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
     
+    /**
+     * ONLY USE WITH DRIVE STRAIGHT
+     * <p>
+     * This makes robot drive at a given speed and heading, so it is easy to
+     * write a PID loop that uses this.
+     * @param speed speed of robot
+     * @param angle angle at which it turns while driving
+     */
     public void arcadeDrive(double speed, double angle) {
     	drivetrain.arcadeDrive(speed, angle);
     }
@@ -88,4 +97,5 @@ public class Drive extends Subsystem {
         setDefaultCommand(new DefaultDrive());
     }
 }
+
 

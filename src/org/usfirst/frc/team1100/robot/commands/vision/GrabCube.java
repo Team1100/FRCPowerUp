@@ -38,7 +38,7 @@ public class GrabCube extends Command {
      * True when timer is over desired time
      */
     protected boolean isFinished() {
-        return t.get() > 1.5;
+        return t.get() > 5;
     }
 
     /**

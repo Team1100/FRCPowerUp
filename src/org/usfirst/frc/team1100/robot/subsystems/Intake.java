@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * This subsystem controls the instake wheels
  */
 public class Intake extends Subsystem {
 	private static Intake intake;

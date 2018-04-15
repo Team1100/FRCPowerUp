@@ -11,17 +11,15 @@ import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
-import org.usfirst.frc.team1100.robot.subsystems.Limelight;
+import org.usfirst.frc.team1100.robot.subsystems.Pi;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -40,6 +38,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * The singular instance of the AHRS class. There's only one NavX on the robot.
 	 */
+	CameraServer cs;
 	Command autonomousCommand;
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
@@ -48,7 +47,7 @@ public class Robot extends IterativeRobot {
 	public static final int CENTERED = 0;
 	public static final int RIGHT_SIDE = -1;
 	
-	final double DEFAULT_SPEED = 0.9;
+	final double DEFAULT_SPEED = 1.0;
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
 	/**
 	 * Called when the robot is first started up.
@@ -61,14 +60,16 @@ public class Robot extends IterativeRobot {
 		// If you fail to do this, the robot will not work and then it will be considered a software issue
 		OI.getInstance();
 		Drive.getInstance();
-		Limelight.getInstance();
+		Pi.getInstance();
 		Elevator.getInstance();
 		Claw.getInstance();
 		Intake.getInstance();
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
 		Folder.getInstance();
-		//LiveWindow.disableAllTelemetry();
+		
+		cs = CameraServer.getInstance();
+		cs.startAutomaticCapture("Drive", 0);
 		
 		Drive.getInstance().getNavX().zeroYaw();
 
@@ -77,7 +78,6 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Right",-1);
 		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
-		//SmartDashboard.putData("PDP", pdp);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		Limelight.getInstance().readNetworkTable();
+		
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
 
@@ -112,7 +112,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() { 
 		Drive.getInstance().getNavX().zeroYaw();
-		Limelight.getInstance().readNetworkTable();
 		initPosition = initPositionChooser.getSelected();
 		String message = DriverStation.getInstance().getGameSpecificMessage();
 		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
@@ -130,10 +129,10 @@ public class Robot extends IterativeRobot {
         	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new RightStartLeftScale(DEFAULT_SPEED);
         	} else {
-        		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED);
+        		autonomousCommand = new RightStartRightScale(DEFAULT_SPEED, switchPosition);
         	}
         } else {
-        	autonomousCommand = (new CrossLine());
+        	autonomousCommand = new CrossLine();
         }
 			//This is how one would use a command in another file. However, I like command groups.
 			//Command groups allow for clarity about when/where commands are run.
@@ -152,7 +151,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
+		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		Scheduler.getInstance().run();
 	}
 	
@@ -177,13 +177,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
+		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
 		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
 

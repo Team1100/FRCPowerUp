@@ -68,7 +68,7 @@ public class Wrist extends Subsystem {
 	 */
 	public boolean rotateWrist(double speed) {
 		if ((getTop() && speed > 0) || (getBottom() && speed < 0) || (!getBottom() && !getTop())){
-			if (-.5>speed) speed = -.5;
+			if (-.6>speed) speed = -.6;
 			if (.375<speed) speed = .375;
 			leftWristMotor.set(speed);
 			rightWristMotor.set(speed);

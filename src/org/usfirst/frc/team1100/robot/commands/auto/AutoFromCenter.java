@@ -59,6 +59,7 @@ public class AutoFromCenter extends CommandGroup {
     	addSequential(new DriveStraight(2.9, -.75, 0));
     	// Shoot the cube
     	addSequential(new ShootCubeOut(.75, 1));
+    	/*
     	// Next, drive around to load a cube and target the scale
     	// Back up from switch
     	addSequential(new DriveStraight(1, 0.5, 0));
@@ -84,5 +85,6 @@ public class AutoFromCenter extends CommandGroup {
     	addSequential(new ChangeHeadingWhileUp(35*-currentSide, 1));
     	addSequential(new LowerWrist());
     	addSequential(new GrabCube());
+    	*/
     }
 }

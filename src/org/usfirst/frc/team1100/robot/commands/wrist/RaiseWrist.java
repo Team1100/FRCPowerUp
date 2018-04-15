@@ -28,7 +28,7 @@ public class RaiseWrist extends Command {
      * Raises the wrist
      */
     protected void execute() {
-    	done = !Wrist.getInstance().rotateWrist(-1);
+    	done = !Wrist.getInstance().rotateWrist(-.5);
     }
     
     /**
