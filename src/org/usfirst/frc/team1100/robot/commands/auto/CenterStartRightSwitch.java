@@ -60,11 +60,11 @@ public class CenterStartRightSwitch extends CommandGroup {
     	// Spin around
     	addSequential(new ChangeHeading(168.4, .9));
     	// Start driving to first cube in pyramid, because wrist is lowering
-    	addSequential(new DriveStraight(3+2/3, .8, 168.4));
+    	addSequential(new DriveStraight(3.5, .8, 168.4));
     	// Open claw
     	addParallel(new OpenClaw());
     	// Finish driving forward
-    	addSequential(new DriveStraight(3, .8, 168.4));
+    	addSequential(new DriveStraight(2, .8, 168.4));
     	// Close claw
     	addParallel(new CloseClaw());
     	// Roll intake wheels
@@ -72,7 +72,7 @@ public class CenterStartRightSwitch extends CommandGroup {
     	// Raise wrist
     	addParallel(new RaiseWrist());
     	// Drive back to point of reset
-    	addSequential(new DriveStraight(6+2/3, -.8, 168.4));
+    	addSequential(new DriveStraight(5.5, -.8, 168.4));
     	
     	// Spit out second cube
     	// Turn toward switch
