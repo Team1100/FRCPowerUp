@@ -43,7 +43,7 @@ public class RightStartLeftScale extends CommandGroup {
     	addSequential(new DriveStraight(5, -.65, 22.5));
 
     	// Shoot the cube into scale, back up
-    	addSequential(new ShootCubeOut(2, .6));
+    	addSequential(new ShootCubeOut(2, .4));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(3, .65, 22.5));

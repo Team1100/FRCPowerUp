@@ -47,7 +47,7 @@ public class LeftStartLeftScale extends CommandGroup {
     	addSequential(new DriveStraight(1.5, -.5, 40));
     	
     	//Shoot cube into scale, back up, lower elevator/elevator
-    	addSequential(new ShootCubeOut(2, .5));
+    	addSequential(new ShootCubeOut(2, .4));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1, .6, 40));
