@@ -47,6 +47,8 @@ public class CenterStartRightSwitch extends CommandGroup {
     	/* SECOND CUBE */
     	
     	// Reset
+    	// Lower wrist
+    	addParallel(new LowerWrist());
     	// Back up from switch
     	addSequential(new DriveStraight(2.9, .75, 0));
     	// Turn away from switch
@@ -55,8 +57,6 @@ public class CenterStartRightSwitch extends CommandGroup {
     	addSequential(new DriveStraight(7, defaultSpeed, -60));
     	
     	// Grab new cube
-    	// Lower wrist
-    	addParallel(new LowerWrist());
     	// Spin around
     	addSequential(new ChangeHeading(168.4, .9));
     	// Start driving to first cube in pyramid, because wrist is lowering
