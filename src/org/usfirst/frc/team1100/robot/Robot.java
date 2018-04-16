@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	public static final int RIGHT_SIDE = -1;
 	
 	final double DEFAULT_SPEED = 1.0;
-	//PowerDistributionPanel pdp = new PowerDistributionPanel();
+	
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -96,7 +96,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
@@ -149,7 +148,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
