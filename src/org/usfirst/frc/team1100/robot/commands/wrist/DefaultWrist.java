@@ -2,7 +2,6 @@ package org.usfirst.frc.team1100.robot.commands.wrist;
 
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 import org.usfirst.frc.team1100.robot.OI;
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 
 import edu.wpi.first.wpilibj.command.Command;

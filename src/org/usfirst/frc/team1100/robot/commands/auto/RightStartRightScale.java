@@ -1,23 +1,17 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
 import org.usfirst.frc.team1100.robot.Robot;
-import org.usfirst.frc.team1100.robot.commands.Wait;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
-import org.usfirst.frc.team1100.robot.commands.drive.DriveForward;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
-import org.usfirst.frc.team1100.robot.commands.drive.TimedForwards;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
-import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
-import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
-import org.usfirst.frc.team1100.robot.commands.vision.GrabCubeRaw;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.WristTime;

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
+import org.usfirst.frc.team1100.robot.commands.auto.CenterStartLeftSwitch;
+import org.usfirst.frc.team1100.robot.commands.auto.CenterStartRightSwitch;
 import org.usfirst.frc.team1100.robot.commands.auto.CrossLine;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartRightScale;
@@ -117,9 +118,12 @@ public class Robot extends IterativeRobot {
 		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		int scalePosition = message.charAt(1) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		if (initPosition == CENTERED) {
-       		// Do stuff if we are in the center position
-        	autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
-        } else if (initPosition == LEFT_SIDE){
+			if (switchPosition == LEFT_SIDE) {
+				autonomousCommand = new CenterStartLeftSwitch(DEFAULT_SPEED, switchPosition, scalePosition);
+			} else {
+				autonomousCommand = new CenterStartRightSwitch(DEFAULT_SPEED, switchPosition, scalePosition);
+			}
+       	} else if (initPosition == LEFT_SIDE){
         	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new LeftStartLeftScale(DEFAULT_SPEED);
         	} else {

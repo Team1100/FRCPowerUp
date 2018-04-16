@@ -1,10 +1,8 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -172,7 +170,6 @@ public class Elevator extends Subsystem {
      */
     private void setBottom() {
     	bottom = getVoltage();
-    	top = bottom - 3.5;
     	double tmpTop = Math.round(top * 10) / 10;
 		double tmpBottom = Math.round(bottom * 10) / 10;
     	try {
@@ -197,9 +194,6 @@ public class Elevator extends Subsystem {
      */
     private void setTop() {
     	top = getVoltage();
-    	bottom = top + 3.5;
-    	bottom = getVoltage();
-    	top = bottom - 3.5;
     	double tmpTop = Math.round(top * 10) / 10;
 		double tmpBottom = Math.round(bottom *10) / 10;
     	try {

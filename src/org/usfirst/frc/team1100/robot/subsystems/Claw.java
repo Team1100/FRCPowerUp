@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
