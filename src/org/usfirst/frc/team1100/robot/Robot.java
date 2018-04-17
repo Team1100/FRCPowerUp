@@ -10,7 +10,6 @@ import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Pi;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
@@ -67,7 +66,6 @@ public class Robot extends IterativeRobot {
 		Intake.getInstance();
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
-		Folder.getInstance();
 		
 		cs = CameraServer.getInstance();
 		cs.startAutomaticCapture("Drive", 0);
