@@ -24,11 +24,6 @@ public class Wrist extends Subsystem {
 	 */
 	WPI_TalonSRX leftWristMotor;
 	WPI_TalonSRX rightWristMotor;
-	
-	/*
-	 * Analog encoder
-	 */
-    AnalogInput pot; // potentiometer
     
     DigitalInput topLimit, bottomLimit;
     
@@ -45,7 +40,6 @@ public class Wrist extends Subsystem {
 		
 		topLimit = new DigitalInput(RobotMap.W_TOP_WRIST_LIMIT);
 		bottomLimit = new DigitalInput(RobotMap.W_BOTTOM_WRIST_LIMIT);
-		pot = new AnalogInput(RobotMap.W_WRIST_POT);
     }
     
     /**
@@ -76,14 +70,6 @@ public class Wrist extends Subsystem {
 		leftWristMotor.set(speed);
 		rightWristMotor.set(speed);
 		return false;
-	}
-	
-	/**
-	 * Gets angle of wrist
-	 * @return angle of wrist
-	 */
-	public double getVoltage() {
-		return pot.getAverageVoltage();
 	}
 	
 	public boolean getTop() {

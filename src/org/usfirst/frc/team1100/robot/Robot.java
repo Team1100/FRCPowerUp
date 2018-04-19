@@ -35,9 +35,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	/**
-	 * The singular instance of the AHRS class. There's only one NavX on the robot.
-	 */
 	CameraServer cs;
 	Command autonomousCommand;
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
@@ -98,7 +95,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
-		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
@@ -150,7 +146,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
-		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		Scheduler.getInstance().run();
@@ -182,7 +177,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
-		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
 		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
