@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
 import org.usfirst.frc.team1100.robot.Robot;
-import org.usfirst.frc.team1100.robot.commands.Wait;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
@@ -13,7 +12,6 @@ import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
-import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.WristTime;
@@ -49,7 +47,7 @@ public class LeftStartLeftScale extends CommandGroup {
     	addSequential(new DriveStraight(1.5, -.5, 40));
     	
     	//Shoot cube into scale, back up, lower elevator/elevator
-    	addSequential(new ShootCubeOut(2, .5));
+    	addSequential(new ShootCubeOut(2, .4));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1, .6, 40));

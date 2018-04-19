@@ -2,7 +2,6 @@ package org.usfirst.frc.team1100.robot.commands.wrist;
 
 import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 import org.usfirst.frc.team1100.robot.OI;
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,9 +28,7 @@ public class DefaultWrist extends Command {
      * Sets speed of wrist to xbox controller right joystick
      */
     protected void execute() {
-    	//if (Robot.manualOverride) {
-    		wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
-    	//}
+    	wrist.rotateWrist(OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kYRight));
     }
 
     /**

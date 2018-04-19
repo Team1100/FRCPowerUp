@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1100.robot.commands.elevator;
 
 import org.usfirst.frc.team1100.robot.OI;
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.input.XboxController;
 import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 
