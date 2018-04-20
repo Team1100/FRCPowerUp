@@ -108,6 +108,7 @@ public class Robot extends IterativeRobot {
 		Drive.getInstance().getNavX().zeroYaw();
 		initPosition = initPositionChooser.getSelected();
 		String message = DriverStation.getInstance().getGameSpecificMessage();
+		SmartDashboard.putString("FMS Data", message);
 		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		int scalePosition = message.charAt(1) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		if (initPosition == CENTERED) {

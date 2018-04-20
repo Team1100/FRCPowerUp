@@ -4,7 +4,6 @@ org.usfirst.frc.team1100.robot.commands.auto
 org.usfirst.frc.team1100.robot.commands.claw
 org.usfirst.frc.team1100.robot.commands.drive
 org.usfirst.frc.team1100.robot.commands.elevator
-org.usfirst.frc.team1100.robot.commands.folder
 org.usfirst.frc.team1100.robot.commands.intake
 org.usfirst.frc.team1100.robot.commands.pneumaticelevator
 org.usfirst.frc.team1100.robot.commands.vision
