@@ -52,7 +52,7 @@ public class CenterStartLeftSwitch extends CommandGroup {
     	// Back up from switch
     	addSequential(new DriveStraight(2.9, .75, 0));
     	// Turn away from switch
-    	addSequential(new ChangeHeading(0, .9));
+    	addSequential(new ChangeHeading(-60, .9));
     	// Drive further from switch
     	addSequential(new DriveStraight(7, defaultSpeed, -60));
     	
