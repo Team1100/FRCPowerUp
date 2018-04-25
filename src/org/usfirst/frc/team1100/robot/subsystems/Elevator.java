@@ -1,5 +1,11 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.elevator.DefaultElevator;
 
@@ -16,14 +22,19 @@ public class Elevator extends Subsystem {
     private static Elevator elevator;
     VictorSP climberOne;
 	VictorSP climberTwo;
+	VictorSP climberThree;
     AnalogInput pot; // potentiometer
     DigitalInput bottomLimit, nearBottomLimit, topLimit; // Limit switches
-    double bottom = 3.6;
-    double top = 0;
-    final double CLIMB_RANGE = 3.6;
+    double bottom;
+    double top;
     boolean canGoUp = true;
     boolean canGoDown = true;
     private boolean slowDown;
+    final String filename = "/home/lvuser/heights.txt";
+    RandomAccessFile writer;
+    BufferedReader reader;
+    String[] line;
+    Double lastTop, lastBottom;
     
     /*
      * Initializes all hardware instances
@@ -31,12 +42,36 @@ public class Elevator extends Subsystem {
     private Elevator() {
     	climberOne = new VictorSP(RobotMap.C_CLIMB_ONE);
     	climberTwo = new VictorSP(RobotMap.C_CLIMB_TWO);
+    	climberThree = new VictorSP(RobotMap.C_CLIMB_THREE);
     	climberTwo.setInverted(true);
     	pot = new AnalogInput(RobotMap.C_CLIMB_POT); 
     	bottomLimit = new DigitalInput(RobotMap.C_BOTTOM_SWITCH);
     	nearBottomLimit = new DigitalInput(RobotMap.C_NEAR_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
     	slowDown = false;
+    	try {
+    		writer = new RandomAccessFile(new File(filename), "rw");
+    		reader = new BufferedReader(new FileReader(filename));
+    		reader.mark(800);
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    		System.err.println("Big error, file did a die");
+    	}
+    	
+    	try {
+    		line = reader.readLine().split(" ");
+    		if (line.length == 2) {
+	    		top = Double.parseDouble(line[0]);
+	    		bottom = Double.parseDouble(line[1]);
+    		} else {
+    			top = 0.8;
+    			bottom = 4.0;
+    		}
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    		top = 0.8;
+			bottom = 4.0;
+    	}
     }
     
     /**
@@ -56,9 +91,10 @@ public class Elevator extends Subsystem {
     public boolean climb(double speed) {
     	boolean out = true;
     	
-    	if (getBottomLimit()) {
+    	//Don't move because of limit switches or potentiometer
+    	if (getBottomLimit() || getVoltage() > bottom) {
     		canGoDown = false;
-    	} else if (getTopLimit()) {
+    	} else if (getTopLimit() || getVoltage() < top) {
     		canGoUp = false;
     	} else if (getNearBottomLimit()) {
     		canGoUp = true;
@@ -86,6 +122,7 @@ public class Elevator extends Subsystem {
     	
     	climberOne.set(speed);
     	climberTwo.set(speed);
+    	climberThree.set(speed);
     	return out;
     }
     
@@ -94,6 +131,11 @@ public class Elevator extends Subsystem {
      * @return Height of elevator
      */
     public double getVoltage() {
+    	try {
+			reader.reset();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	return pot.getAverageVoltage();
     }
     
@@ -128,15 +170,46 @@ public class Elevator extends Subsystem {
      */
     private void setBottom() {
     	bottom = getVoltage();
-    	top = getVoltage() - CLIMB_RANGE;
+    	double tmpTop = Math.round(top * 10) / 10;
+		double tmpBottom = Math.round(bottom * 10) / 10;
+    	try {
+    		writer.seek(0);
+    		line = reader.readLine().split(" ");
+    		if (line.length == 2) {
+	    		lastTop = Double.parseDouble(line[0]);
+	    		lastBottom = Double.parseDouble(line[1]);
+	    		if (tmpBottom != lastBottom)
+	    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
+    		} else {
+    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
+    		}
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    	}
     }
     
-    /*
+    /* 
+     *                                      
      * Sets top to current voltage
      */
     private void setTop() {
     	top = getVoltage();
-    	bottom = getVoltage() + CLIMB_RANGE;
+    	double tmpTop = Math.round(top * 10) / 10;
+		double tmpBottom = Math.round(bottom *10) / 10;
+    	try {
+    		writer.seek(0);
+    		line = reader.readLine().split(" ");
+    		if (line.length == 2) {
+	    		lastTop = Double.parseDouble(line[0]);
+	    		lastBottom = Double.parseDouble(line[1]);
+	    		if (tmpTop != lastTop)
+	    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
+    		} else {
+    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
+    		}
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    	}
     }
     
     /**

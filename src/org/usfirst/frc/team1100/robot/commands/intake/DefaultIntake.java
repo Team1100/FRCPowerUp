@@ -36,7 +36,9 @@ public class DefaultIntake extends Command {
     protected void execute() {
     	out = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kRightTrigger);
     	in = OI.getInstance().getXbox().getAxis(XboxController.XboxAxis.kLeftTrigger);
-    	intake.setSpeed(out-in);
+    	double speed = out-in;
+    	if (speed > 0) speed *= .4;
+    	intake.setSpeed(speed);
     	intake.spinWheels();
     }
 

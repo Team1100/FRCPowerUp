@@ -1,23 +1,17 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
 import org.usfirst.frc.team1100.robot.Robot;
-import org.usfirst.frc.team1100.robot.commands.Wait;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
-import org.usfirst.frc.team1100.robot.commands.drive.DriveForward;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
-import org.usfirst.frc.team1100.robot.commands.drive.TimedForwards;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToBottom;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 import org.usfirst.frc.team1100.robot.commands.intake.ShootCubeOut;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
-import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
-import org.usfirst.frc.team1100.robot.commands.vision.GrabCube;
-import org.usfirst.frc.team1100.robot.commands.vision.GrabCubeRaw;
 import org.usfirst.frc.team1100.robot.commands.wrist.LowerWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.RaiseWrist;
 import org.usfirst.frc.team1100.robot.commands.wrist.WristTime;
@@ -37,6 +31,7 @@ public class RightStartRightScale extends CommandGroup {
 	 * deposit a cube into that scale, then turn around and grab the first cube it sees.
 	 * 
 	 * @param defaultSpeed the speed which the robot will mostly move
+	 * @param switchPosition starting position of switch
 	 */
     public RightStartRightScale(double defaultSpeed, int switchPosition) {
     	currentSide = switchPosition;
@@ -54,7 +49,7 @@ public class RightStartRightScale extends CommandGroup {
     	addSequential(new DriveStraight(1.5, -.5, -40));
     	
     	//Shoot cube into scale, back up, lower elevator/elevator
-    	addSequential(new ShootCubeOut(2, .8));
+    	addSequential(new ShootCubeOut(2, .4));
     	addParallel(new ElevateToBottom());
     	addParallel(new PneumaticLower());
     	addSequential(new DriveStraight(1, .6, -40));
@@ -63,7 +58,7 @@ public class RightStartRightScale extends CommandGroup {
     	addParallel(new ChangeHeading(14, 1));
     	addSequential(new LowerWrist());
     	addSequential(new OpenClaw());
-        addSequential(new CenterOnCube(3));
+        //addSequential(new CenterOnCube(3));
     	//Grab cube
     	addParallel(new DriveStraight(5.3, .8, 17));
         addSequential(new PullCubeIn(1));

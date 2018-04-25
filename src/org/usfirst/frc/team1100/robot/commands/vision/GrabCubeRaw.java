@@ -3,7 +3,6 @@ package org.usfirst.frc.team1100.robot.commands.vision;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveForward;
-import org.usfirst.frc.team1100.robot.commands.drive.TimedForwards;
 import org.usfirst.frc.team1100.robot.commands.intake.PullCubeIn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

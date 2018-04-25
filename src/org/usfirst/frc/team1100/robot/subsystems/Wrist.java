@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
-import org.usfirst.frc.team1100.robot.Robot;
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.wrist.DefaultWrist;
 
@@ -9,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -26,11 +24,6 @@ public class Wrist extends Subsystem {
 	 */
 	WPI_TalonSRX leftWristMotor;
 	WPI_TalonSRX rightWristMotor;
-	
-	/*
-	 * Analog encoder
-	 */
-    AnalogInput pot; // potentiometer
     
     DigitalInput topLimit, bottomLimit;
     
@@ -47,7 +40,6 @@ public class Wrist extends Subsystem {
 		
 		topLimit = new DigitalInput(RobotMap.W_TOP_WRIST_LIMIT);
 		bottomLimit = new DigitalInput(RobotMap.W_BOTTOM_WRIST_LIMIT);
-		pot = new AnalogInput(RobotMap.W_WRIST_POT);
     }
     
     /**
@@ -78,14 +70,6 @@ public class Wrist extends Subsystem {
 		leftWristMotor.set(speed);
 		rightWristMotor.set(speed);
 		return false;
-	}
-	
-	/**
-	 * Gets angle of wrist
-	 * @return angle of wrist
-	 */
-	public double getVoltage() {
-		return pot.getAverageVoltage();
 	}
 	
 	public boolean getTop() {

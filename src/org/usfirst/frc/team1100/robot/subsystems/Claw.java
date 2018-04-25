@@ -1,8 +1,6 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import org.usfirst.frc.team1100.robot.RobotMap;
@@ -23,8 +21,6 @@ public class Claw extends Subsystem {
 
 	DoubleSolenoid pincher;
 	
-	DigitalInput proximity;
-	
 	private boolean isOpen = false;;
 	
 	/*
@@ -32,7 +28,7 @@ public class Claw extends Subsystem {
 	 */
 	private Claw() {
 		pincher = new DoubleSolenoid(RobotMap.W_PINCHER_CAN, RobotMap.W_PINCHER_0, RobotMap.W_PINCHER_1);
-		proximity = new DigitalInput(RobotMap.W_PROXIMITY);
+		
 	}
 
 	/**
@@ -70,13 +66,6 @@ public class Claw extends Subsystem {
 		return isOpen;
 	}
 	
-	/**
-	 * Gets the state of the proximity sensor that detects the cube
-	 * @return the state of the proximity sensor
-	 */
-	public boolean getProximity() {
-		return proximity.get();
-	}
 	
 	/**
 	 * Unused, no default command

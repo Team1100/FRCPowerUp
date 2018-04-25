@@ -34,7 +34,7 @@ public class ChangeHeadingWhileUp extends PIDCommand {
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
         pidController.setOutputRange(-speed, speed);
-        pidController.setPercentTolerance(2);
+        pidController.setPercentTolerance(4);
     }
 
     /**

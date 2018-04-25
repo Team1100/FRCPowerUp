@@ -17,6 +17,7 @@ public class CenterOnCube extends PIDCommand {
 	
 	/**
 	 * Uses the drive subsystem, sets up PID controller
+	 * @param tolerance tolerance of PID loop
 	 */
     public CenterOnCube(double tolerance) {
     	super(.05, .01, 0);

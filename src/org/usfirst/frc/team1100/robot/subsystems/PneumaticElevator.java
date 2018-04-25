@@ -19,7 +19,6 @@ public class PneumaticElevator extends Subsystem {
 
 	DoubleSolenoid pClimber;
 
-	
 	private PneumaticElevator( ) {
 		pClimber = new DoubleSolenoid(RobotMap.P_CLIMBER_CAN, RobotMap.P_CLIMBER_0, RobotMap.P_CLIMBER_1);
 		isDown = pClimber.get()==DoubleSolenoid.Value.kReverse;

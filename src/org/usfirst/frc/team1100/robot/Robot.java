@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1100.robot;
 
-import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
+import org.usfirst.frc.team1100.robot.commands.auto.CenterStartLeftSwitch;
+import org.usfirst.frc.team1100.robot.commands.auto.CenterStartRightSwitch;
 import org.usfirst.frc.team1100.robot.commands.auto.CrossLine;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.LeftStartRightScale;
@@ -9,7 +10,6 @@ import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Elevator;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
-import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Pi;
 import org.usfirst.frc.team1100.robot.subsystems.PneumaticElevator;
@@ -18,10 +18,8 @@ import org.usfirst.frc.team1100.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,14 +30,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * appropriate time.
  * 
  * @author Grant Perkins, Tejas Maraliga, Thor Smith, and Chris Perkins
- * @version District Championship
+ * @version Detroit
  * 
  */
 public class Robot extends IterativeRobot {
 
-	/**
-	 * The singular instance of the AHRS class. There's only one NavX on the robot.
-	 */
+	CameraServer cs;
 	Command autonomousCommand;
 	SendableChooser<Integer> initPositionChooser = new SendableChooser<>();
 	public static Integer initPosition = 0;
@@ -48,8 +44,8 @@ public class Robot extends IterativeRobot {
 	public static final int CENTERED = 0;
 	public static final int RIGHT_SIDE = -1;
 	
-	final double DEFAULT_SPEED = 0.9;
-	//PowerDistributionPanel pdp = new PowerDistributionPanel();
+	final double DEFAULT_SPEED = 1.0;
+	
 	/**
 	 * Called when the robot is first started up.
 	 * Initializes all subsystems by calling their respective getInstance() methods. Also,
@@ -67,8 +63,9 @@ public class Robot extends IterativeRobot {
 		Intake.getInstance();
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
-		Folder.getInstance();
-		//LiveWindow.disableAllTelemetry();
+		
+		cs = CameraServer.getInstance();
+		cs.startAutomaticCapture("Drive", 0);
 		
 		Drive.getInstance().getNavX().zeroYaw();
 
@@ -77,7 +74,6 @@ public class Robot extends IterativeRobot {
 		initPositionChooser.addObject("Right",-1);
 		initPositionChooser.addObject("Cross Line", -2);
 		SmartDashboard.putData("Initial Position", initPositionChooser);
-		//SmartDashboard.putData("PDP", pdp);
 	}
 
 	/**
@@ -95,13 +91,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
-		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
 
@@ -114,12 +108,16 @@ public class Robot extends IterativeRobot {
 		Drive.getInstance().getNavX().zeroYaw();
 		initPosition = initPositionChooser.getSelected();
 		String message = DriverStation.getInstance().getGameSpecificMessage();
+		SmartDashboard.putString("FMS Data", message);
 		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		int scalePosition = message.charAt(1) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		if (initPosition == CENTERED) {
-       		// Do stuff if we are in the center position
-        	autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
-        } else if (initPosition == LEFT_SIDE){
+			if (switchPosition == LEFT_SIDE) {
+				autonomousCommand = new CenterStartLeftSwitch(DEFAULT_SPEED, switchPosition, scalePosition);
+			} else {
+				autonomousCommand = new CenterStartRightSwitch(DEFAULT_SPEED, switchPosition, scalePosition);
+			}
+       	} else if (initPosition == LEFT_SIDE){
         	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new LeftStartLeftScale(DEFAULT_SPEED);
         	} else {
@@ -145,15 +143,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
-		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
-		System.err.println(Drive.getInstance().getEncoder().getRaw());
 		Scheduler.getInstance().run();
 	}
 	
@@ -178,14 +173,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putNumber("Encoder", Drive.getInstance().getEncoder().getDistance());
 		SmartDashboard.putNumber("Yaw", Drive.getInstance().getNavX().getYaw());
 		SmartDashboard.putBoolean("Top", Elevator.getInstance().getTopLimit());
 		SmartDashboard.putBoolean("Near Bottom", Elevator.getInstance().getNearBottomLimit());
 		SmartDashboard.putBoolean("Bottom", Elevator.getInstance().getBottomLimit());
-		SmartDashboard.putNumber("Wrist Pot", Wrist.getInstance().getVoltage());
-		SmartDashboard.putNumber("Elevator Percent", (3.6-Elevator.getInstance().getVoltage())/3.6);
+		SmartDashboard.putNumber("Elevator Voltage", (Elevator.getInstance().getVoltage()));
 		Scheduler.getInstance().run();
 	}
 
