@@ -36,11 +36,11 @@ public class CenterStartLeftSwitch extends CommandGroup {
 		// Turn toward switch
 		addSequential(new ChangeHeading(-60, .9));
 		// Drive close to switch
-		addSequential(new DriveStraight(7, -defaultSpeed, -60));
+		addSequential(new DriveStraight(6.5, -defaultSpeed, -60));
 		// Turn toward switch
     	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
-    	addSequential(new DriveStraight(2.9, -.75, 0));
+    	addSequential(new DriveStraight(2.5, -.75, 0));
     	// Shoot the cube
     	addSequential(new ShootCubeOut(.75, 1));
     	
@@ -50,19 +50,19 @@ public class CenterStartLeftSwitch extends CommandGroup {
     	// Lower wrist
     	addParallel(new LowerWrist());
     	// Back up from switch
-    	addSequential(new DriveStraight(2.9, .75, 0));
+    	addSequential(new DriveStraight(2.5, .75, 0));
     	// Turn away from switch
-    	addSequential(new ChangeHeading(0, .9));
+    	addSequential(new ChangeHeading(-60, .9));
     	// Drive further from switch
-    	addSequential(new DriveStraight(7, defaultSpeed, -60));
+    	addSequential(new DriveStraight(6.5, defaultSpeed, -60));
     	
     	// Grab new cube
     	// Spin around
     	addSequential(new ChangeHeading(168.4, .9));
-    	// Start driving to first cube in pyramid, because wrist is lowering
-    	addSequential(new DriveStraight(3.5, .8, 168.4));
     	// Open claw
     	addParallel(new OpenClaw());
+    	// Start driving to first cube in pyramid, because wrist is lowering
+    	addSequential(new DriveStraight(3.5, .8, 168.4));
     	// Finish driving forward
     	addSequential(new DriveStraight(2, .8, 168.4));
     	// Close claw
@@ -78,10 +78,10 @@ public class CenterStartLeftSwitch extends CommandGroup {
     	// Turn toward switch
 		addSequential(new ChangeHeading(-60, .9));
 		// Drive close to switch
-		addSequential(new DriveStraight(7, -defaultSpeed, -60));
+		addSequential(new DriveStraight(6.5, -defaultSpeed, -60));
     	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
-    	addSequential(new DriveStraight(2.9, -.75, 0));
+    	addSequential(new DriveStraight(2.5, -.75, 0));
     	// Shoot the cube
     	addSequential(new ShootCubeOut(.75, 1));
 

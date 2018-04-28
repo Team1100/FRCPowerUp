@@ -52,9 +52,9 @@ public class CenterStartRightSwitch extends CommandGroup {
     	// Back up from switch
     	addSequential(new DriveStraight(2.9, .75, 0));
     	// Turn away from switch
-    	addSequential(new ChangeHeading(0, .9));
+    	addSequential(new ChangeHeading(45, .9));
     	// Drive further from switch
-    	addSequential(new DriveStraight(7, defaultSpeed, -60));
+    	addSequential(new DriveStraight(7, defaultSpeed, 45));
     	
     	// Grab new cube
     	// Spin around

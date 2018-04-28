@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1100.robot.commands.auto;
 
+import org.usfirst.frc.team1100.robot.commands.Wait;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeading;
 import org.usfirst.frc.team1100.robot.commands.drive.ChangeHeadingWhileUp;
 import org.usfirst.frc.team1100.robot.commands.drive.DriveStraight;
@@ -27,6 +28,7 @@ public class RightStartLeftScale extends CommandGroup {
 	 */
     public RightStartLeftScale(double defaultSpeed) {
     	//Drive down, then across field to scale
+    	//addSequential(new Wait(2));
     	addParallel(new RaiseWrist());
     	addSequential(new DriveStraight(16.5, -defaultSpeed, 0));
 		addSequential(new ChangeHeading(-90, .9));

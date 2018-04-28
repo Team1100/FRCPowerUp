@@ -27,14 +27,14 @@ public class ChangeHeading extends PIDCommand {
 	 * @param speed the limiting speed of the robot while turning
 	 */
     public ChangeHeading(double target, double speed) {
-    	super(.067, .03, .1);
+    	super(.067, .02, .1);
         requires(Drive.getInstance());
         countOnTarget = 0;
         setSetpoint(target);
         setInputRange(-180.0, 180.0);
         pidController.setContinuous();
         pidController.setOutputRange(-speed, speed);
-        pidController.setPercentTolerance(4);
+        pidController.setPercentTolerance(1);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ChangeHeading extends PIDCommand {
      * PID controller.
      */
     protected void usePIDOutput(double output) {
-    	Drive.getInstance().tankDrive(-output,output);
+    	Drive.getInstance().tankDrive(-output,output); // TODO: Are the signs still correct?
     }
     
     /**
@@ -58,7 +58,7 @@ public class ChangeHeading extends PIDCommand {
      */
     protected boolean isFinished() {
     	if (pidController.onTarget()) {
-    		if (countOnTarget == 10) {
+    		if (countOnTarget == 3) {
     			return true;
     		}
     		countOnTarget++;
