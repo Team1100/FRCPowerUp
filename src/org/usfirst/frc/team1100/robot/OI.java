@@ -1,11 +1,15 @@
 package org.usfirst.frc.team1100.robot;
 
 import org.usfirst.frc.team1100.robot.commands.Lower;
+import org.usfirst.frc.team1100.robot.commands.PIDRaise;
+import org.usfirst.frc.team1100.robot.commands.Raise;
 import org.usfirst.frc.team1100.robot.commands.claw.CloseClaw;
 import org.usfirst.frc.team1100.robot.commands.claw.OpenClaw;
 import org.usfirst.frc.team1100.robot.commands.elevator.ElevateToTop;
 import org.usfirst.frc.team1100.robot.commands.elevator.PIDElevator;
 import org.usfirst.frc.team1100.robot.commands.elevator.StopElevator;
+import org.usfirst.frc.team1100.robot.commands.folder.Fold;
+import org.usfirst.frc.team1100.robot.commands.folder.Unfold;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticElevate;
 import org.usfirst.frc.team1100.robot.commands.pneumaticelevator.PneumaticLower;
 import org.usfirst.frc.team1100.robot.commands.vision.CenterOnCube;
@@ -53,9 +57,9 @@ public class OI {
 		rightStick = new AttackThree(RobotMap.U_RIGHT, 0.1);
 
 		//Elevator
-		xbox.getButtonY().whenPressed(new ElevateToTop()); //Scale
+		xbox.getButtonY().whenPressed(new Raise()); //Scale
 		xbox.getButtonX().whenPressed(new PIDElevator(.55)); //Switch
-		xbox.getButtonB().whenPressed(new StopElevator()); //Stop
+		xbox.getButtonB().whenPressed(new PIDRaise()); //Stop
 		xbox.getButtonA().whenPressed(new Lower()); //Ground
 		
 		//Claw
@@ -73,6 +77,10 @@ public class OI {
 		//Vision
 		leftStick.getButton(3).whenPressed(new CenterOnCube(3));
 		rightStick.getButton(11).whenPressed(new GrabCubeRaw());
+		
+		//Folding
+		leftStick.getButton(8).whenPressed(new Fold());
+		leftStick.getButton(9).whenPressed(new Unfold());
 		
 	}
 	

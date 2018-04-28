@@ -49,6 +49,7 @@ public class Elevator extends Subsystem {
     	nearBottomLimit = new DigitalInput(RobotMap.C_NEAR_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
     	slowDown = false;
+    	/*
     	try {
     		writer = new RandomAccessFile(new File(filename), "rw");
     		reader = new BufferedReader(new FileReader(filename));
@@ -68,10 +69,10 @@ public class Elevator extends Subsystem {
     			bottom = 4.0;
     		}
     	} catch(Exception e) {
-    		e.printStackTrace();
-    		top = 0.8;
-			bottom = 4.0;
-    	}
+    		e.printStackTrace();*/
+    		top = 0.6;
+			bottom = 4.2;
+    	//}
     }
     
     /**
@@ -109,7 +110,7 @@ public class Elevator extends Subsystem {
     	}
     	
     	if ((getNearBottomLimit() || slowDown) && speed > 0) {
-    		speed = 0.5*speed;
+    		speed = 0.6*speed;
     		slowDown = true;
     	}
     	if (!canGoDown && speed > 0) {
@@ -130,12 +131,13 @@ public class Elevator extends Subsystem {
      * Gets height of elevator
      * @return Height of elevator
      */
-    public double getVoltage() {
+    public double getVoltage() {/*
     	try {
 			reader.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
     	return pot.getAverageVoltage();
     }
     
@@ -169,7 +171,7 @@ public class Elevator extends Subsystem {
      * Sets bottom to current voltage
      */
     private void setBottom() {
-    	bottom = getVoltage();
+    	bottom = getVoltage();/*
     	double tmpTop = Math.round(top * 10) / 10;
 		double tmpBottom = Math.round(bottom * 10) / 10;
     	try {
@@ -185,7 +187,7 @@ public class Elevator extends Subsystem {
     		}
     	} catch(IOException e) {
     		e.printStackTrace();
-    	}
+    	}*/
     }
     
     /* 
@@ -193,7 +195,7 @@ public class Elevator extends Subsystem {
      * Sets top to current voltage
      */
     private void setTop() {
-    	top = getVoltage();
+    	top = getVoltage();/*
     	double tmpTop = Math.round(top * 10) / 10;
 		double tmpBottom = Math.round(bottom *10) / 10;
     	try {
@@ -209,7 +211,7 @@ public class Elevator extends Subsystem {
     		}
     	} catch(IOException e) {
     		e.printStackTrace();
-    	}
+    	}*/
     }
     
     /**

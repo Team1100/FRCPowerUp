@@ -33,11 +33,11 @@ public class CenterStartLeftSwitch extends CommandGroup {
     	addSequential(new DriveStraight(1, -0.75, 0));
     	// While driving, set the wrist angle for the switch
     	addParallel(new RaiseWrist());
-	// Turn toward switch
-	addSequential(new ChangeHeading(-60, .9));
-	// Drive close to switch
-	addSequential(new DriveStraight(6.5, -defaultSpeed, -60));
-	// Turn toward switch
+		// Turn toward switch
+		addSequential(new ChangeHeading(-60, .9));
+		// Drive close to switch
+		addSequential(new DriveStraight(6.5, -defaultSpeed, -60));
+		// Turn toward switch
     	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
     	addSequential(new DriveStraight(2.5, -.75, 0));
@@ -59,7 +59,7 @@ public class CenterStartLeftSwitch extends CommandGroup {
     	// Grab new cube
     	// Spin around
     	addSequential(new ChangeHeading(168.4, .9));
-	// Open claw
+    	// Open claw
     	addParallel(new OpenClaw());
     	// Start driving to first cube in pyramid, because wrist is lowering
     	addSequential(new DriveStraight(3.5, .8, 168.4));
@@ -76,9 +76,9 @@ public class CenterStartLeftSwitch extends CommandGroup {
     	
     	// Spit out second cube
     	// Turn toward switch
-	addSequential(new ChangeHeading(-60, .9));
-	// Drive close to switch
-	addSequential(new DriveStraight(6.5, -defaultSpeed, -60));
+		addSequential(new ChangeHeading(-60, .9));
+		// Drive close to switch
+		addSequential(new DriveStraight(6.5, -defaultSpeed, -60));
     	addSequential(new ChangeHeading(0, .9));
     	// Drive up to the switch
     	addSequential(new DriveStraight(2.5, -.75, 0));

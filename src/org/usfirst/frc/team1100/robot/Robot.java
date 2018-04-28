@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1100.robot;
 
+import org.usfirst.frc.team1100.robot.commands.auto.AutoFromCenter;
 import org.usfirst.frc.team1100.robot.commands.auto.CenterStartLeftSwitch;
 import org.usfirst.frc.team1100.robot.commands.auto.CenterStartRightSwitch;
 import org.usfirst.frc.team1100.robot.commands.auto.CrossLine;
@@ -9,6 +10,7 @@ import org.usfirst.frc.team1100.robot.commands.auto.RightStartLeftScale;
 import org.usfirst.frc.team1100.robot.commands.auto.RightStartRightScale;
 import org.usfirst.frc.team1100.robot.subsystems.Claw;
 import org.usfirst.frc.team1100.robot.subsystems.Elevator;
+import org.usfirst.frc.team1100.robot.subsystems.Folder;
 import org.usfirst.frc.team1100.robot.subsystems.Drive;
 import org.usfirst.frc.team1100.robot.subsystems.Intake;
 import org.usfirst.frc.team1100.robot.subsystems.Pi;
@@ -63,6 +65,7 @@ public class Robot extends IterativeRobot {
 		Intake.getInstance();
 		Wrist.getInstance();
 		PneumaticElevator.getInstance();
+		Folder.getInstance();
 		
 		cs = CameraServer.getInstance();
 		cs.startAutomaticCapture("Drive", 0);
@@ -112,11 +115,7 @@ public class Robot extends IterativeRobot {
 		int switchPosition = message.charAt(0) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		int scalePosition = message.charAt(1) == 'L' ? LEFT_SIDE : RIGHT_SIDE;
 		if (initPosition == CENTERED) {
-			if (switchPosition == LEFT_SIDE) {
-				autonomousCommand = new CenterStartLeftSwitch(DEFAULT_SPEED, switchPosition, scalePosition);
-			} else {
-				autonomousCommand = new CenterStartRightSwitch(DEFAULT_SPEED, switchPosition, scalePosition);
-			}
+			autonomousCommand = new AutoFromCenter(DEFAULT_SPEED, switchPosition, scalePosition);
        	} else if (initPosition == LEFT_SIDE){
         	if (scalePosition == LEFT_SIDE) {
         		autonomousCommand = new LeftStartLeftScale(DEFAULT_SPEED);

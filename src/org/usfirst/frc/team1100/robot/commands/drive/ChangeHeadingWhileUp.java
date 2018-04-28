@@ -27,7 +27,7 @@ public class ChangeHeadingWhileUp extends PIDCommand {
 	 * @param speed the limiting speed of the robot while turning
 	 */
     public ChangeHeadingWhileUp(double target, double speed) {
-    	super(.045, .0175, .07);
+    	super(.0425, .0155, .07);
         requires(Drive.getInstance());
         countOnTarget = 0;
         setSetpoint(target);
@@ -58,7 +58,7 @@ public class ChangeHeadingWhileUp extends PIDCommand {
      */
     protected boolean isFinished() {
     	if (pidController.onTarget()) {
-    		if (countOnTarget == 10) {
+    		if (countOnTarget == 3) {
     			return true;
     		}
     		countOnTarget++;

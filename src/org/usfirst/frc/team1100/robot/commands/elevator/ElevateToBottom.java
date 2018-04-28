@@ -30,7 +30,7 @@ public class ElevateToBottom extends Command {
      * Climbs down until limited
      */
     protected void execute() {
-    	finished = !elevator.climb(.7);
+    	finished = !elevator.climb(1);
     }
     
     /**

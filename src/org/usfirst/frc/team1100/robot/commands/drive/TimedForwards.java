@@ -36,7 +36,7 @@ public class TimedForwards extends Command {
      * Drives away from wall
      */
     protected void execute() {
-    	drive.tankDrive(-.75, -.75);
+    	drive.tankDrive(.75, .75);
     }
     
     /**
