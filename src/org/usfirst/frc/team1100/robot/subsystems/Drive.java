@@ -16,8 +16,7 @@ import edu.wpi.first.wpilibj.VictorSP;
  * This subsystem is the two sides of the robot
  */
 public class Drive extends Subsystem {
-
-	final double PERCENT_SPEED = .8;
+	
 	private static Drive drive;
 	private static DifferentialDrive drivetrain;
 	Encoder encoder;
