@@ -1,11 +1,5 @@
 package org.usfirst.frc.team1100.robot.subsystems;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-
 import org.usfirst.frc.team1100.robot.RobotMap;
 import org.usfirst.frc.team1100.robot.commands.elevator.DefaultElevator;
 
@@ -30,11 +24,6 @@ public class Elevator extends Subsystem {
     boolean canGoUp = true;
     boolean canGoDown = true;
     private boolean slowDown;
-    final String filename = "/home/lvuser/heights.txt";
-    RandomAccessFile writer;
-    BufferedReader reader;
-    String[] line;
-    Double lastTop, lastBottom;
     
     /*
      * Initializes all hardware instances
@@ -49,30 +38,8 @@ public class Elevator extends Subsystem {
     	nearBottomLimit = new DigitalInput(RobotMap.C_NEAR_BOTTOM_SWITCH);
     	topLimit = new DigitalInput(RobotMap.C_TOP_SWITCH);
     	slowDown = false;
-    	/*
-    	try {
-    		writer = new RandomAccessFile(new File(filename), "rw");
-    		reader = new BufferedReader(new FileReader(filename));
-    		reader.mark(800);
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    		System.err.println("Big error, file did a die");
-    	}
-    	
-    	try {
-    		line = reader.readLine().split(" ");
-    		if (line.length == 2) {
-	    		top = Double.parseDouble(line[0]);
-	    		bottom = Double.parseDouble(line[1]);
-    		} else {
-    			top = 0.8;
-    			bottom = 4.0;
-    		}
-    	} catch(Exception e) {
-    		e.printStackTrace();*/
-    		top = 0.6;
-			bottom = 4.2;
-    	//}
+		top = 0.6;
+		bottom = 4.2;
     }
     
     /**
@@ -131,13 +98,7 @@ public class Elevator extends Subsystem {
      * Gets height of elevator
      * @return Height of elevator
      */
-    public double getVoltage() {/*
-    	try {
-			reader.reset();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
+    public double getVoltage() {
     	return pot.getAverageVoltage();
     }
     
@@ -171,47 +132,15 @@ public class Elevator extends Subsystem {
      * Sets bottom to current voltage
      */
     private void setBottom() {
-    	bottom = getVoltage();/*
-    	double tmpTop = Math.round(top * 10) / 10;
-		double tmpBottom = Math.round(bottom * 10) / 10;
-    	try {
-    		writer.seek(0);
-    		line = reader.readLine().split(" ");
-    		if (line.length == 2) {
-	    		lastTop = Double.parseDouble(line[0]);
-	    		lastBottom = Double.parseDouble(line[1]);
-	    		if (tmpBottom != lastBottom)
-	    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
-    		} else {
-    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
-    		}
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}*/
+    	bottom = getVoltage();
     }
     
-    /* 
+    /*
      *                                      
      * Sets top to current voltage
      */
     private void setTop() {
-    	top = getVoltage();/*
-    	double tmpTop = Math.round(top * 10) / 10;
-		double tmpBottom = Math.round(bottom *10) / 10;
-    	try {
-    		writer.seek(0);
-    		line = reader.readLine().split(" ");
-    		if (line.length == 2) {
-	    		lastTop = Double.parseDouble(line[0]);
-	    		lastBottom = Double.parseDouble(line[1]);
-	    		if (tmpTop != lastTop)
-	    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
-    		} else {
-    			writer.write((Double.toString(tmpTop) + " "+ Double.toString(tmpBottom)).getBytes());
-    		}
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}*/
+    	top = getVoltage();
     }
     
     /**
